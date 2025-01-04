@@ -1,1 +1,1 @@
-# Applied-Sciences-Research-Center-
+# Applied-Sciences-Research-Center
