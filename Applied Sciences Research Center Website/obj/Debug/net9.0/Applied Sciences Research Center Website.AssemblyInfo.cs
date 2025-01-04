@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Applied Sciences Research Center Website")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+7756d05e5b61020d6dab0379008c27b0040c9e30")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+9510b36dd0011c936da396930d36d57d0e0fce7b")]
 [assembly: System.Reflection.AssemblyProductAttribute("Applied Sciences Research Center Website")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Applied Sciences Research Center Website")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
