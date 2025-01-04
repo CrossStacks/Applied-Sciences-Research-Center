@@ -1,3 +1,5 @@
+let baseUrl = 'https://localhost:7079/api';
+
 $(document).ready(function () {
     $('#signInForm').on('submit', function (event) {
         event.preventDefault();
@@ -17,6 +19,16 @@ $(document).ready(function () {
         //     alert('Sign-In successful! Email: ' + email);
         // }
 
-        console.log('Sign-In successful! Email: ' + email);
+        $.get(baseUrl + "/Auth/Login",
+            {
+                Email: email,
+                Password: password
+            },
+            function (data, status) {
+                if (status == "success") {
+                    alert("Correct");
+                }
+                console.log(data);
+            });
     });
 });
