@@ -14,10 +14,98 @@
     <link rel="stylesheet" href="../css/home.css">
     <script src="../js/home.js"></script>
 
+    <style>
+        /* Make navbar transparent */
+        .navbar {
+            background-color: transparent;
+            transition: background-color 0.3s;
+        }
+
+        /* Sticky navbar */
+        .sticky-top {
+            position: sticky;
+            top: 0;
+            z-index: 1030;
+        }
+
+        /* Center navbar links */
+        .navbar-nav {
+            margin: 0 auto;
+        }
+
+        /* Change link color from grey to blue on hover */
+        .nav-link {
+            color: grey;
+            transition: color 0.3s, transform 0.3s;
+        }
+
+        .nav-link:hover {
+            color: blue;
+            transform: scale(1.1);
+        }
+
+        /* Add underline effect on hover */
+        .nav-link:hover::after {
+            content: "";
+            display: block;
+            margin: 0 auto;
+            width: 50%;
+            height: 2px;
+            background-color: blue;
+            transition: width 0.3s;
+        }
+
+        /* Custom button styling */
+        .btn-primary {
+            background-color: blue;
+            transition: transform 0.3s, background-color 0.3s;
+        }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+            transform: scale(1.1);
+        }
+
+        /* Remove navbar transform on hover */
+        .navbar:hover {
+            background-color: rgba(255, 255, 255, 0.9);
+        }
+    </style>
+
     <title>Home Page</title>
 </head>
 
 <body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light sticky-top">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">Brand</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Journal</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Events</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">About Us</a>
+                    </li>
+                </ul>
+                <form class="d-flex">
+                    <button class="btn btn-primary" type="button">Sign Up</button>
+                </form>
+            </div>
+        </div>
+    </nav>
+
     <p>Hello World</p>
 </body>
 
