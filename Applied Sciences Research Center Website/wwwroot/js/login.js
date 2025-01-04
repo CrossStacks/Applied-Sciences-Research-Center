@@ -1,5 +1,3 @@
-let baseUrl = 'https://localhost:7079/api';
-
 $(document).ready(function () {
     $('#signInForm').on('submit', function (event) {
         event.preventDefault();
