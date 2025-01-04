@@ -7,4 +7,9 @@
     <RootNamespace>Applied_Sciences_Research_Center_Website</RootNamespace>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\css\" />
+    <Folder Include="wwwroot\js\" />
+  </ItemGroup>
+
 </Project>
