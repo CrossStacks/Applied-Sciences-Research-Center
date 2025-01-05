@@ -1,34 +1,142 @@
-/* Body Styling */
-body {
-    background: linear-gradient(135deg, #f5c1cf, #ffe1e8);
-    font-family: 'Arial', sans-serif;
+/* Body Background */
+.bg-secondary3-800 {
+    background-color: #f3f0ec;
 }
 
-/* Card Styling */
-.card {
+/* Font */
+body {
+    font-family: 'Inter', sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Outer White Box */
+.outer-white-box {
+    width: 100%;
+    max-width: 450px;
+    border-radius: 30px;
     background: white;
-    border-radius: 16px;
+    padding: 50px;
     box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.1);
 }
 
-/* Button Styling */
-.btn-primary {
-    background: #fa8072;
+/* Gradient Card */
+.gradient {
+    width: 100%;
+    max-width: 400px;
+    border-radius: 24px;
+    position: relative;
+    background: linear-gradient(90deg, #f16b6a, #ffaa5d, #6e38e1);
+    padding: 3px;
+}
+
+.gradient-inner {
+    background: white;
+    border-radius: 22px;
+    height: 100%;
+    width: 100%;
+    padding: 20px;
+}
+
+/* Custom Button */
+.custom-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    padding: 12px 24px;
+    font-size: 16px;
+    font-weight: 500;
+    text-transform: uppercase;
+    color: white;
+    background: linear-gradient(90deg, #6e38e1, #9b60f4);
     border: none;
-    transition: background 0.3s ease-in-out;
+    border-radius: 30px;
+    cursor: pointer;
+    text-decoration: none;
+    overflow: hidden;
+    transition: all 0.4s ease;
+    box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.1);
 }
 
-.btn-primary:hover {
-    background: #f36161;
+/* Hover State */
+.custom-button:hover {
+    background: #212121;
+    color: white;
 }
 
-/* Links */
-a {
-    color: #fa8072;
+/* Arrow Container */
+.custom-button .arrow {
+    margin-left: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: white;
+    color: black;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    opacity: 0;
+    transform: translateX(-10px);
+    transition: all 0.4s ease;
+    font-size: 12px;
     font-weight: bold;
-    transition: color 0.3s ease;
 }
 
-a:hover {
-    color: #f36161;
+/* Smooth Arrow Transition */
+.custom-button:hover .arrow {
+    opacity: 1;
+    transform: translateX(10px);
+}
+
+/* Text Movement */
+.custom-button span {
+    display: inline-block;
+    transition: transform 0.4s ease;
+}
+
+.custom-button:hover span {
+    transform: translateX(-5px);
+}
+
+/* Box Shadow for Visual Depth */
+.card {
+    box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.1);
+    border: none;
+    border-radius: 24px;
+}
+
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f9f9f9;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+.input-container {
+    display: flex;
+    align-items: center;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 25px;
+    padding: 10px 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.input-container input {
+    border: none;
+    outline: none;
+    font-size: 16px;
+    color: #333;
+    background-color: transparent;
+    width: 200px;
+}
+
+.input-container input::placeholder {
+    color: #aaa;
 }
