@@ -6,6 +6,19 @@
 /* Font */
 body {
     font-family: 'Inter', sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Outer White Box */
+.outer-white-box {
+    width: 100%;
+    max-width: 450px;
+    border-radius: 30px;
+    background: white;
+    padding: 50px;
+    box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.1);
 }
 
 /* Gradient Card */
@@ -26,7 +39,7 @@ body {
     padding: 20px;
 }
 
-/* Animated Button */
+/* Custom Button */
 .custom-button {
     display: inline-flex;
     align-items: center;
@@ -41,36 +54,89 @@ body {
     border: none;
     border-radius: 30px;
     cursor: pointer;
-    outline: none;
+    text-decoration: none;
     overflow: hidden;
-    transition: all 0.4s ease-in-out;
+    transition: all 0.4s ease;
+    box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.1);
 }
 
-/* Hover Effect */
+/* Hover State */
 .custom-button:hover {
     background: #212121;
     color: white;
 }
 
-/* Arrow Span Styling */
+/* Arrow Container */
 .custom-button .arrow {
     margin-left: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: white;
+    color: black;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
     opacity: 0;
     transform: translateX(-10px);
-    transition: all 0.3s ease-in-out;
-    display: inline-block;
+    transition: all 0.4s ease;
+    font-size: 12px;
+    font-weight: bold;
 }
 
-/* Arrow appears and slides in on hover */
+/* Smooth Arrow Transition */
 .custom-button:hover .arrow {
     opacity: 1;
-    transform: translateX(0);
+    transform: translateX(10px);
 }
 
-/* Outer White Box */
-.outer-white-box {
-    border-radius: 30px;
-    background: white;
-    padding: 50px;
+/* Text Movement */
+.custom-button span {
+    display: inline-block;
+    transition: transform 0.4s ease;
+}
+
+.custom-button:hover span {
+    transform: translateX(-5px);
+}
+
+/* Box Shadow for Visual Depth */
+.card {
     box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.1);
+    border: none;
+    border-radius: 24px;
+}
+
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f9f9f9;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+.input-container {
+    display: flex;
+    align-items: center;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 25px;
+    padding: 10px 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.input-container input {
+    border: none;
+    outline: none;
+    font-size: 16px;
+    color: #333;
+    background-color: transparent;
+    width: 200px;
+}
+
+.input-container input::placeholder {
+    color: #aaa;
 }
