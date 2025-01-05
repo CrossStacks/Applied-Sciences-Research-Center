@@ -17,211 +17,19 @@
     <link rel="stylesheet" href="../css/home.css">
     <script src="../js/home.js"></script>
 
-    <style>
-        /* Custom Color Palette */
-        :root {
-            --primary-light: #E9ECEF;
-            --secondary-light: #F8F9FA;
-            --accent: #CED4DA;
-            --primary-dark: #6C757D;
-            --research-bg: #F8F9FA;
-            /* Background color for research pages */
-        }
-
-        body {
-            background-color: var(--primary-light);
-            margin: 20px;
-        }
-
-        /* Circular Button */
-        #signup-button {
-            border-radius: 15px;
-            /* Rounded rectangle with softer corners */
-            padding: 10px 30px;
-            /* Adjusted padding for a more rectangular look */
-            width: auto;
-            /* Width will be auto based on padding */
-            height: auto;
-            /* Height will adjust based on content */
-            text-align: center;
-            /* Center the text inside the button */
-            display: flex;
-            /* Use flexbox to center text vertically and horizontally */
-            justify-content: center;
-            align-items: center;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            /* Added depth with shadow */
-            transition: transform 0.3s, background-color 0.3s, box-shadow 0.3s;
-        }
-
-        #signup-button:hover {
-            background-color: var(--accent);
-            /* Change background color on hover */
-            transform: scale(1.05);
-            /* Slight scale effect on hover */
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
-            /* Enhanced depth on hover */
-        }
-
-
-        /* Research Pages Text and Heading Styles */
-        .research-section h2 {
-            color: var(--primary-dark);
-        }
-
-        .research-section p {
-            color: var(--primary-dark);
-        }
-
-        /* General Navbar Styles */
-        .navbar {
-            background-color: rgba(248, 249, 250, 0.7) !important;
-            position: absolute;
-            top: 0;
-            width: 100%;
-            z-index: 1050;
-        }
-
-        /* Make the first navbar not sticky */
-        .navbar-first {
-            position: relative;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 1px 4px rgba(0, 0, 0, 0.05);
-            border-radius: 20px;
-
-        }
-
-        /* Second Navbar Styles */
-        .navbar-second {
-            background-color: var(--secondary-light);
-            border-radius: 20px;
-            padding: 10px 20px;
-            color: var(--primary-dark);
-            margin: 0 auto;
-            max-width: 1200px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 1px 4px rgba(0, 0, 0, 0.05);
-            /* Adds depth */
-        }
-
-        .navbar-second .nav-link {
-            color: var(--primary-dark) !important;
-        }
-
-        /* Sticky second navbar */
-        .sticky-top {
-            position: sticky;
-            top: 0;
-            z-index: 1030;
-        }
-
-        /* Center navbar links */
-        .navbar-nav {
-            margin: 0 auto;
-        }
-
-        /* Change link color from accent to primary dark on hover */
-        .nav-link {
-            color: var(--accent);
-            transition: color 0.3s, transform 0.3s;
-        }
-
-        .nav-link:hover {
-            color: var(--primary-dark);
-            transform: scale(1.1);
-        }
-
-        /* Add underline effect on hover */
-        .navbar-first.nav-link:hover::after {
-            content: "";
-            display: block;
-            margin: 0 auto;
-            transition: width 0.3s;
-        }
-
-        /* Custom button styling */
-        .btn-primary {
-            background-color: var(--primary-dark);
-            color: var(--primary-light);
-            border: none;
-            transition: transform 0.3s, background-color 0.3s;
-        }
-
-        .btn-primary:hover {
-            background-color: var(--accent);
-            transform: scale(1.1);
-        }
-
-        /* Remove navbar transform on hover */
-        .navbar:hover {
-            background-color: rgba(248, 249, 250, 0.9);
-        }
-
-        /* Position the image behind the navbar */
-        .hero-image {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100vh;
-            object-fit: cover;
-            z-index: 1;
-        }
-
-        /* Ensure content does not overlap image */
-        .content {
-            position: relative;
-            z-index: 2;
-            padding-top: 100vh;
-        }
-
-        /* Welcome text styling on top of image */
-        .welcome-text {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            color: var(--primary-light);
-            font-size: 2.5rem;
-            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
-            z-index: 2;
-        }
-
-        /* Research Pages styling */
-        .research-section {
-            margin-top: 60px;
-        }
-
-        /* Individual research page containers */
-        .research-page {
-            background-color: var(--research-bg);
-            border-radius: 10px;
-            margin: 20px 0;
-            padding: 30px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 1px 4px rgba(0, 0, 0, 0.05);
-            /* Adds depth */
-        }
-
-        /* Highlight active link */
-        .nav-link.active {
-            font-weight: bold;
-            color: var(--primary-dark);
-            border-bottom: 2px solid var(--primary-dark);
-        }
-    </style>
 
     <title>Home Page</title>
 </head>
 
+
 <body>
-    <!-- Image behind the first navbar -->
     <img src="../assets/hero_image.jpg" alt="Sample Image" class="img-fluid hero-image">
 
-    <!-- Welcome Text on the Image -->
     <div class="welcome-text text-center">
         <h2>Welcome to Our Website</h2>
         <p>Explore the research pages below.</p>
     </div>
 
-    <!-- First Navbar (Translucent) -->
     <nav class="navbar navbar-expand-lg navbar-light navbar-first">
         <div class="container-fluid">
             <a class="navbar-brand" href="#" style="color: var(--primary-dark);">Brand</a>
@@ -251,15 +59,9 @@
         </div>
     </nav>
 
-    <!-- Content Section Below Navbar -->
     <div class="content">
-        <!-- Second Navbar (Sticky) -->
-        <nav class="navbar-second navbar-expand-lg navbar-dark sticky-top">
+        <nav class="navbar-second navbar-expand-lg navbar-dark sticky-top d-none d-lg-block">
             <div class="container-fluid">
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#secondNavbarNav"
-                    aria-controls="secondNavbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
                 <div class="collapse navbar-collapse" id="secondNavbarNav">
                     <ul class="navbar-nav mx-auto">
                         <li class="nav-item">
@@ -282,12 +84,89 @@
             </div>
         </nav>
 
-        <!-- Research Pages Section -->
         <div class="research-section">
             <div id="research1" class="container my-5">
                 <div class="research-page">
                     <h2>Research Page 1</h2>
                     <p>Content for Research Page 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel
+                        ante, in aResearch Page 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel
+                        ante, in aResearch Page 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel
+                        ante, in aResearch Page 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel
+                        ante, in a Research Page 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel
+                        ante, in a Research Page 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel
+                        ante, in a Research Page 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel
+                        ante, in a Research Page 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel
+                        ante, in aResearch Page 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel
+                        ante, in a Research Page 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel
+                        ante, in a Research Page 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel
+                        ante, in aResearch Page 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel
+                        ante, in a Research Page 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel
+                        ante, in a Research Page 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel
+                        ante, in a Research Page 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel
+                        ante, in a Research Page 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel
+                        ante, in a Research Page 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel
+                        ante, in aResearch Page 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel
+                        ante, in a Research Page 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel
+                        ante, in a Research Page 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel
+                        ante, in a Research Page 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel
+                        ante, in aResearch Page 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel
+                        ante, in aResearch Page 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel
+                        ante, in aResearch Page 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel
+                        ante, in aResearch Page 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel
+                        ante, in a Research Page 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel
+                        ante, in a Research Page 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel
+                        ante, in aResearch Page 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel
+                        ante, in aResearch Page 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel
+                        ante, in aResearch Page 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel
+                        ante, in aResearch Page 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel
+                        ante, in aResearch Page 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel
+                        ante, in aResearch Page 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel
+                        ante, in aResearch Page 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel
+                        ante, in aResearch Page 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel
+                        ante, in aResearch Page 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel
+                        ante, in a Research Page 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel
+                        ante, in a Research Page 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel
+                        ante, in aResearch Page 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel
+                        ante, in a Research Page 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel
+                        ante, in aResearch Page 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel
+                        ante, in a Research Page 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel
+                        ante, in a Research Page 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel
+                        ante, in aResearch Page 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel
+                        ante, in a Research Page 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel
+                        ante, in a Research Page 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel
+                        ante, in aResearch Page 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel
+                        ante, in a Research Page 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel
+                        ante, in aResearch Page 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel
+                        ante, in a Research Page 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel
+                        ante, in a Research Page 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel
+                        ante, in a Research Page 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel
+                        ante, in a Research Page 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel
+                        ante, in a Research Page 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel
+                        ante, in a Research Page 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel
+                        ante, in a Research Page 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel
+                        ante, in aResearch Page 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel
+                        ante, in a Research Page 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel
+                        ante, in aResearch Page 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel
+                        ante, in aResearch Page 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel
+                        ante, in aResearch Page 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel
+                        ante, in aResearch Page 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel
+                        ante, in a Research Page 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel
+                        ante, in aResearch Page 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel
+                        ante, in a Research Page 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel
+                        ante, in aResearch Page 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel
+                        ante, in a Research Page 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel
+                        ante, in a Research Page 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel
+                        ante, in aResearch Page 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel
+                        ante, in aResearch Page 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel
+                        ante, in aResearch Page 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel
+                        ante, in a Research Page 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel
+                        ante, in a Research Page 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel
+                        ante, in a Research Page 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel
+                        ante, in a Research Page 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel
+                        ante, in a Research Page 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel
+                        ante, in a Research Page 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel
+                        ante, in a Research Page 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel
+                        ante, in aResearch Page 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel
                         ante, in auctor justo dui vitae dui..</p>
                 </div>
             </div>
@@ -295,58 +174,204 @@
             <div id="research2" class="container my-5">
                 <div class="research-page">
                     <h2>Research Page 2</h2>
-                    <p>Content for Research Page 2. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel
-                        viverra odio. Phasellus fringilla vel viverra odio...</p>
+                    <p>Content forResearch Page 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel
+                        ante, in aResearch Page 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel
+                        ante, in a Research Page 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel
+                        ante, in aResearch Page 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel
+                        ante, in a Research Page 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel
+                        ante, in a Research Page 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel
+                        ante, in aResearch Page 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel
+                        ante, in a Research Page 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel
+                        ante, in a Research Page 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel
+                        ante, in aResearch Page 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel
+                        ante, in a Research Page 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel
+                        ante, in aResearch Page 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel
+                        ante, in a Research Page 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel
+                        ante, in a Research Page 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel
+                        ante, in aResearch Page 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel
+                        ante, in aResearch Page 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel
+                        ante, in aResearch Page 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel
+                        ante, in a Research Page 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel
+                        ante, in a Research Page 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel
+                        ante, in aResearch Page 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel
+                        ante, in a Research Page 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel
+                        ante, in aResearch Page 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel
+                        ante, in a Research Page 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel
+                        ante, in a Research Page 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel
+                        ante, in aResearch Page 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel
+                        ante, in a Research Page 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel
+                        ante, in a Research Page 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel
+                        ante, in a Research Page 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel
+                        ante, in a Research Page 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel
+                        ante, in aResearch Page 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel
+                        ante, in a Research Page 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel
+                        ante, in aResearch Page 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel
+                        ante, in aResearch Page 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel
+                        ante, in aResearch Page 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel
+                        ante, in a Research Page 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel
+                        ante, in aResearch Page 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel
+                        ante, in aResearch Page 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel
+                        ante, in a Research Page 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel
+                        ante, in aResearch Page 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel
+                        ante, in a Research Page 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel
+                        ante, in a Research Page 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel
+                        ante, in aResearch Page 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel
+                        ante, in a Research Page 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel
+                        ante, in a Research Page 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel
+                        ante, in avv Research Page 2. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel
+                        ante, in auctor justo dui vitae dui..</p>
                 </div>
             </div>
 
             <div id="research3" class="container my-5">
                 <div class="research-page">
                     <h2>Research Page 3</h2>
-                    <p>Content for Research Page 3. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel
-                        viverra odio. Phasellus fringilla vel libero sit amet porttitor...</p>
+                    <p>Content for RResearch Page 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel
+                        ante, in aResearch Page 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel
+                        ante, in a Research Page 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel
+                        ante, in a Research Page 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel
+                        ante, in aResearch Page 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel
+                        ante, in a Research Page 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel
+                        ante, in aResearch Page 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel
+                        ante, in a Research Page 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel
+                        ante, in a Research Page 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel
+                        ante, in a Research Page 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel
+                        ante, in a Research Page 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel
+                        ante, in aResearch Page 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel
+                        ante, in a Research Page 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel
+                        ante, in aResearch Page 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel
+                        ante, in a Research Page 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel
+                        ante, in aResearch Page 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel
+                        ante, in a Research Page 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel
+                        ante, in a Research Page 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel
+                        ante, in a Research Page 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel
+                        ante, in aResearch Page 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel
+                        ante, in a Research Page 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel
+                        ante, in aResearch Page 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel
+                        ante, in aResearch Page 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel
+                        ante, in aResearch Page 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel
+                        ante, in a Research Page 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel
+                        ante, in a Research Page 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel
+                        ante, in a Research Page 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel
+                        ante, in aResearch Page 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel
+                        ante, in a Research Page 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel
+                        ante, in a Research Page 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel
+                        ante, in aResearch Page 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel
+                        ante, in a Research Page 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel
+                        ante, in aResearch Page 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel
+                        ante, in aResearch Page 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel
+                        ante, in aResearch Page 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel
+                        ante, in a Research Page 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel
+                        ante, in a Research Page 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel
+                        ante, in aResearch Page 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel
+                        ante, in aesearch Page 3. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel
+                        ante, in auctor justo dui vitae dui..</p>
                 </div>
             </div>
 
             <div id="research4" class="container my-5">
                 <div class="research-page">
                     <h2>Research Page 4</h2>
-                    <p>Content for Research Page 4. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel
-                        viverra odio. Phasellus fringilla vel libero sit amet porttitor...</p>
+                    <p>Content forResearch Page 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel
+                        ante, in aResearch Page 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel
+                        ante, in a Research Page 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel
+                        ante, in a Research Page 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel
+                        ante, in a Research Page 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel
+                        ante, in a Research Page 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel
+                        ante, in aResearch Page 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel
+                        ante, in a Research Page 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel
+                        ante, in aResearch Page 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel
+                        ante, in a Research Page 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel
+                        ante, in a Research Page 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel
+                        ante, in aResearch Page 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel
+                        ante, in aResearch Page 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel
+                        ante, in aResearch Page 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel
+                        ante, in a Research Page 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel
+                        ante, in aResearch Page 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel
+                        ante, in a Research Page 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel
+                        ante, in aResearch Page 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel
+                        ante, in a Research Page 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel
+                        ante, in a Research Page 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel
+                        ante, in a Research Page 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel
+                        ante, in aResearch Page 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel
+                        ante, in a Research Page 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel
+                        ante, in a Research Page 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel
+                        ante, in a Research Page 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel
+                        ante, in a Research Page 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel
+                        ante, in a Research Page 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel
+                        ante, in av Research Page 4. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel
+                        ante, in auctor justo dui vitae dui..</p>
                 </div>
             </div>
 
             <div id="research5" class="container my-5">
                 <div class="research-page">
                     <h2>Research Page 5</h2>
-                    <p>Content for Research Page 5. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel
-                        viverra odio. Phasellus fringilla vel libero sit amet porttitor...</p>
+                    <p>Content for Research Page 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel
+                        ante, in aResearch Page 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel
+                        ante, in a ResResearch Page 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec
+                        vel
+                        ante, in a Research Page 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel
+                        ante, in a Research Page 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel
+                        ante, in a Research Page 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel
+                        ante, in a Research Page 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel
+                        ante, in a Research Page 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel
+                        ante, in aResearch Page 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel
+                        ante, in a Research Page 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel
+                        ante, in a Research Page 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel
+                        ante, in aResearch Page 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel
+                        ante, in a Research Page 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel
+                        ante, in a Research Page 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel
+                        ante, in a Research Page 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel
+                        ante, in a Research Page 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel
+                        ante, in aResearch Page 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel
+                        ante, in a Research Page 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel
+                        ante, in a Research Page 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel
+                        ante, in a Research Page 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel
+                        ante, in a Research Page 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel
+                        ante, in aResearch Page 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel
+                        ante, in aResearch Page 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel
+                        ante, in a Research Page 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel
+                        ante, in a Research Page 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel
+                        ante, in a Research Page 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel
+                        ante, in aResearch Page 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel
+                        ante, in a Research Page 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel
+                        ante, in a Research Page 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel
+                        ante, in aResearch Page 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel
+                        ante, in a Research Page 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel
+                        ante, in aResearch Page 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel
+                        ante, in a Research Page 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel
+                        ante, in aResearch Page 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel
+                        ante, in a Research Page 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel
+                        ante, in aResearch Page 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel
+                        ante, in a Research Page 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel
+                        ante, in a Research Page 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel
+                        ante, in aResearch Page 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel
+                        ante, in aResearch Page 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel
+                        ante, in aResearch Page 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel
+                        ante, in a Research Page 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel
+                        ante, in a Research Page 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel
+                        ante, in a Research Page 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel
+                        ante, in aResearch Page 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel
+                        ante, in a Research Page 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel
+                        ante, in aResearch Page 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel
+                        ante, in a Research Page 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel
+                        ante, in aResearch Page 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel
+                        ante, in aResearch Page 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel
+                        ante, in aResearch Page 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel
+                        ante, in a Research Page 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel
+                        ante, in aResearch Page 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel
+                        ante, in a Research Page 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel
+                        ante, in a Research Page 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel
+                        ante, in avResearch Page 5. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel
+                        ante, in auctor justo dui vitae dui..</p>
                 </div>
             </div>
         </div>
     </div>
 
-    <script>
-        $(document).ready(function () {
-            $('#signup-button').click(function () {
-                window.location.href = 'signup.html';
-            });
 
-            // Scrollspy functionality
-            $(window).on('scroll', function () {
-                var scrollPosition = $(window).scrollTop();
 
-                $('.navbar-second .nav-link').each(function () {
-                    var sectionOffset = $($(this).attr('href')).offset().top - 50;
-
-                    if (scrollPosition >= sectionOffset) {
-                        $('.navbar-second .nav-link').removeClass('active');
-                        $(this).addClass('active');
-                    }
-                });
-            });
-        });
-    </script>
 </body>
 
 </html>
