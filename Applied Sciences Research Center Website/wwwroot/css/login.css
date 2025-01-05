@@ -1,34 +1,76 @@
-/* Body Styling */
+/* Body Background */
+.bg-secondary3-800 {
+    background-color: #f3f0ec;
+}
+
+/* Font */
 body {
-    background: linear-gradient(135deg, #f5c1cf, #ffe1e8);
-    font-family: 'Arial', sans-serif;
+    font-family: 'Inter', sans-serif;
 }
 
-/* Card Styling */
-.card {
+/* Gradient Card */
+.gradient {
+    width: 100%;
+    max-width: 400px;
+    border-radius: 24px;
+    position: relative;
+    background: linear-gradient(90deg, #f16b6a, #ffaa5d, #6e38e1);
+    padding: 3px;
+}
+
+.gradient-inner {
     background: white;
-    border-radius: 16px;
-    box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.1);
+    border-radius: 22px;
+    height: 100%;
+    width: 100%;
+    padding: 20px;
 }
 
-/* Button Styling */
-.btn-primary {
-    background: #fa8072;
+/* Animated Button */
+.custom-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    padding: 12px 24px;
+    font-size: 16px;
+    font-weight: 500;
+    text-transform: uppercase;
+    color: white;
+    background: linear-gradient(90deg, #6e38e1, #9b60f4);
     border: none;
-    transition: background 0.3s ease-in-out;
+    border-radius: 30px;
+    cursor: pointer;
+    outline: none;
+    overflow: hidden;
+    transition: all 0.4s ease-in-out;
 }
 
-.btn-primary:hover {
-    background: #f36161;
+/* Hover Effect */
+.custom-button:hover {
+    background: #212121;
+    color: white;
 }
 
-/* Links */
-a {
-    color: #fa8072;
-    font-weight: bold;
-    transition: color 0.3s ease;
+/* Arrow Span Styling */
+.custom-button .arrow {
+    margin-left: 10px;
+    opacity: 0;
+    transform: translateX(-10px);
+    transition: all 0.3s ease-in-out;
+    display: inline-block;
 }
 
-a:hover {
-    color: #f36161;
+/* Arrow appears and slides in on hover */
+.custom-button:hover .arrow {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+/* Outer White Box */
+.outer-white-box {
+    border-radius: 30px;
+    background: white;
+    padding: 50px;
+    box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.1);
 }
