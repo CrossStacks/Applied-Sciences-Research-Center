@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <!-- bootstrap -->
+    <!-- Bootstrap -->
     <link rel="stylesheet" href="../css/bootstrap.min.css">
     <script src="../js/bootstrap.bundle.min.js"></script>
     <!-- jQuery -->
@@ -18,33 +18,92 @@
     <script src="../js/home.js"></script>
 
     <style>
+        /* Custom Color Palette */
+        :root {
+            --primary-light: #E9ECEF;
+            --secondary-light: #F8F9FA;
+            --accent: #CED4DA;
+            --primary-dark: #6C757D;
+            --research-bg: #F8F9FA;
+            /* Background color for research pages */
+        }
+
+        body {
+            background-color: var(--primary-light);
+            margin: 20px;
+        }
+
+        /* Circular Button */
+        #signup-button {
+            border-radius: 15px;
+            /* Rounded rectangle with softer corners */
+            padding: 10px 30px;
+            /* Adjusted padding for a more rectangular look */
+            width: auto;
+            /* Width will be auto based on padding */
+            height: auto;
+            /* Height will adjust based on content */
+            text-align: center;
+            /* Center the text inside the button */
+            display: flex;
+            /* Use flexbox to center text vertically and horizontally */
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            /* Added depth with shadow */
+            transition: transform 0.3s, background-color 0.3s, box-shadow 0.3s;
+        }
+
+        #signup-button:hover {
+            background-color: var(--accent);
+            /* Change background color on hover */
+            transform: scale(1.05);
+            /* Slight scale effect on hover */
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+            /* Enhanced depth on hover */
+        }
+
+
+        /* Research Pages Text and Heading Styles */
+        .research-section h2 {
+            color: var(--primary-dark);
+        }
+
+        .research-section p {
+            color: var(--primary-dark);
+        }
+
         /* General Navbar Styles */
         .navbar {
-            background-color: rgba(255, 255, 255, 0.7) !important;
-            /* Translucent background */
+            background-color: rgba(248, 249, 250, 0.7) !important;
             position: absolute;
             top: 0;
             width: 100%;
             z-index: 1050;
-            /* Place the navbar above the image */
         }
 
         /* Make the first navbar not sticky */
         .navbar-first {
             position: relative;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 1px 4px rgba(0, 0, 0, 0.05);
+            border-radius: 20px;
+
         }
 
         /* Second Navbar Styles */
         .navbar-second {
-            background-color: lightgrey;
-            /* Grey background color */
+            background-color: var(--secondary-light);
             border-radius: 20px;
             padding: 10px 20px;
-            color: #333;
+            color: var(--primary-dark);
             margin: 0 auto;
-            /* Inline margin to center */
             max-width: 1200px;
-            /* Limit the width of the navbar */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 1px 4px rgba(0, 0, 0, 0.05);
+            /* Adds depth */
+        }
+
+        .navbar-second .nav-link {
+            color: var(--primary-dark) !important;
         }
 
         /* Sticky second navbar */
@@ -59,43 +118,41 @@
             margin: 0 auto;
         }
 
-        /* Change link color from grey to blue on hover */
-        .navbar-second .nav-link {
-            color: #333;
-            /* Darker text color */
+        /* Change link color from accent to primary dark on hover */
+        .nav-link {
+            color: var(--accent);
             transition: color 0.3s, transform 0.3s;
         }
 
-            .navbar-second .nav-link:hover {
-                color: blue;
-                transform: scale(1.1);
-            }
+        .nav-link:hover {
+            color: var(--primary-dark);
+            transform: scale(1.1);
+        }
 
-                /* Add underline effect on hover */
-                .navbar-second .nav-link:hover::after {
-                    content: "";
-                    display: block;
-                    margin: 0 auto;
-                    width: 50%;
-                    height: 2px;
-                    background-color: blue;
-                    transition: width 0.3s;
-                }
+        /* Add underline effect on hover */
+        .navbar-first.nav-link:hover::after {
+            content: "";
+            display: block;
+            margin: 0 auto;
+            transition: width 0.3s;
+        }
 
         /* Custom button styling */
         .btn-primary {
-            background-color: blue;
+            background-color: var(--primary-dark);
+            color: var(--primary-light);
+            border: none;
             transition: transform 0.3s, background-color 0.3s;
         }
 
-            .btn-primary:hover {
-                background-color: #0056b3;
-                transform: scale(1.1);
-            }
+        .btn-primary:hover {
+            background-color: var(--accent);
+            transform: scale(1.1);
+        }
 
         /* Remove navbar transform on hover */
         .navbar:hover {
-            background-color: rgba(255, 255, 255, 0.9);
+            background-color: rgba(248, 249, 250, 0.9);
         }
 
         /* Position the image behind the navbar */
@@ -105,10 +162,8 @@
             left: 0;
             width: 100%;
             height: 100vh;
-            /* Full height */
             object-fit: cover;
             z-index: 1;
-            /* Place the image behind the navbar */
         }
 
         /* Ensure content does not overlap image */
@@ -116,18 +171,15 @@
             position: relative;
             z-index: 2;
             padding-top: 100vh;
-            /* Padding to ensure content is below the image */
         }
 
         /* Welcome text styling on top of image */
         .welcome-text {
             position: absolute;
             top: 50%;
-            /* Center vertically */
             left: 50%;
-            /* Center horizontally */
             transform: translate(-50%, -50%);
-            color: white;
+            color: var(--primary-light);
             font-size: 2.5rem;
             text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
             z-index: 2;
@@ -136,6 +188,23 @@
         /* Research Pages styling */
         .research-section {
             margin-top: 60px;
+        }
+
+        /* Individual research page containers */
+        .research-page {
+            background-color: var(--research-bg);
+            border-radius: 10px;
+            margin: 20px 0;
+            padding: 30px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 1px 4px rgba(0, 0, 0, 0.05);
+            /* Adds depth */
+        }
+
+        /* Highlight active link */
+        .nav-link.active {
+            font-weight: bold;
+            color: var(--primary-dark);
+            border-bottom: 2px solid var(--primary-dark);
         }
     </style>
 
@@ -155,9 +224,9 @@
     <!-- First Navbar (Translucent) -->
     <nav class="navbar navbar-expand-lg navbar-light navbar-first">
         <div class="container-fluid">
-            <a class="navbar-brand" href="#">Brand</a>
+            <a class="navbar-brand" href="#" style="color: var(--primary-dark);">Brand</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
@@ -176,7 +245,7 @@
                     </li>
                 </ul>
                 <form class="d-flex">
-                    <button id="signup-button" class="btn btn-primary" type="button">Sign Up</button>
+                    <button id="signup-button" class="btn btn-primary " type="button">Login</button>
                 </form>
             </div>
         </div>
@@ -188,7 +257,7 @@
         <nav class="navbar-second navbar-expand-lg navbar-dark sticky-top">
             <div class="container-fluid">
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#secondNavbarNav"
-                        aria-controls="secondNavbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    aria-controls="secondNavbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="secondNavbarNav">
@@ -216,50 +285,43 @@
         <!-- Research Pages Section -->
         <div class="research-section">
             <div id="research1" class="container my-5">
-                <h2>Research Page 1</h2>
-                <p>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin ultricies dolor a arcu cursus, non
-                    fringilla orci fermentum. Ut varius dolor vitae magna aliquam, sit amet tincidunt eros tincidunt.
-                    Sed ac ligula justo. Vestibulum ac orci nec urna pretium maximus.
-                </p>
+                <div class="research-page">
+                    <h2>Research Page 1</h2>
+                    <p>Content for Research Page 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel
+                        ante, in auctor justo dui vitae dui..</p>
+                </div>
             </div>
 
             <div id="research2" class="container my-5">
-                <h2>Research Page 2</h2>
-                <p>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam sit amet vehicula nunc. Nulla
-                    facilisi. Curabitur lobortis ligula non nunc consequat, et venenatis justo tempus. Etiam vel
-                    turpis sit amet nulla hendrerit sollicitudin at non nunc.
-                </p>
+                <div class="research-page">
+                    <h2>Research Page 2</h2>
+                    <p>Content for Research Page 2. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel
+                        viverra odio. Phasellus fringilla vel viverra odio...</p>
+                </div>
             </div>
 
             <div id="research3" class="container my-5">
-                <h2>Research Page 3</h2>
-                <p>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. In varius malesuada velit, in blandit nunc
-                    suscipit non. Donec mollis dui id urna luctus, vel rutrum erat dapibus. Sed sit amet maximus enim,
-                    et lacinia libero. Curabitur posuere risus id dui venenatis, a vulputate ex varius.
-                </p>
+                <div class="research-page">
+                    <h2>Research Page 3</h2>
+                    <p>Content for Research Page 3. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel
+                        viverra odio. Phasellus fringilla vel libero sit amet porttitor...</p>
+                </div>
             </div>
 
             <div id="research4" class="container my-5">
-                <h2>Research Page 4</h2>
-                <p>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed lacinia tincidunt nisi, nec feugiat
-                    nulla
-                    tincidunt vel. Cras eget justo odio. Suspendisse ullamcorper placerat lorem, at volutpat urna
-                    cursus ac. Fusce vitae tortor enim.
-                </p>
+                <div class="research-page">
+                    <h2>Research Page 4</h2>
+                    <p>Content for Research Page 4. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel
+                        viverra odio. Phasellus fringilla vel libero sit amet porttitor...</p>
+                </div>
             </div>
 
             <div id="research5" class="container my-5">
-                <h2>Research Page 5</h2>
-                <p>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel viverra odio. Phasellus fringilla
-                    vel libero sit amet porttitor. Fusce ac orci risus. Quisque at leo vel arcu convallis convallis et
-                    sit amet leo. Nam sed eros odio. Etiam tempor, tortor non convallis facilisis, felis elit feugiat
-                    ante, in auctor justo dui vitae dui.
-                </p>
+                <div class="research-page">
+                    <h2>Research Page 5</h2>
+                    <p>Content for Research Page 5. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel
+                        viverra odio. Phasellus fringilla vel libero sit amet porttitor...</p>
+                </div>
             </div>
         </div>
     </div>
@@ -267,7 +329,21 @@
     <script>
         $(document).ready(function () {
             $('#signup-button').click(function () {
-                window.location.href = 'login';
+                window.location.href = 'signup.html';
+            });
+
+            // Scrollspy functionality
+            $(window).on('scroll', function () {
+                var scrollPosition = $(window).scrollTop();
+
+                $('.navbar-second .nav-link').each(function () {
+                    var sectionOffset = $($(this).attr('href')).offset().top - 50;
+
+                    if (scrollPosition >= sectionOffset) {
+                        $('.navbar-second .nav-link').removeClass('active');
+                        $(this).addClass('active');
+                    }
+                });
             });
         });
     </script>
