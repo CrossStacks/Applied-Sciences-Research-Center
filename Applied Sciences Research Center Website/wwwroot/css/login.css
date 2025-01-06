@@ -61,13 +61,13 @@ body {
 }
 
 /* Hover State */
-.custom-button:hover {
+#custom-button:hover {
     background: #212121;
     color: white;
 }
 
 /* Arrow Container */
-.custom-button .arrow {
+#custom-button .arrow {
     margin-left: 10px;
     display: flex;
     align-items: center;
@@ -85,18 +85,18 @@ body {
 }
 
 /* Smooth Arrow Transition */
-.custom-button:hover .arrow {
+#custom-button:hover .arrow {
     opacity: 1;
     transform: translateX(10px);
 }
 
 /* Text Movement */
-.custom-button span {
+#custom-button span {
     display: inline-block;
     transition: transform 0.4s ease;
 }
 
-.custom-button:hover span {
+#custom-button:hover span {
     transform: translateX(-5px);
 }
 
