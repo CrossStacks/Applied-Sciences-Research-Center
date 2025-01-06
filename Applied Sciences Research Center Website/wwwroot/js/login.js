@@ -23,10 +23,13 @@ $(document).ready(function () {
                 Password: password
             },
             function (data, status) {
-                if (status == "success") {
-                    alert("Correct");
-                }
                 console.log(data);
+                if (status == "success") {
+                    window.location.href = "admin-panel";
+                }
+                else {
+
+                }
             });
     });
 });
