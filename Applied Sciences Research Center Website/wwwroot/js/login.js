@@ -1,5 +1,5 @@
 $(document).ready(function () {
-    $('#signInForm').on('submit', function (event) {
+    $('#custom-button').on('click', function (event) {
         event.preventDefault();
 
         const email = $('#email').val().trim();
