@@ -1,4 +1,17 @@
 $(document).ready(function () {
+    var token = localStorage['token'];
+
+    if (token) {
+        console.log('Logged in');
+        //$('#signup-button').hide();
+        //TODO: Here do things for admin
+    }
+    else {
+        console.log('not Logged');
+        //$('#signup-button').show();
+        //TODO: Here do things for non admin
+    }
+
     $("#signup-button").click(function () {
         window.location.href = "login";
     });
