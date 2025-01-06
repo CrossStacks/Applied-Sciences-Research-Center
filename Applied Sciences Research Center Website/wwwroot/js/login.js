@@ -7,7 +7,7 @@ $(document).ready(function () {
 
         // const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
 
-        //  if (!password) {
+        // if (!password) {
         //     alert('Password is required.');
         // } else if (!passwordRegex.test(password)) {
         //     alert(
