@@ -1,6 +1,6 @@
 $(document).ready(function () {
   $("#signup-button").click(function () {
-    window.location.href = "signup.html";
+    window.location.href = "login.html";
   });
 
   $(window).on("scroll", function () {
