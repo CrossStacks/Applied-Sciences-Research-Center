@@ -1,4 +1,6 @@
 $(document).ready(function () {
+    $('#error-alert').hide();
+
     $('#custom-button').on('click', function (event) {
         event.preventDefault();
 
@@ -25,11 +27,15 @@ $(document).ready(function () {
             function (data, status) {
                 console.log(data);
                 if (status == "success") {
-                    window.location.href = "admin-panel";
+                    localStorage['token'] = data.token;
+                    window.location.href = "home";
                 }
                 else {
-
+                    $('#error-alert').show();
                 }
+            }).fail(function (jqXHR, textStatus, errorThrown) {
+                console.error('Request failed: ' + textStatus);
+                $('#error-alert').show();
             });
     });
 });

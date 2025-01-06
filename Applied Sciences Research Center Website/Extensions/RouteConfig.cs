@@ -10,6 +10,12 @@
                 await context.Response.SendFileAsync("wwwroot/html/index.html");
             }); 
             
+            app.MapGet("home/", async context =>
+            {
+                context.Response.ContentType = "text/html";
+                await context.Response.SendFileAsync("wwwroot/html/index.html");
+            }); 
+            
             app.MapGet("login/", async context =>
             {
                 context.Response.ContentType = "text/html";
