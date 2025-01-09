@@ -73,8 +73,7 @@ namespace Applied_Sciences_Research_Center_Website.Services
                     Name = user.Name,
                     Email = user.Email,
                     Password = user.Password,
-                    Role = user.Role,
-                    RequestCount = user.RequestCount
+                    Role = user.Role
                 };
 
                 result.Add(userVM);

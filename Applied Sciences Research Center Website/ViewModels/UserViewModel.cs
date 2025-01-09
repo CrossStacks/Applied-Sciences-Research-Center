@@ -10,6 +10,5 @@ namespace Applied_Sciences_Research_Center_Website.ViewModels
         public required string Role { get; set; }
         public string? Token { get; set; }
         public ObjectId id { get; set; }
-        public int RequestCount { get; set; }
     }
 }
