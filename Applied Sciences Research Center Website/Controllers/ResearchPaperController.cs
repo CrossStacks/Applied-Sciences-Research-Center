@@ -93,7 +93,7 @@ namespace Applied_Sciences_Research_Center_Website.Controllers
                 var result = await _service.GetAllPapers();
                 if (result.Count == 0)
                     return BadRequest("No research paper found");
-                return Ok(result.Take(num));
+                return Ok(result.TakeLast(num));
             }
             catch (Exception ex)
             {
