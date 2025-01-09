@@ -30,7 +30,7 @@ namespace Applied_Sciences_Research_Center_Website.Services
             return model;
         }
 
-        public async Task<List<ResearchPaperViewModel>> GetAllUsers()
+        public async Task<List<ResearchPaperViewModel>> GetAllPapers()
         {
             var papers = await _reserachPaperCollection.Find(x => true).ToListAsync();
 

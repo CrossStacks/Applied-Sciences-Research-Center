@@ -74,10 +74,26 @@ namespace Applied_Sciences_Research_Center_Website.Controllers
         {
             try
             {
-                var result = await _service.GetAllUsers();
+                var result = await _service.GetAllPapers();
                 if (result.Count == 0)
                     return BadRequest("No research paper found");
                 return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"An error occurred: {ex.Message}");
+            }
+        }
+        
+        [HttpGet("Get")]
+        public async Task<ActionResult> GetAll(int num)
+        {
+            try
+            {
+                var result = await _service.GetAllPapers();
+                if (result.Count == 0)
+                    return BadRequest("No research paper found");
+                return Ok(result.Take(num));
             }
             catch (Exception ex)
             {
