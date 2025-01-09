@@ -1,3 +1,22 @@
+function updateCharCount() {
+    const textBox = document.getElementById("researchDescription");
+    const charCountDisplay = document.getElementById("char-count");
+
+    const charCount = textBox.value.length;
+    charCountDisplay.textContent = `Character count: ${charCount} / 1000`;
+}
+
+function updateNavbarBrand() {
+    // Update only on smaller screens
+    if ($(window).width() <= 991) {
+        var activeLink = $(".navbar-second .nav-link.active");
+        if (activeLink.length) {
+            var activeText = activeLink.text();
+            $(".navbar-second .navbar-brand").text(activeText);
+        }
+    }
+}
+
 $(document).ready(function () {
     var token = localStorage['token'];
     if (token) {
@@ -15,28 +34,9 @@ $(document).ready(function () {
         updateCharCount();
     });
 
-    function updateCharCount() {
-        const textBox = document.getElementById("researchDescription");
-        const charCountDisplay = document.getElementById("char-count");
-
-        const charCount = textBox.value.length;
-        charCountDisplay.textContent = `Character count: ${charCount} / 1000`;
-    }
-
-    $("#signup-button").click(function () {
+    $("#signup-button").on("click", function () {
         window.location.href = "login";
     });
-
-    function updateNavbarBrand() {
-        // Update only on smaller screens
-        if ($(window).width() <= 991) {
-            var activeLink = $(".navbar-second .nav-link.active");
-            if (activeLink.length) {
-                var activeText = activeLink.text();
-                $(".navbar-second .navbar-brand").text(activeText);
-            }
-        }
-    }
 
     // Highlight the active nav-link on scroll and update navbar brand text
     $(window).on("scroll", function () {
