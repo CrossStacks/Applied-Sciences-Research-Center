@@ -19,13 +19,16 @@ function updateNavbarBrand() {
 
 $(document).ready(function () {
     var token = localStorage['token'];
+
     if (token) {
         $('#add-research-paper').show();
-        //$('#signup-button').hide();
+        $('#signup-button').hide();
+        $('#option-button').show();
     }
     else {
         $('#add-research-paper').hide();
-        //$('#signup-button').show();
+        $('#signup-button').show();
+        $('#option-button').hide();
     }
 
     $("#researchDescription").on("input", function () {
