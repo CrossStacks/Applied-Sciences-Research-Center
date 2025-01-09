@@ -20,14 +20,12 @@ function updateNavbarBrand() {
 $(document).ready(function () {
     var token = localStorage['token'];
     if (token) {
-        console.log('Logged in');
+        $('#add-research-paper').show();
         //$('#signup-button').hide();
-        //TODO: Here do things for admin
     }
     else {
-        console.log('not Logged');
+        $('#add-research-paper').hide();
         //$('#signup-button').show();
-        //TODO: Here do things for non admin
     }
 
     $("#researchDescription").on("input", function () {
