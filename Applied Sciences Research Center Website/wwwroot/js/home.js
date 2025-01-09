@@ -18,17 +18,18 @@ function updateNavbarBrand() {
 }
 
 $(document).ready(function () {
+    $('#add-research-paper').hide();
+    $('#signup-button').hide();
+    $('#option-button').hide();
+
     var token = localStorage['token'];
 
     if (token) {
         $('#add-research-paper').show();
-        $('#signup-button').hide();
         $('#option-button').show();
     }
     else {
-        $('#add-research-paper').hide();
         $('#signup-button').show();
-        $('#option-button').hide();
     }
 
     $("#researchDescription").on("input", function () {
@@ -60,9 +61,9 @@ $(document).ready(function () {
     });
 
     // Highlight the active link and update navbar brand text on page load
-    $(window).on("load", function () {
+    //$(window).on("load", function () {
         updateNavbarBrand();
-    });
+    //});
 
     // Update navbar brand text on window resize
     $(window).on("resize", function () {
