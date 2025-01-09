@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
     <link rel="stylesheet" href="../css/bootstrap.min.css">
     <script src="../js/bootstrap.bundle.min.js"></script>
     <!-- jQuery -->
@@ -22,7 +23,7 @@
 </head>
 
 
-<body>
+<body class="bg-secondary3-800">
     <img src="../assets/hero_image.jpg" alt="Sample Image" class="img-fluid hero-image">
 
     <div class="welcome-text text-center">
@@ -34,7 +35,7 @@
         <div class="container-fluid">
             <a class="navbar-brand" href="#" style="color: var(--primary-dark);">Brand</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
@@ -52,8 +53,8 @@
                         <a class="nav-link" href="#">About Us</a>
                     </li>
                 </ul>
-                <form class="d-flex">
-                    <button id="signup-button" class="btn btn-primary " type="button">Login</button>
+                <form>
+                    <i class="bi bi-person-circle" id="signup-button" type="button"></i>
                 </form>
             </div>
         </div>
@@ -64,7 +65,7 @@
             <div class="container-fluid">
                 <a class="navbar-brand d-sm-block d-lg-none" href="#">Research Pages</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#researchNavbar"
-                        aria-controls="researchNavbar" aria-expanded="false" aria-label="Toggle navigation">
+                    aria-controls="researchNavbar" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="researchNavbar">
@@ -89,9 +90,38 @@
             </div>
         </nav>
 
+        <div class="container my-5">
+            <div class="card shadow-sm" style="border-radius: 30px; background-color: #F8F9FA;">
+                <div class="card-body">
+                    <h5 class="card-title">Add a New Research Paper</h5>
+                    <form id="add-research-form">
+                        <div class="mb-3">
+                            <label for="researchTitle" class="form-label">Research Title</label>
+                            <input type="text" class="form-control input-container" id="researchTitle"
+                                placeholder="Enter research title">
+                        </div>
+                        <div class="mb-3">
+                            <label for="researchDescription" class="form-label">Research Description</label>
+                            <textarea class="form-control input-container" id="researchDescription" rows="10" cols="50"
+                                maxlength="1000" oninput="updateCharCount()"
+                                placeholder="Write your research description here"></textarea>
+                            <div id="char-count" class="char-count">Character count: 0 / 1000</div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="ResearchUrl" class="form-label">Research paper Url</label>
+                            <input type="text" class="form-control input-container" id="ResearchUrl"
+                                placeholder="Enter Research paper Url here"></input>
+                        </div>
+                        <button type="submit"
+                            class="mx-auto mt-2 min-w-[148px] rounded-full bg-black px-6 py-3 font-semibold leading-5 tracking-[0.8px] text-white !ring-offset-primary-600 transition-all hover:bg-primary-400 focus:ring-2 active:bg-primary-300">Submit</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
         <div class="research-section">
             <div id="research1" class="container my-5">
-                <div class="research-page">
+                <div class="research-page position-relative">
                     <h2>Research Page 1</h2>
                     <p>
                         Content for Research Page 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel
@@ -103,11 +133,20 @@
                         ante, in aResearch Page 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel
                         ante, in auctor justo dui vitae dui..
                     </p>
+                    <div class="dropdown position-absolute " style="top: 10px; right: 10px;">
+                        <i class="bi bi-three-dots-vertical btn" type="button" id="dropdownMenuButton1"
+                            data-bs-toggle="dropdown" aria-expanded="false"></i>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                            <li><a class="dropdown-item bi bi-trash" href="#">Delete</a></li>
+                            <li><a class="dropdown-item bi bi-pen" href="#">Modify</a></li>
+                            <li><a class="dropdown-item bi bi-eye" href="#">Show/Hide</a></li>
+                        </ul>
+                    </div>
                 </div>
             </div>
 
             <div id="research2" class="container my-5">
-                <div class="research-page">
+                <div class="research-page position-relative">
                     <h2>Research Page 2</h2>
                     <p>
                         Content forResearch Page 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel
@@ -115,11 +154,20 @@
                         anteResearch Page 2. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel
                         ante, in auctor justo dui vitae dui..
                     </p>
+                    <div class="dropdown position-absolute " style="top: 10px; right: 10px;">
+                        <i class="bi bi-three-dots-vertical btn" type="button" id="dropdownMenuButton1"
+                            data-bs-toggle="dropdown" aria-expanded="false"></i>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                            <li><a class="dropdown-item bi bi-trash" href="#">Delete</a></li>
+                            <li><a class="dropdown-item bi bi-pen" href="#">Modify</a></li>
+                            <li><a class="dropdown-item bi bi-eye" href="#">Show/Hide</a></li>
+                        </ul>
+                    </div>
                 </div>
             </div>
 
             <div id="research3" class="container my-5">
-                <div class="research-page">
+                <div class="research-page position-relative">
                     <h2>Research Page 3</h2>
                     <p>
                         Content for RResearch Page 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel
@@ -131,11 +179,20 @@
                         ante, in aesearch Page 3. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel
                         ante, in auctor justo dui vitae dui..
                     </p>
+                    <div class="dropdown position-absolute " style="top: 10px; right: 10px;">
+                        <i class="bi bi-three-dots-vertical btn" type="button" id="dropdownMenuButton1"
+                            data-bs-toggle="dropdown" aria-expanded="false"></i>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                            <li><a class="dropdown-item bi bi-trash" href="#">Delete</a></li>
+                            <li><a class="dropdown-item bi bi-pen" href="#">Modify</a></li>
+                            <li><a class="dropdown-item bi bi-eye" href="#">Show/Hide</a></li>
+                        </ul>
+                    </div>
                 </div>
             </div>
 
             <div id="research4" class="container my-5">
-                <div class="research-page">
+                <div class="research-page position-relative">
                     <h2>Research Page 4</h2>
                     <p>
                         Content forResearch Page 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel
@@ -145,11 +202,20 @@
                         ante, in av Research Page 4. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel
                         ante, in auctor justo dui vitae dui..
                     </p>
+                    <div class="dropdown position-absolute " style="top: 10px; right: 10px;">
+                        <i class="bi bi-three-dots-vertical btn" type="button" id="dropdownMenuButton1"
+                            data-bs-toggle="dropdown" aria-expanded="false"></i>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                            <li><a class="dropdown-item bi bi-trash" href="#">Delete</a></li>
+                            <li><a class="dropdown-item bi bi-pen" href="#">Modify</a></li>
+                            <li><a class="dropdown-item bi bi-eye" href="#">Show/Hide</a></li>
+                        </ul>
+                    </div>
                 </div>
             </div>
 
             <div id="research5" class="container my-5">
-                <div class="research-page">
+                <div class="research-page position-relative">
                     <h2>Research Page 5</h2>
                     <p>
                         Content for Research Page 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel
@@ -161,6 +227,15 @@
                         ante, in avResearch Page 5. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel
                         ante, in auctor justo dui vitae dui..
                     </p>
+                    <div class="dropdown position-absolute " style="top: 10px; right: 10px;">
+                        <i class="bi bi-three-dots-vertical btn" type="button" id="dropdownMenuButton1"
+                            data-bs-toggle="dropdown" aria-expanded="false"></i>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                            <li><a class="dropdown-item bi bi-trash" href="#">Delete</a></li>
+                            <li><a class="dropdown-item bi bi-pen" href="#">Modify</a></li>
+                            <li><a class="dropdown-item bi bi-eye" href="#">Show/Hide</a></li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>
@@ -176,18 +251,21 @@
                         <form>
                             <div class="mb-3">
                                 <label for="name" class="form-label">Name</label>
-                                <input type="text" class="form-control" id="name" placeholder="Your Name">
+                                <input type="text" class="form-control input-container" id="name"
+                                    placeholder="Your name...">
                             </div>
                             <div class="mb-3">
                                 <label for="email" class="form-label">Email</label>
-                                <input type="email" class="form-control" id="email" placeholder="Your Email">
+                                <input type="email" class="form-control input-container" id="email"
+                                    placeholder="Your email...">
                             </div>
                             <div class="mb-3">
                                 <label for="message" class="form-label">Message</label>
-                                <textarea class="form-control" id="message" rows="5"
-                                          placeholder="Your Message"></textarea>
+                                <textarea class="form-control input-container" id="message" rows="5"
+                                    placeholder="Type your question..."></textarea>
                             </div>
-                            <button type="submit" class="btn btn-primary">Submit</button>
+                            <button type="submit"
+                                class="mr-auto mt-4 flex rounded-full bg-[#ED8F68] px-6 py-3 text-base/5 font-semibold tracking-[0.8px] text-[#1F0B04] transition-all duration-300 ease-out hover:bg-black hover:text-white active:scale-95 md:px-8 md:py-4">Submit</button>
                         </form>
                     </div>
                     <div class="col-md-6">

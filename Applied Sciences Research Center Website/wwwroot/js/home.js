@@ -1,6 +1,5 @@
 $(document).ready(function () {
     var token = localStorage['token'];
-
     if (token) {
         console.log('Logged in');
         //$('#signup-button').hide();
@@ -10,6 +9,18 @@ $(document).ready(function () {
         console.log('not Logged');
         //$('#signup-button').show();
         //TODO: Here do things for non admin
+    }
+
+    $("#researchDescription").on("input", function () {
+        updateCharCount();
+    });
+
+    function updateCharCount() {
+        const textBox = document.getElementById("researchDescription");
+        const charCountDisplay = document.getElementById("char-count");
+
+        const charCount = textBox.value.length;
+        charCountDisplay.textContent = `Character count: ${charCount} / 1000`;
     }
 
     $("#signup-button").click(function () {

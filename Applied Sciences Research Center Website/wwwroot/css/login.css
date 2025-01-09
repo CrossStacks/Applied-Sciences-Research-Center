@@ -1,9 +1,7 @@
-/* Body Background */
 .bg-secondary3-800 {
     background-color: #f3f0ec;
 }
 
-/* Font */
 body {
     font-family: 'Inter', sans-serif;
     margin: 0;
@@ -11,7 +9,6 @@ body {
     box-sizing: border-box;
 }
 
-/* Outer White Box */
 .outer-white-box {
     width: 100%;
     max-width: 450px;
@@ -21,14 +18,13 @@ body {
     box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.1);
 }
 
-/* Gradient Card */
 .gradient {
     width: 100%;
     max-width: 400px;
     border-radius: 24px;
     position: relative;
     background: linear-gradient(90deg, #f16b6a, #ffaa5d, #6e38e1);
-    padding: 3px;
+    padding: 2px;
 }
 
 .gradient-inner {
@@ -39,7 +35,6 @@ body {
     padding: 20px;
 }
 
-/* Custom Button */
 #custom-button {
     display: inline-flex;
     align-items: center;
@@ -60,13 +55,11 @@ body {
     box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.1);
 }
 
-/* Hover State */
 #custom-button:hover {
     background: #212121;
     color: white;
 }
 
-/* Arrow Container */
 #custom-button .arrow {
     margin-left: 10px;
     display: flex;
@@ -84,13 +77,11 @@ body {
     font-weight: bold;
 }
 
-/* Smooth Arrow Transition */
 #custom-button:hover .arrow {
     opacity: 1;
     transform: translateX(10px);
 }
 
-/* Text Movement */
 #custom-button span {
     display: inline-block;
     transition: transform 0.4s ease;
@@ -100,7 +91,6 @@ body {
     transform: translateX(-5px);
 }
 
-/* Box Shadow for Visual Depth */
 .card {
     box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.1);
     border: none;
@@ -128,15 +118,15 @@ body {
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-    .input-container input {
-        border: none;
-        outline: none;
-        font-size: 16px;
-        color: #333;
-        background-color: transparent;
-        width: 200px;
-    }
+.input-container input {
+    border: none;
+    outline: none;
+    font-size: 16px;
+    color: #333;
+    background-color: transparent;
+    width: 200px;
+}
 
-        .input-container input::placeholder {
-            color: #aaa;
-        }
+.input-container input::placeholder {
+    color: #aaa;
+}
