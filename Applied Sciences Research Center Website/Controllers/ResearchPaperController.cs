@@ -41,33 +41,35 @@ namespace Applied_Sciences_Research_Center_Website.Controllers
             }
         }
 
-        //[HttpPost("Update")]
-        //public async Task<ActionResult> UpdateUser(UpdateUserViewModel updateUserVM)
-        //{
-        //    try
-        //    {
-        //        if (updateUserVM.Name == null || updateUserVM.Email == null || updateUserVM.Password == null || updateUserVM.Role == null)
-        //            return new BadRequestObjectResult("Complete information for updating new user is not given");
+        //[Authorize(Roles = "Admin")]
+        [HttpPost("Update")]
+        public async Task<ActionResult> UpdatePaper(UpdatePaperViewModel updatePaper)
+        {
+            try
+            {   if (string.IsNullOrWhiteSpace(updatePaper.OldTitle) || string.IsNullOrWhiteSpace(updatePaper.NewUploaderEmail))
+                    return BadRequest("OldTitle and NewUploaderEmail are required.");
+                
+                if (string.IsNullOrWhiteSpace(updatePaper.NewTitle) &&
+                    string.IsNullOrWhiteSpace(updatePaper.NewDescription) &&
+                    string.IsNullOrWhiteSpace(updatePaper.NewLink) &&
+                    string.IsNullOrWhiteSpace(updatePaper.NewImageUrl))
+                {
+                    return BadRequest("At least one field to update must be provided.");
+                }
+                
+                var updatedPaper = await _service.UpdatePaper(updatePaper);
 
-        //        updateUserVM.Email = updateUserVM.Email.ToLower();
+                if (updatedPaper is null)
+                    return NotFound($"The paper with title '{updatePaper.OldTitle}' was not found or update failed.");
 
-        //        var userWithSameEmail = _usersCollection.Find(x => x.Email == updateUserVM.Email).FirstOrDefault();
+                return Ok(updatedPaper);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"An error occurred: {ex.Message}");
+            }
+        }
 
-        //        if (userWithSameEmail == null)
-        //            return new BadRequestObjectResult("Email not found");
-
-        //        var updatedUser = await _userService.UpdateUser(updateUserVM);
-
-        //        if (updatedUser is null)
-        //            return new BadRequestObjectResult("User update failed");
-
-        //        return Ok(updatedUser);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        return StatusCode(500, $"An error occurred: {ex.Message}");
-        //    }
-        //}
 
         [HttpGet("GetAll")]
         public async Task<ActionResult> GetAll()

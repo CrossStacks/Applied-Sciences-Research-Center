@@ -59,6 +59,51 @@ namespace Applied_Sciences_Research_Center_Website.Services
             else
                 return "No record found";
         }
+        public async Task<UpdatePaperViewModel?> UpdatePaper(UpdatePaperViewModel updatePaper)
+        {
+            var paper = await _researchPaperCollection.Find(x => x.Title == updatePaper.OldTitle).FirstOrDefaultAsync();
+
+            if (paper is null)
+                return null;
+
+            var updateDefinition = Builders<ResearchPaperModel>.Update
+                .Set(x => x.UploaderEmail, updatePaper.NewUploaderEmail);
+
+            if (!string.IsNullOrWhiteSpace(updatePaper.NewTitle))
+                updateDefinition = updateDefinition.Set(x => x.Title, updatePaper.NewTitle);
+
+            if (!string.IsNullOrWhiteSpace(updatePaper.NewDescription))
+                updateDefinition = updateDefinition.Set(x => x.Description, updatePaper.NewDescription);
+
+            if (!string.IsNullOrWhiteSpace(updatePaper.NewLink))
+                updateDefinition = updateDefinition.Set(x => x.Link, updatePaper.NewLink);
+
+            if (!string.IsNullOrWhiteSpace(updatePaper.NewImageUrl))
+                updateDefinition = updateDefinition.Set(x => x.ImageUrl, updatePaper.NewImageUrl);
+
+            //TODO: Use Id
+            var filter = Builders<ResearchPaperModel>.Filter.Eq(x => x.Title, updatePaper.OldTitle); //Builders<ResearchPaperModel>.Filter.Eq(x => x.Id, updatePaper.Id);
+            var result = await _researchPaperCollection.UpdateOneAsync(filter, updateDefinition);
+
+            if (!result.IsAcknowledged || result.ModifiedCount == 0)
+                return null;
+
+            var updatedTitle = string.IsNullOrWhiteSpace(updatePaper.NewTitle) ? updatePaper.OldTitle : updatePaper.NewTitle;
+            var updatedPaper = await _researchPaperCollection.Find(x => x.Title == updatedTitle).FirstOrDefaultAsync();
+
+            if (updatedPaper is null)
+                return null;
+
+            return new UpdatePaperViewModel
+            {
+                OldTitle = updatePaper.OldTitle,
+                NewTitle = updatedPaper.Title,
+                NewUploaderEmail = updatedPaper.UploaderEmail,
+                NewDescription = updatedPaper.Description,
+                NewLink = updatedPaper.Link,
+                NewImageUrl = updatedPaper.ImageUrl,
+            };
+        }
 
     }
 }
