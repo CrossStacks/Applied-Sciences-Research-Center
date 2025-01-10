@@ -52,7 +52,7 @@ $(document).ready(function () {
                         + '<p>' + data[paper].description + '</p>'
                         + '<a href = "' + ensureHttps(data[paper].link) + '"> <p>' + data[paper].link + '</p> </a>'
                         + '<p>' + data[paper].uploaderEmail + '</p>'
-                        + '<div class="dropdown position-absolute " style="top: 10px; right: 10px;">'
+                        + '<div class="dropdown position-absolute">'
                         + '<i class="bi bi-three-dots-vertical btn" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false"></i>'
                         + '<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">'
                         + '<li><a class="dropdown-item bi bi-trash" href="#">Delete</a></li>'
