@@ -32,8 +32,8 @@ namespace Applied_Sciences_Research_Center_Website.Controllers
                 if (createPaperVM.Title == null || createPaperVM.Link == null || createPaperVM.Description == null || createPaperVM.UploaderEmail == null)
                     return new BadRequestObjectResult("Complete information for creating new research paper is not given");
 
-                var user = await _service.CreatePaper(createPaperVM);
-                return Ok(user);
+                var result = await _service.CreatePaper(createPaperVM);
+                return Ok(result);
             }
             catch (Exception ex)
             {
@@ -41,7 +41,7 @@ namespace Applied_Sciences_Research_Center_Website.Controllers
             }
         }
 
-        //[Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin")]
         [HttpPost("Update")]
         public async Task<ActionResult> UpdatePaper(UpdatePaperViewModel updatePaper)
         {
@@ -62,7 +62,7 @@ namespace Applied_Sciences_Research_Center_Website.Controllers
                 if (updatedPaper is null)
                     return NotFound($"The paper with title '{updatePaper.OldTitle}' was not found or update failed.");
 
-                return Ok(updatedPaper);
+                return Ok("Updated successfully");
             }
             catch (Exception ex)
             {
@@ -70,7 +70,7 @@ namespace Applied_Sciences_Research_Center_Website.Controllers
             }
         }
 
-
+        [AllowAnonymous]
         [HttpGet("GetAll")]
         public async Task<ActionResult> GetAll()
         {
@@ -87,6 +87,7 @@ namespace Applied_Sciences_Research_Center_Website.Controllers
             }
         }
 
+        [AllowAnonymous]
         [HttpGet("Get")]
         public async Task<ActionResult> GetAll(int num)
         {
@@ -103,7 +104,7 @@ namespace Applied_Sciences_Research_Center_Website.Controllers
             }
         }
 
-        // [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin")]
         [HttpDelete("Delete")]
         public async Task<IActionResult> DeletePaper(string title)
         {
