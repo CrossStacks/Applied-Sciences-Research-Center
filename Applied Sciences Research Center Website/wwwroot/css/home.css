@@ -29,6 +29,26 @@ body {
     transform: scale(1.05);
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
 }
+#dropdownMenuButton {
+    background-color: transparent;
+    border-color: transparent;
+    border-radius: 15px;
+    padding: 10px 30px;
+    width: 20px;
+    height: auto;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s, background-color 0.3s, box-shadow 0.3s;
+}
+
+#dropdownMenuButton:hover {
+    background-color: var(--accent);
+    transform: scale(1.05);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+}
 
 .research-section h2 {
     color: var(--primary-dark);
@@ -168,9 +188,7 @@ body {
     z-index: 2;
 }
 
-.research-section {
-    margin-top: 60px;
-}
+
 
 .research-page {
     border: 1px solid #ccc;
@@ -196,11 +214,14 @@ body {
 }
 
 .contact-us-section {
-    background-color: #F8F9FA;
-    border-radius: 30px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 1px 4px rgba(0, 0, 0, 0.05);
-    padding: 30px;
-    margin-top: 40px;
+    border: 1px solid #ccc;
+        background-color: var(--research-bg);
+        border-radius: 30px;
+        position: relative;
+        background-color: #fff;
+        margin: 20px 0;
+        padding: 50px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 1px 4px rgba(0, 0, 0, 0.05);
 }
 
 .card-title {
@@ -223,22 +244,24 @@ textarea {
 }
 
 .custom-button {
-    display: inline-block;
     background-color: black;
-    color: white;
-    font-size: 16px;
-    font-weight: bold;
-    border: none;
-    border-radius: 20px;
-    padding: 10px 20px;
-    text-align: center;
-    cursor: pointer;
-    text-decoration: none;
-    transition: background-color 0.3s ease;
+    color: #fff;
+    border-radius: 15px;
+        padding: 10px 30px;
+        width: auto;
+        height: auto;
+        text-align: center;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        transition: transform 0.3s, background-color 0.3s, box-shadow 0.3s;
 }
 
 .custom-button:hover {
-    background-color: purple;
+    background-color: black;
+        transform: scale(1.05);
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
 }
 
 .transition-all {
@@ -393,3 +416,4 @@ mt-4 {
         padding-bottom: 1rem;
     }
 }
+

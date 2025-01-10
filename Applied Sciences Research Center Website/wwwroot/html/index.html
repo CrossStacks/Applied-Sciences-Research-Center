@@ -35,13 +35,13 @@
         <div class="container-fluid">
             <a class="navbar-brand" href="#" style="color: var(--primary-dark);">Brand</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Home</a>
+                        <a class="nav-link" href="index.html">Home</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#">Journal</a>
@@ -50,25 +50,38 @@
                         <a class="nav-link" href="#">Events</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">About Us</a>
+                        <a class="nav-link" href="contact_us.html">Contact Us</a>
                     </li>
                 </ul>
                 <form>
                     <i class="bi bi-person-circle" id="signup-button" type="button"></i>
                 </form>
-                <form>
-                    <i class="bi bi-person-circle" style="background-color:palevioletred" id="option-button" type="button"></i>
+                <form class="d-flex">
+                    <div class="dropdown">
+                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
+                            data-bs-toggle="dropdown" aria-expanded="false" ">
+                            <i class=" bi bi-person-circle"></i>
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton">
+                            <li><a class="dropdown-item" href="#userPanel">User Panel</a></li>
+                            <li><a class="dropdown-item" href="#logout">Log Out</a></li>
+                        </ul>
+                    </div>
+
                 </form>
+
             </div>
         </div>
     </nav>
+
+
 
     <div class="content">
         <nav class="navbar navbar-expand-lg navbar-light navbar-second sticky-top">
             <div class="container-fluid">
                 <a class="navbar-brand d-sm-block d-lg-none" href="#">Research Pages</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#researchNavbar"
-                        aria-controls="researchNavbar" aria-expanded="false" aria-label="Toggle navigation">
+                    aria-controls="researchNavbar" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="researchNavbar">
@@ -85,18 +98,23 @@
                     <form id="add-research-form">
                         <div class="mb-3">
                             <label for="researchTitle" class="form-label">Research Title</label>
-                            <input type="text" class="form-control input-container" id="researchTitle" placeholder="Enter research title">
+                            <input type="text" class="form-control input-container" id="researchTitle"
+                                placeholder="Enter research title">
                         </div>
                         <div class="mb-3">
                             <label for="researchDescription" class="form-label">Research Description</label>
-                            <textarea class="form-control input-container" id="researchDescription" rows="7" cols="50" maxlength="1000" oninput="updateCharCount()" placeholder="Write your research description here"></textarea>
+                            <textarea class="form-control input-container" id="researchDescription" rows="7" cols="50"
+                                maxlength="1000" oninput="updateCharCount()"
+                                placeholder="Write your research description here"></textarea>
                             <div id="char-count" class="char-count">Character count: 0 / 1000</div>
                         </div>
                         <div class="mb-3">
                             <label for="ResearchUrl" class="form-label">Research paper Url</label>
-                            <input type="text" class="form-control input-container" id="ResearchUrl" placeholder="Enter Research paper Url here"></input>
+                            <input type="text" class="form-control input-container" id="ResearchUrl"
+                                placeholder="Enter Research paper Url here"></input>
                         </div>
-                        <button type="submit" class="mx-auto mt-2 min-w-[148px] rounded-full bg-black px-6 py-3 font-semibold leading-5 tracking-[0.8px] text-white !ring-offset-primary-600 transition-all hover:bg-primary-400 focus:ring-2 active:bg-primary-300">
+                        <button type="submit"
+                            class="mx-auto mt-2 min-w-[148px] rounded-full bg-black px-6 py-3 font-semibold leading-5 tracking-[0.8px] text-white !ring-offset-primary-600 transition-all hover:bg-primary-400 focus:ring-2 active:bg-primary-300">
                             Submit
                         </button>
                     </form>
@@ -118,7 +136,7 @@
                     </p>
                     <div class="dropdown position-absolute " style="top: 10px; right: 10px;">
                         <i class="bi bi-three-dots-vertical btn" type="button" id="dropdownMenuButton1"
-                           data-bs-toggle="dropdown" aria-expanded="false"></i>
+                            data-bs-toggle="dropdown" aria-expanded="false"></i>
                         <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                             <li><a class="dropdown-item bi bi-trash" href="#">Delete</a></li>
                             <li><a class="dropdown-item bi bi-pen" href="#">Modify</a></li>
@@ -143,7 +161,7 @@
                     </p>
                     <div class="dropdown position-absolute " style="top: 10px; right: 10px;">
                         <i class="bi bi-three-dots-vertical btn" type="button" id="dropdownMenuButton1"
-                           data-bs-toggle="dropdown" aria-expanded="false"></i>
+                            data-bs-toggle="dropdown" aria-expanded="false"></i>
                         <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                             <li><a class="dropdown-item bi bi-trash" href="#">Delete</a></li>
                             <li><a class="dropdown-item bi bi-pen" href="#">Modify</a></li>
@@ -166,7 +184,7 @@
                     </p>
                     <div class="dropdown position-absolute " style="top: 10px; right: 10px;">
                         <i class="bi bi-three-dots-vertical btn" type="button" id="dropdownMenuButton1"
-                           data-bs-toggle="dropdown" aria-expanded="false"></i>
+                            data-bs-toggle="dropdown" aria-expanded="false"></i>
                         <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                             <li><a class="dropdown-item bi bi-trash" href="#">Delete</a></li>
                             <li><a class="dropdown-item bi bi-pen" href="#">Modify</a></li>
@@ -191,7 +209,7 @@
                     </p>
                     <div class="dropdown position-absolute " style="top: 10px; right: 10px;">
                         <i class="bi bi-three-dots-vertical btn" type="button" id="dropdownMenuButton1"
-                           data-bs-toggle="dropdown" aria-expanded="false"></i>
+                            data-bs-toggle="dropdown" aria-expanded="false"></i>
                         <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                             <li><a class="dropdown-item bi bi-trash" href="#">Delete</a></li>
                             <li><a class="dropdown-item bi bi-pen" href="#">Modify</a></li>
@@ -214,20 +232,19 @@
                             <div class="mb-3">
                                 <label for="name" class="form-label">Name</label>
                                 <input type="text" class="form-control input-container" id="name"
-                                       placeholder="Your name...">
+                                    placeholder="Your name...">
                             </div>
                             <div class="mb-3">
                                 <label for="email" class="form-label">Email</label>
                                 <input type="email" class="form-control input-container" id="email"
-                                       placeholder="Your email...">
+                                    placeholder="Your email...">
                             </div>
                             <div class="mb-3">
                                 <label for="message" class="form-label">Message</label>
                                 <textarea class="form-control input-container" id="message" rows="5"
-                                          placeholder="Type your question..."></textarea>
+                                    placeholder="Type your question..."></textarea>
                             </div>
-                            <button type="submit"
-                                    class="mr-auto mt-4 flex rounded-full bg-[#ED8F68] px-6 py-3 text-base/5 font-semibold tracking-[0.8px] text-[#1F0B04] transition-all duration-300 ease-out hover:bg-black hover:text-white active:scale-95 md:px-8 md:py-4">
+                            <button type="submit" class="custom-button">
                                 Submit
                             </button>
                         </form>
