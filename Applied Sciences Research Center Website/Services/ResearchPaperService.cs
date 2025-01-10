@@ -7,11 +7,11 @@ namespace Applied_Sciences_Research_Center_Website.Services
 {
     public class ResearchPaperService
     {
-        private readonly IMongoCollection<ResearchPaperModel> _reserachPaperCollection;
+        private readonly IMongoCollection<ResearchPaperModel> _researchPaperCollection;
 
         public ResearchPaperService(IMongoDatabase database)
         {
-            _reserachPaperCollection = database.GetCollection<ResearchPaperModel>("ResearchPaper");
+            _researchPaperCollection = database.GetCollection<ResearchPaperModel>("ResearchPaper");
         }
 
         public async Task<ResearchPaperModel> CreatePaper(ResearchPaperViewModel vm)
@@ -25,14 +25,14 @@ namespace Applied_Sciences_Research_Center_Website.Services
                 ImageUrl = vm.ImageUrl,
             };
 
-            await _reserachPaperCollection.InsertOneAsync(model);
+            await _researchPaperCollection.InsertOneAsync(model);
 
             return model;
         }
 
         public async Task<List<ResearchPaperViewModel>> GetAllPapers()
         {
-            var papers = await _reserachPaperCollection.Find(x => true).ToListAsync();
+            var papers = await _researchPaperCollection.Find(x => true).ToListAsync();
 
             List<ResearchPaperViewModel> results = [];
 
@@ -51,5 +51,14 @@ namespace Applied_Sciences_Research_Center_Website.Services
             }
             return results;
         }
+        public async Task<string?> DeletePaper(string title)
+        {
+            var result = await _researchPaperCollection.DeleteOneAsync(x => x.Title == title);
+            if (result.DeletedCount > 0)
+                return $"The research paper '{title}' has been successfully deleted.";
+            else
+                return "No record found";
+        }
+
     }
 }

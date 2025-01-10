@@ -12,14 +12,14 @@ namespace Applied_Sciences_Research_Center_Website.Controllers
     public class ResearchPaperController : Controller
     {
         private readonly IMongoDatabase _database;
-        private readonly IMongoCollection<ResearchPaperModel> _reserachPaperCollection;
+        private readonly IMongoCollection<ResearchPaperModel> _researchPaperCollection;
         private readonly ResearchPaperService _service;
 
         public ResearchPaperController(IOptions<DatabaseConfigModel> database, IOptions<AuthConfigModel> authConfig)
         {
             var mongoClient = new MongoClient(database.Value.ConnectionString);
             _database = mongoClient.GetDatabase(database.Value.DataBase);
-            _reserachPaperCollection = _database.GetCollection<ResearchPaperModel>("ResearchPaper");
+            _researchPaperCollection = _database.GetCollection<ResearchPaperModel>("ResearchPaper");
             _service = new ResearchPaperService(_database);
         }
 
@@ -84,7 +84,7 @@ namespace Applied_Sciences_Research_Center_Website.Controllers
                 return StatusCode(500, $"An error occurred: {ex.Message}");
             }
         }
-        
+
         [HttpGet("Get")]
         public async Task<ActionResult> GetAll(int num)
         {
@@ -101,24 +101,25 @@ namespace Applied_Sciences_Research_Center_Website.Controllers
             }
         }
 
-        //[HttpDelete("Delete")]
-        //public async Task<ActionResult> Delete(string title)
-        //{
-        //    try
-        //    {
-        //        if (email is null)
-        //            return new BadRequestObjectResult("Email not provided");
-        //        var result = await _userService.DeleteUser(email);
-
-        //        if (result is null)
-        //            return StatusCode(500, $"An error occurred on Db");
-
-        //        return Ok(result);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        return StatusCode(500, $"An error occurred: {ex.Message}");
-        //    }
-        //}
+        // [Authorize(Roles = "Admin")]
+        [HttpDelete("Delete")]
+        public async Task<IActionResult> DeletePaper(string title)
+        {
+            if (string.IsNullOrWhiteSpace(title))
+                return BadRequest("Title cannot be null or empty.");
+            try
+            {
+                var result = await _service.DeletePaper(title);
+                if (result == "No record found")
+                    return NotFound($"The research paper with title '{title}' was not found.");
+                if (result is null)
+                    return StatusCode(500, "An unexpected error occurred while deleting the paper.");
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"An error occurred: {ex.Message}");
+            }
+        }
     }
 }
