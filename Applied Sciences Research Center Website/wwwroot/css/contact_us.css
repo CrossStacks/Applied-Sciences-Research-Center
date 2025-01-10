@@ -1,0 +1,165 @@
+:root {
+    --primary-light: #E9ECEF;
+    --secondary-light: #F8F9FA;
+    --accent: #CED4DA;
+    --primary-dark: #6C757D;
+    --research-bg: #F8F9FA;
+}
+
+body {
+    background-color: var(--primary-light);
+    margin: 20px;
+}
+
+#signup-button {
+    border-radius: 15px;
+    padding: 10px 30px;
+    width: auto;
+    height: auto;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s, background-color 0.3s, box-shadow 0.3s;
+}
+
+#signup-button:hover {
+    background-color: var(--accent);
+    transform: scale(1.05);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+}
+
+#dropdownMenuButton {
+    background-color: transparent;
+    border-color: transparent;
+    border-radius: 15px;
+    padding: 10px 30px;
+    width: 20px;
+    height: auto;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s, background-color 0.3s, box-shadow 0.3s;
+}
+
+#dropdownMenuButton:hover {
+    background-color: var(--accent);
+    transform: scale(1.05);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+}
+
+.about-section h2 {
+    color: var(--primary-dark);
+}
+
+.about-section p {
+    color: var(--primary-dark);
+}
+
+.navbar {
+    background-color: rgba(248, 249, 250, 0.7) !important;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    z-index: 1050;
+}
+
+.navbar-first {
+    position: relative;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 1px 4px rgba(0, 0, 0, 0.05);
+    border-radius: 20px;
+}
+
+.sticky-top {
+    position: sticky;
+    top: 10px;
+    z-index: 1030;
+}
+
+.navbar-nav {
+    margin: 0 auto;
+}
+
+.nav-link {
+    color: var(--accent);
+    transition: color 0.3s, transform 0.3s;
+}
+
+.nav-link:hover {
+    color: var(--primary-dark);
+    transform: scale(1.1);
+}
+
+.navbar-first.nav-link:hover::after {
+    content: "";
+    display: block;
+    margin: 0 auto;
+    transition: width 0.3s;
+}
+
+.btn-primary {
+    background-color: var(--primary-dark);
+    color: var(--primary-light);
+    border: none;
+    transition: transform 0.3s, background-color 0.3s;
+}
+
+.btn-primary:hover {
+    background-color: var(--accent);
+    transform: scale(1.1);
+}
+
+.navbar:hover {
+    background-color: rgba(248, 249, 250, 0.9);
+}
+
+
+.content {
+    position: relative;
+    z-index: 2;
+    padding-top: 100vh;
+}
+
+.about-page {
+    border: 1px solid #ccc;
+    background-color: var(--research-bg);
+    border-radius: 30px;
+    position: relative;
+    background-color: #fff;
+    margin: 20px 0;
+    padding: 50px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 1px 4px rgba(0, 0, 0, 0.05);
+}
+
+.dropdown {
+    z-index: 1000;
+}
+
+.nav-link.active {
+    font-weight: bold;
+    color: #6C757D;
+    border-bottom: 2px solid #6C757D;
+}
+
+.contact-us-section {
+    border: 1px solid #ccc;
+    background-color: var(--research-bg);
+    border-radius: 30px;
+    position: relative;
+    background-color: #fff;
+    margin: 20px 0;
+    padding: 50px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 1px 4px rgba(0, 0, 0, 0.05);
+}
+
+.card-title {
+    color: #333;
+    font-weight: bold;
+}
+
+textarea {
+    resize: none;
+}
