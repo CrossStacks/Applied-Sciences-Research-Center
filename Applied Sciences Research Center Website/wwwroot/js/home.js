@@ -85,12 +85,9 @@ $(document).ready(function () {
             idOfSection = idOfSection.replace(/ /g, '-');
             var section = $(idOfSection);
             if (section.length) {
-                var sectionOffset = section.offset().top - 70; // Adjust offset as needed
+                var sectionOffset = section.offset().top - 170;
                 var sectionHeight = section.outerHeight();
-                if (
-                    scrollPosition >= sectionOffset &&
-                    scrollPosition < sectionOffset + sectionHeight
-                ) {
+                if (scrollPosition >= sectionOffset && scrollPosition < sectionOffset + sectionHeight) {
                     $(".navbar-second .nav-link").removeClass("active");
                     $(this).addClass("active");
                     updateNavbarBrand();
@@ -98,11 +95,7 @@ $(document).ready(function () {
             }
         });
     });
-
-    // Highlight the active link and update navbar brand text on page load
-    //$(window).on("load", function () {
     updateNavbarBrand();
-    //});
 
     // Update navbar brand text on window resize
     $(window).on("resize", function () {
