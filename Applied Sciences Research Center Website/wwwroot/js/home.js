@@ -46,9 +46,11 @@ $(document).ready(function () {
             if (status == "success") {
                 console.log(data);
                 for (var paper in data) {
-                    $('#second-nav').append('<li class="nav-item"> <a class="nav-link" href="#' + data[paper].title + '">' + data[paper].title + '</a> </li>');
+                    var idOfSection = data[paper].title.replace(/ /g, '-');
 
-                    $('#research-paper-section').append('<div id = "' + data[paper].title +'" class= "container my-5">'
+                    $('#second-nav').append('<li class="nav-item"> <a class="nav-link" href="#' + idOfSection + '">' + data[paper].title + '</a> </li>');
+
+                    $('#research-paper-section').append('<div id = "' + idOfSection + '" class= "container my-5">'
                         + '<div class="research-page position-relative">'
                         + '<h2>' + data[paper].title + '</h2>'
                         + '<p>' + data[paper].description + '</p>'
@@ -79,7 +81,9 @@ $(document).ready(function () {
     $(window).on("scroll", function () {
         var scrollPosition = $(window).scrollTop();
         $(".navbar-second .nav-link").each(function () {
-            var section = $($(this).attr("href"));
+            var idOfSection = $(this).attr("href");
+            idOfSection = idOfSection.replace(/ /g, '-');
+            var section = $(idOfSection);
             if (section.length) {
                 var sectionOffset = section.offset().top - 70; // Adjust offset as needed
                 var sectionHeight = section.outerHeight();
