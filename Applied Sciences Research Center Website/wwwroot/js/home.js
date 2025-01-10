@@ -17,20 +17,53 @@ function updateNavbarBrand() {
     }
 }
 
+function ensureHttps(link) {
+    if (!link.startsWith('http://') && !link.startsWith('https://')) {
+        return 'https://' + link;
+    }
+    return link;
+}
+
 $(document).ready(function () {
     $('#add-research-paper').hide();
     $('#signup-button').hide();
     $('#option-button').hide();
+    $('#add-research-paper').hide();
 
     var token = localStorage['token'];
 
     if (token) {
+        $('#add-research-paper').show();
         $('#add-research-paper').show();
         $('#option-button').show();
     }
     else {
         $('#signup-button').show();
     }
+
+    $.get(baseUrl + "/ResearchPaper/GetAll",
+        function (data, status) {
+            if (status == "success") {
+                console.log(data);
+                for (var paper in data) {
+                    $('#research-paper-section').append('<div id = "research1" class= "container my-5">'
+                        + '<div class="research-page position-relative">'
+                        + '<h2>' + data[paper].title + '</h2>'
+                        + '<p>' + data[paper].description + '</p>'
+                        + '<a href = "' + ensureHttps(data[paper].link) + '"> <p>' + data[paper].link + '</p> </a>'
+                        + '<p>' + data[paper].uploaderEmail + '</p>'
+                        + '<div class="dropdown position-absolute " style="top: 10px; right: 10px;">'
+                        + '<i class="bi bi-three-dots-vertical btn" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false"></i>'
+                        + '<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">'
+                        + '<li><a class="dropdown-item bi bi-trash" href="#">Delete</a></li>'
+                        + '<li><a class="dropdown-item bi bi-pen" href="#">Modify</a></li>'
+                        + '<li><a class="dropdown-item bi bi-eye" href="#">Show/Hide</a></li>'
+                        + '</ul> </div> </div> </div>');
+                }
+            }
+        }).fail(function (jqXHR, textStatus, errorThrown) {
+            console.error('Request failed while getting research papers: ' + textStatus);
+        });
 
     $("#researchDescription").on("input", function () {
         updateCharCount();
@@ -62,7 +95,7 @@ $(document).ready(function () {
 
     // Highlight the active link and update navbar brand text on page load
     //$(window).on("load", function () {
-        updateNavbarBrand();
+    updateNavbarBrand();
     //});
 
     // Update navbar brand text on window resize
