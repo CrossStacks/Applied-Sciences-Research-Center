@@ -41,12 +41,14 @@ $(document).ready(function () {
         $('#signup-button').show();
     }
 
-    $.get(baseUrl + "/ResearchPaper/GetAll",
+    $.get(baseUrl + "/ResearchPaper/Get?num=5",
         function (data, status) {
             if (status == "success") {
                 console.log(data);
                 for (var paper in data) {
-                    $('#research-paper-section').append('<div id = "research1" class= "container my-5">'
+                    $('#second-nav').append('<li class="nav-item"> <a class="nav-link" href="#' + data[paper].title + '">' + data[paper].title + '</a> </li>');
+
+                    $('#research-paper-section').append('<div id = "' + data[paper].title +'" class= "container my-5">'
                         + '<div class="research-page position-relative">'
                         + '<h2>' + data[paper].title + '</h2>'
                         + '<p>' + data[paper].description + '</p>'
