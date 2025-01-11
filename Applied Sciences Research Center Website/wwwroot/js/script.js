@@ -1,17 +1,18 @@
 ﻿let baseUrl = 'https://localhost:7079/api';
 
 $(document).ready(function () {
-    $('#add-research-paper').hide();
     $('#signup-button').hide();
-    $('#option-button').hide();
+    $('#logged-in-options').hide();
+
+    $('#add-research-paper').hide();
     $('#add-research-paper').hide();
 
-    var token = localStorage['token'];
+    var token = sessionStorage['token'];
 
-    if (token) {
+    if (token && token != null) {
         $('#add-research-paper').show();
         $('#add-research-paper').show();
-        $('#option-button').show();
+        $('#logged-in-options').show();
     }
     else {
         $('#signup-button').show();
@@ -19,6 +20,12 @@ $(document).ready(function () {
 
     $("#signup-button").on("click", function () {
         window.location.href = "login";
+    });
+
+    $("#logout-button").on("click", function () {
+        token = null;
+        sessionStorage.removeItem('token');
+        location.reload();
     });
 
     $("#nav-home-button").on("click", function () {

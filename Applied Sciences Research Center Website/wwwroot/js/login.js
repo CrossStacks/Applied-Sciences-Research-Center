@@ -25,9 +25,8 @@ $(document).ready(function () {
                 Password: password
             },
             function (data, status) {
-                console.log(data);
                 if (status == "success") {
-                    localStorage['token'] = data.token;
+                    sessionStorage['token'] = data.token;
                     window.location.href = "home";
                 }
                 else {

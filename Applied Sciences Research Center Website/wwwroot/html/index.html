@@ -35,7 +35,7 @@
         <div class="container-fluid">
             <a class="navbar-brand" href="#" style="color: var(--primary-dark);">Brand</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
@@ -57,31 +57,26 @@
                     <i class="bi bi-person-circle" id="signup-button" type="button"></i>
                 </form>
                 <form>
-                    <div>
-                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
-                            data-bs-toggle="dropdown" aria-expanded="false" ">
-                                    <i class=" bi bi-person-circle "></i>
+                    <div id="logged-in-options">
+                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class=" bi bi-person-circle "></i>
                         </button>
                         <ul class=" dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton">
                             <li><a class="dropdown-item" href="#userPanel">User Panel</a></li>
-                            <li><a class="dropdown-item" href="#logout">Log Out</a></li>
-                            </ul>
+                            <li><a class="dropdown-item" id="logout-button">Log Out</a></li>
+                        </ul>
                     </div>
-
                 </form>
-
             </div>
         </div>
     </nav>
-
-
 
     <div class="content">
         <nav class="navbar navbar-expand-lg navbar-light sticky-top" id="navbar-second">
             <div class="container-fluid">
                 <a class="navbar-brand d-sm-block d-lg-none" href="#">Research Pages</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#researchNavbar"
-                    aria-controls="researchNavbar" aria-expanded="false" aria-label="Toggle navigation">
+                        aria-controls="researchNavbar" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="researchNavbar">
@@ -100,22 +95,22 @@
                         <div class="mb-3">
                             <label for="researchTitle" class="form-label">Research Title</label>
                             <input type="text" class="form-control input-container" id="researchTitle"
-                                placeholder="Enter research title">
+                                   placeholder="Enter research title">
                         </div>
                         <div class="mb-3">
                             <label for="researchDescription" class="form-label">Research Description</label>
                             <textarea class="form-control input-container" id="researchDescription" rows="7" cols="50"
-                                maxlength="1000" oninput="updateCharCount()"
-                                placeholder="Write your research description here"></textarea>
+                                      maxlength="1000" oninput="updateCharCount()"
+                                      placeholder="Write your research description here"></textarea>
                             <div id="char-count" class="char-count">Character count: 0 / 1000</div>
                         </div>
                         <div class="mb-3">
                             <label for="ResearchUrl" class="form-label">Research paper Url</label>
                             <input type="text" class="form-control input-container" id="ResearchUrl"
-                                placeholder="Enter Research paper Url here"></input>
+                                   placeholder="Enter Research paper Url here"></input>
                         </div>
                         <button type="submit"
-                            class="mx-auto mt-2 min-w-[148px] rounded-full bg-black px-6 py-3 font-semibold leading-5 tracking-[0.8px] text-white !ring-offset-primary-600 transition-all hover:bg-primary-400 focus:ring-2 active:bg-primary-300">
+                                class="mx-auto mt-2 min-w-[148px] rounded-full bg-black px-6 py-3 font-semibold leading-5 tracking-[0.8px] text-white !ring-offset-primary-600 transition-all hover:bg-primary-400 focus:ring-2 active:bg-primary-300">
                             Submit
                         </button>
                     </form>
