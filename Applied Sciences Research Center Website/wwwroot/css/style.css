@@ -81,6 +81,12 @@ body {
     transform: scale(1.1);
 }
 
+.nav-link.active {
+    font-weight: bold;
+    color: #6C757D;
+    border-bottom: 2px solid #6C757D;
+}
+
 .dropdown {
     z-index: 10;
     top: 10px;
