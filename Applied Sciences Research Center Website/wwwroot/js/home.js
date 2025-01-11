@@ -30,7 +30,6 @@ $(document).ready(function () {
     $.get(baseUrl + "/ResearchPaper/Get?num=5",
         function (data, status) {
             if (status == "success") {
-                console.log(data);
                 for (var paper in data) {
                     var idOfSection = data[paper].title.replace(/ /g, '-');
 

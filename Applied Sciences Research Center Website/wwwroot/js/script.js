@@ -20,9 +20,11 @@ $(document).ready(function () {
     $("#signup-button").on("click", function () {
         window.location.href = "login";
     });
+
     $("#nav-home-button").on("click", function () {
         window.location.href = "home";
     });
+
     $("#nav-contact-button").on("click", function () {
         window.location.href = "contact-us";
     });
