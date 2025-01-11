@@ -27,6 +27,12 @@
                 context.Response.ContentType = "text/html";
                 await context.Response.SendFileAsync("wwwroot/html/admin-panel.html");
             });
+            
+            app.MapGet("contact-us/", async context =>
+            {
+                context.Response.ContentType = "text/html";
+                await context.Response.SendFileAsync("wwwroot/html/contact-us.html");
+            });
         }
     }
 }

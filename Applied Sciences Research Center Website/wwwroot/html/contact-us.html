@@ -28,13 +28,13 @@
         <div class="container-fluid">
             <a class="navbar-brand" href="#" style="color: var(--primary-dark);">Brand</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link" href="index.html">Home</a>
+                        <a class="nav-link" id="nav-home-button">Home</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#">Journal</a>
@@ -43,7 +43,7 @@
                         <a class="nav-link" href="#">Events</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="contact_us.html">Contact Us</a>
+                        <a class="nav-link" id="nav-contact-button">Contact Us</a>
                     </li>
                 </ul>
                 <form>
@@ -52,13 +52,13 @@
                 <form>
                     <div>
                         <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
-                            data-bs-toggle="dropdown" aria-expanded="false" ">
-                                    <i class=" bi bi-person-circle "></i>
+                                data-bs-toggle="dropdown" aria-expanded="false" ">
+                            <i class=" bi bi-person-circle "></i>
                         </button>
                         <ul class=" dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton">
                             <li><a class="dropdown-item" href="#userPanel">User Panel</a></li>
                             <li><a class="dropdown-item" href="#logout">Log Out</a></li>
-                            </ul>
+                        </ul>
                     </div>
 
                 </form>
@@ -80,17 +80,17 @@
                             <div class="mb-3">
                                 <label for="name" class="form-label">Name</label>
                                 <input type="text" class="form-control input-container" id="name"
-                                    placeholder="Your name...">
+                                       placeholder="Your name...">
                             </div>
                             <div class="mb-3">
                                 <label for="email" class="form-label">Email</label>
                                 <input type="email" class="form-control input-container" id="email"
-                                    placeholder="Your email...">
+                                       placeholder="Your email...">
                             </div>
                             <div class="mb-3">
                                 <label for="message" class="form-label">Message</label>
                                 <textarea class="form-control input-container" id="message" rows="5"
-                                    placeholder="Type your question..."></textarea>
+                                          placeholder="Type your question..."></textarea>
                             </div>
                             <button type="submit" id="signup-button">
                                 Submit
