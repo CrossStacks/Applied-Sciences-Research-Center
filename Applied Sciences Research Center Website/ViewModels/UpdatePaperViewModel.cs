@@ -2,7 +2,6 @@
 {
     public class UpdatePaperViewModel
     {
-        //public required string Id { get; set; }
         public required string OldTitle { get; set; }
         public required string NewUploaderEmail { get; set; }
         public string? NewTitle { get; set; }

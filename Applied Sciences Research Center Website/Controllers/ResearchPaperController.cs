@@ -32,6 +32,13 @@ namespace Applied_Sciences_Research_Center_Website.Controllers
                 if (createPaperVM.Title == null || createPaperVM.Link == null || createPaperVM.Description == null || createPaperVM.UploaderEmail == null)
                     return new BadRequestObjectResult("Complete information for creating new research paper is not given");
 
+                var paperWithSameTitle = await _researchPaperCollection.Find(x => x.Title == createPaperVM.Title).ToListAsync();
+
+                if (paperWithSameTitle != null)
+                {
+                    return StatusCode(409, $"Research paper of this title '{createPaperVM.Title}' already exists");
+                }
+
                 var result = await _service.CreatePaper(createPaperVM);
                 return Ok(result);
             }
@@ -46,17 +53,25 @@ namespace Applied_Sciences_Research_Center_Website.Controllers
         public async Task<ActionResult> UpdatePaper(UpdatePaperViewModel updatePaper)
         {
             try
-            {   if (string.IsNullOrWhiteSpace(updatePaper.OldTitle) || string.IsNullOrWhiteSpace(updatePaper.NewUploaderEmail))
+            {
+                if (updatePaper.OldTitle == null || updatePaper.NewUploaderEmail == null)
                     return BadRequest("OldTitle and NewUploaderEmail are required.");
-                
-                if (string.IsNullOrWhiteSpace(updatePaper.NewTitle) &&
-                    string.IsNullOrWhiteSpace(updatePaper.NewDescription) &&
-                    string.IsNullOrWhiteSpace(updatePaper.NewLink) &&
-                    string.IsNullOrWhiteSpace(updatePaper.NewImageUrl))
+
+                if (string.IsNullOrWhiteSpace(updatePaper.NewTitle) && string.IsNullOrWhiteSpace(updatePaper.NewDescription) && string.IsNullOrWhiteSpace(updatePaper.NewLink) && string.IsNullOrWhiteSpace(updatePaper.NewImageUrl))
                 {
                     return BadRequest("At least one field to update must be provided.");
                 }
-                
+
+                if (updatePaper.OldTitle != updatePaper.NewTitle)
+                {
+                    var paperWithSameTitle = await _researchPaperCollection.Find(x => x.Title == updatePaper.NewTitle).ToListAsync();
+
+                    if (paperWithSameTitle != null)
+                    {
+                        return StatusCode(409, $"Research paper of this title '{updatePaper.NewTitle}' already exists");
+                    }
+                }
+
                 var updatedPaper = await _service.UpdatePaper(updatePaper);
 
                 if (updatedPaper is null)
