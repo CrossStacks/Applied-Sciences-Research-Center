@@ -25,22 +25,6 @@ function ensureHttps(link) {
 }
 
 $(document).ready(function () {
-    $('#add-research-paper').hide();
-    $('#signup-button').hide();
-    $('#option-button').hide();
-    $('#add-research-paper').hide();
-
-    var token = localStorage['token'];
-
-    if (token) {
-        $('#add-research-paper').show();
-        $('#add-research-paper').show();
-        $('#option-button').show();
-    }
-    else {
-        $('#signup-button').show();
-    }
-
     $.get(baseUrl + "/ResearchPaper/Get?num=5",
         function (data, status) {
             if (status == "success") {
@@ -71,10 +55,6 @@ $(document).ready(function () {
 
     $("#researchDescription").on("input", function () {
         updateCharCount();
-    });
-
-    $("#signup-button").on("click", function () {
-        window.location.href = "login";
     });
 
     // Highlight the active nav-link on scroll and update navbar brand text
