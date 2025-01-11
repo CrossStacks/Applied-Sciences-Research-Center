@@ -67,6 +67,20 @@ body {
     transition: width 0.3s;
 }
 
+.navbar-nav {
+    margin: 0 auto;
+}
+
+.nav-link {
+    color: var(--accent);
+    transition: color 0.3s, transform 0.3s;
+}
+
+.nav-link:hover {
+    color: var(--primary-dark);
+    transform: scale(1.1);
+}
+
 .dropdown {
     z-index: 10;
     top: 10px;

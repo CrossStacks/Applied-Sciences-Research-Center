@@ -14,39 +14,6 @@
     color: var(--primary-dark);
 }
 
-.sticky-top {
-    position: sticky;
-    top: 10px;
-    z-index: 1030;
-}
-
-.navbar-nav {
-    margin: 0 auto;
-}
-
-.nav-link {
-    color: var(--accent);
-    transition: color 0.3s, transform 0.3s;
-}
-
-.nav-link:hover {
-    color: var(--primary-dark);
-    transform: scale(1.1);
-}
-
-.btn-primary {
-    background-color: var(--primary-dark);
-    color: var(--primary-light);
-    border: none;
-    transition: transform 0.3s, background-color 0.3s;
-}
-
-.btn-primary:hover {
-    background-color: var(--accent);
-    transform: scale(1.1);
-}
-
-
 .content {
     position: relative;
     z-index: 2;

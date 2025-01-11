@@ -55,21 +55,7 @@
 .sticky-top {
     position: sticky;
     top: 10px;
-    z-index: 1030;
-}
-
-.navbar-nav {
-    margin: 0 auto;
-}
-
-.nav-link {
-    color: var(--accent);
-    transition: color 0.3s, transform 0.3s;
-}
-
-.nav-link:hover {
-    color: var(--primary-dark);
-    transform: scale(1.1);
+    z-index: 13;
 }
 
 .navbar-first.nav-link:hover::after {
