@@ -6,20 +6,6 @@
     color: var(--primary-dark);
 }
 
-.navbar {
-    background-color: rgba(248, 249, 250, 0.7) !important;
-    position: absolute;
-    top: 0;
-    width: 100%;
-    z-index: 1050;
-}
-
-.navbar-first {
-    position: relative;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 1px 4px rgba(0, 0, 0, 0.05);
-    border-radius: 20px;
-}
-
 #navbar-second {
     background-color: var(--secondary-light);
     border-radius: 20px;
@@ -93,22 +79,6 @@
     transition: width 0.3s;
 }
 
-.btn-primary {
-    background-color: var(--primary-dark);
-    color: var(--primary-light);
-    border: none;
-    transition: transform 0.3s, background-color 0.3s;
-}
-
-.btn-primary:hover {
-    background-color: var(--accent);
-    transform: scale(1.1);
-}
-
-.navbar:hover {
-    background-color: rgba(248, 249, 250, 0.9);
-}
-
 .hero-image {
     position: absolute;
     top: 0;
@@ -145,12 +115,6 @@
     margin: 20px 0;
     padding: 50px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 1px 4px rgba(0, 0, 0, 0.05);
-}
-
-.dropdown {
-    z-index: 1000;
-    top: 10px;
-    right: 10px;
 }
 
 .nav-link.active {

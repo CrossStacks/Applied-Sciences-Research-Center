@@ -26,11 +26,11 @@ body {
     transition: transform 0.3s, background-color 0.3s, box-shadow 0.3s;
 }
 
-#signup-button:hover {
-    background-color: var(--accent);
-    transform: scale(1.05);
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
-}
+    #signup-button:hover {
+        background-color: var(--accent);
+        transform: scale(1.05);
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+    }
 
 #dropdownMenuButton {
     background-color: transparent;
@@ -47,8 +47,28 @@ body {
     transition: transform 0.3s, background-color 0.3s, box-shadow 0.3s;
 }
 
-    #dropdownMenuButton:hover {
-        background-color: var(--accent);
-        transform: scale(1.05);
-        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
-    }
+#dropdownMenuButton:hover {
+    background-color: var(--accent);
+    transform: scale(1.05);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+}
+
+.navbar {
+    background-color: rgba(248, 249, 250, 0.7);
+    z-index: 5;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 1px 4px rgba(0, 0, 0, 0.05);
+    border-radius: 20px;
+}
+
+.navbar.nav-link:hover::after {
+    content: "";
+    display: block;
+    margin: 0 auto;
+    transition: width 0.3s;
+}
+
+.dropdown {
+    z-index: 10;
+    top: 10px;
+    right: 10px;
+}
