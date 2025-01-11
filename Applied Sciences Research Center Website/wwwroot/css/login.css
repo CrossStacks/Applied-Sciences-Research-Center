@@ -2,6 +2,10 @@ body {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .outer-white-box {
@@ -22,12 +26,15 @@ body {
     padding: 2px;
 }
 
-.gradient-inner {
+.inner-container {
     background: white;
     border-radius: 22px;
     height: 100%;
     width: 100%;
     padding: 20px;
+    box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.1);
+    border: none;
+    border-radius: 24px;
 }
 
 #custom-button {
@@ -84,23 +91,6 @@ body {
 
 #custom-button:hover span {
     transform: translateX(-5px);
-}
-
-.card {
-    box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.1);
-    border: none;
-    border-radius: 24px;
-}
-
-
-body {
-    font-family: Arial, sans-serif;
-    background-color: #f9f9f9;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    margin: 0;
 }
 
 .input-container {
