@@ -9,10 +9,10 @@ function updateCharCount() {
 function updateNavbarBrand() {
     // Update only on smaller screens
     if ($(window).width() <= 991) {
-        var activeLink = $(".navbar-second .nav-link.active");
+        var activeLink = $("#navbar-second .nav-link.active");
         if (activeLink.length) {
             var activeText = activeLink.text();
-            $(".navbar-second .navbar-brand").text(activeText);
+            $("#navbar-second .navbar-brand").text(activeText);
         }
     }
 }
@@ -25,6 +25,8 @@ function ensureHttps(link) {
 }
 
 $(document).ready(function () {
+    $('#navbar-nav').hide();
+
     $.get(baseUrl + "/ResearchPaper/Get?num=5",
         function (data, status) {
             if (status == "success") {
@@ -48,6 +50,7 @@ $(document).ready(function () {
                         + '<li><a class="dropdown-item bi bi-eye" href="#">Show/Hide</a></li>'
                         + '</ul> </div> </div> </div>');
                 }
+                $('#navbar-nav').show();
             }
         }).fail(function (jqXHR, textStatus, errorThrown) {
             console.error('Request failed while getting research papers: ' + textStatus);
@@ -60,7 +63,7 @@ $(document).ready(function () {
     // Highlight the active nav-link on scroll and update navbar brand text
     $(window).on("scroll", function () {
         var scrollPosition = $(window).scrollTop();
-        $(".navbar-second .nav-link").each(function () {
+        $("#navbar-second .nav-link").each(function () {
             var idOfSection = $(this).attr("href");
             idOfSection = idOfSection.replace(/ /g, '-');
             var section = $(idOfSection);
@@ -68,7 +71,7 @@ $(document).ready(function () {
                 var sectionOffset = section.offset().top - 170;
                 var sectionHeight = section.outerHeight();
                 if (scrollPosition >= sectionOffset && scrollPosition < sectionOffset + sectionHeight) {
-                    $(".navbar-second .nav-link").removeClass("active");
+                    $("#navbar-second .nav-link").removeClass("active");
                     $(this).addClass("active");
                     updateNavbarBrand();
                 }
