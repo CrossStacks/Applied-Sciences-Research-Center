@@ -30,6 +30,8 @@ $(document).ready(function () {
     $.get(baseUrl + "/ResearchPaper/Get?num=5",
         function (data, status) {
             if (status == "success") {
+                data.reverse();
+
                 for (var paper in data) {
                     var idOfSection = data[paper].title.replace(/ /g, '-');
 
@@ -57,6 +59,36 @@ $(document).ready(function () {
 
     $("#researchDescription").on("input", function () {
         updateCharCount();
+    });
+
+    // TODO. if adding a new one with already used title then show alert
+    $('#add-research-paper-button').on("click", function (event) {
+        const researchTitle = $('#researchTitle').val().trim();
+        const researchDescription = $('#researchDescription').val().trim();
+        const researchUrl = $('#ResearchUrl').val().trim();
+
+        if (!researchTitle || !researchDescription || !researchUrl) {
+            console.log('Please fill in all the required fields.');
+            // TODO Add alert
+            return;
+        }
+
+        $.post({
+            url: baseUrl + '/ResearchPaper/Create',
+            data: {
+                Title: researchTitle,
+                UploaderEmail: localStorage['email'],
+                Link: researchUrl,
+                Description: researchDescription,
+                ImageUrl: '', // TODO
+            },
+            headers: { "Authorization": "Bearer " + localStorage['token'] }
+        }).done(function (data) {
+            location.reload();
+        }).fail(function (jqXHR, textStatus, errorThrown) {
+            console.error('Error submitting research paper:', textStatus);
+            alert('Failed to submit the research paper. Please try again.');
+        });
     });
 
     // Highlight the active nav-link on scroll and update navbar brand text

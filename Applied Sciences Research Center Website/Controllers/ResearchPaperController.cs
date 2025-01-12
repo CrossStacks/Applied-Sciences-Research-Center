@@ -29,12 +29,12 @@ namespace Applied_Sciences_Research_Center_Website.Controllers
         {
             try
             {
-                if (createPaperVM.Title == null || createPaperVM.Link == null || createPaperVM.Description == null || createPaperVM.UploaderEmail == null)
+                if (createPaperVM == null || createPaperVM.Title == null || createPaperVM.Link == null || createPaperVM.Description == null || createPaperVM.UploaderEmail == null)
                     return new BadRequestObjectResult("Complete information for creating new research paper is not given");
 
                 var paperWithSameTitle = await _researchPaperCollection.Find(x => x.Title == createPaperVM.Title).ToListAsync();
 
-                if (paperWithSameTitle != null)
+                if (paperWithSameTitle == null || paperWithSameTitle!.Count != 0)
                 {
                     return StatusCode(409, $"Research paper of this title '{createPaperVM.Title}' already exists");
                 }
