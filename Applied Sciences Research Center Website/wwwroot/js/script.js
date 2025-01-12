@@ -1,7 +1,7 @@
 ﻿let baseUrl = 'https://localhost:7079/api';
 
 $(document).ready(function () {
-    var token = sessionStorage['token'];
+    var token = localStorage['token'];
 
     if (token && token != null) {
         $('#add-research-paper').removeAttr('hidden');
@@ -17,7 +17,7 @@ $(document).ready(function () {
 
     $("#logout-button").on("click", function () {
         token = null;
-        sessionStorage.removeItem('token');
+        localStorage.removeItem('token');
         location.reload();
     });
 

@@ -26,7 +26,8 @@ $(document).ready(function () {
             },
             function (data, status) {
                 if (status == "success") {
-                    sessionStorage['token'] = data.token;
+                    localStorage['token'] = data.token;
+                    localStorage['email'] = data.email;
                     window.location.href = "home";
                 }
                 else {
