@@ -59,6 +59,42 @@ $(document).ready(function () {
         updateCharCount();
     });
 
+    $('#add-research-form').submit(function (event) {
+        event.preventDefault();
+
+        const researchTitle = $('#researchTitle').val().trim();
+        const researchDescription = $('#researchDescription').val().trim();
+        const researchUrl = $('#ResearchUrl').val().trim();
+        const researchImage = $('#ResearchImage').val().trim();
+
+        if (!researchTitle || !researchDescription || !researchUrl) {
+            alert('Please fill in all the required fields.');
+            return;
+        }
+
+        const formData = {
+            Title: researchTitle,
+            UploaderEmail: ,
+            Link: researchUrl,
+            Description: researchDescription,
+            ImageUrl: researchImage,
+        };
+
+        console.log('Form Data:', formData);
+
+        $.post(baseUrl + '/ResearchPaper/Create', formData)
+            .done(function (data) {
+                console.log('Research paper submitted successfully:', data);
+                $('#add-research-form')[0].reset();
+                updateCharCount();
+            })
+            .fail(function (jqXHR, textStatus, errorThrown) {
+                console.error('Error submitting research paper:', textStatus);
+                alert('Failed to submit the research paper. Please try again.');
+            });
+        alert('Form submitted successfully!');
+    });
+
     // Highlight the active nav-link on scroll and update navbar brand text
     $(window).on("scroll", function () {
         var scrollPosition = $(window).scrollTop();
