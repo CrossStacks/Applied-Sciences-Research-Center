@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+    <script src="../js/bootstrap.bundle.min.js"></script>
+    <!-- jQuery -->
+    <script src="../js/jquery.min.js"></script>
+    <!-- Global -->
+    <script src="../js/script.js"></script>
+    <link rel="stylesheet" href="../css/style.css">
+
+    <link rel="stylesheet" href="../css/journal.css">
+    <script src="../js/journal.js"></script>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+    <title>About Us</title>
+
+</head>
+
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light navbar-first">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#" style="color: var(--primary-dark);">Brand</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link" id="nav-home-button">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="nav-journal-button">Journal</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Events</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="nav-contact-button">Contact Us</a>
+                    </li>
+                </ul>
+                <form>
+                    <i class="bi bi-person-circle" id="signup-button" type="button" hidden></i>
+                </form>
+                <form>
+                    <div id="logged-in-options" hidden>
+                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class=" bi bi-person-circle "></i>
+                        </button>
+                        <ul class=" dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton">
+                            <li><a class="dropdown-item" href="#userPanel">User Panel</a></li>
+                            <li><a class="dropdown-item" id="logout-button">Log Out</a></li>
+                        </ul>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </nav>
+
+    <div class="navbar-custom d-flex align-items-center">
+        <li><a href="" class="navbar-brand fw-bold">Recent</a></li>
+        <div>
+            <li>
+                <button class="subscribe-btn">Subscribe</button>
+            </li>
+            <li>
+                <div class="search-container ms-3">
+                    <div class="input-group">
+                        <span class="search-icon p-2" id="search-icon">
+                            <i class="bi bi-search"></i>
+                        </span>
+                        <input type="text" class="search-bar p-2" id="search-bar" placeholder="Search...">
+                    </div>
+                </div>
+            </li>
+        </div>
+    </div>
+
+    <div class="container my-5" id="add-research-paper">
+        <div class="card shadow-sm" style="border-radius: 30px; background-color: #F8F9FA;">
+            <div class="card-body">
+                <h5 class="card-title">Add a New Research Paper</h5>
+                <form id="add-research-form">
+                    <div class="mb-3">
+                        <label for="researchTitle" class="form-label">Research Title</label>
+                        <input type="text" class="form-control input-container" id="researchTitle"
+                            placeholder="Enter research title">
+                    </div>
+                    <div class="mb-3">
+                        <label for="researchDescription" class="form-label">Research Description</label>
+                        <textarea class="form-control input-container" id="researchDescription" rows="7" cols="50"
+                            maxlength="1000" oninput="updateCharCount()"
+                            placeholder="Write your research description here"></textarea>
+                        <div id="char-count" class="char-count">Character count: 0 / 1000</div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="ResearchUrl" class="form-label">Research paper Url</label>
+                        <input type="text" class="form-control input-container" id="ResearchUrl"
+                            placeholder="Enter Research paper Url here"></input>
+                    </div>
+                    <button type="submit"
+                        class="mx-auto mt-2 min-w-[148px] rounded-full bg-black px-6 py-3 font-semibold leading-5 tracking-[0.8px] text-white !ring-offset-primary-600 transition-all hover:bg-primary-400 focus:ring-2 active:bg-primary-300">
+                        Submit
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="container py-5">
+        <div class="row g-4">
+            <div class="text-center">
+                <p>Loading content, please wait...</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- TODO Clean (Remove dummy research papers) -->
+    <div class="container py-5">
+        <div class="row g-4">
+            <div class="col-md-4">
+                <div class="card blog-card">
+                    <img style="border-radius: 24px;"
+                        src="https://images.unsplash.com/photo-1501290741922-b56c0d0884af?q=80&w=1932&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                        class="card-img-top" alt="Journal image">
+                </div>
+                <div class="card-body">
+                    <span class="blog-tag">Journal presented at Event...</span>
+                    <h5 class="card-title mt-2 underline-hover">Title</h5>
+                    <p class="card-text">Sub Title</p>
+                    <p class="blog-meta">January 10, 2025 • 6 min read</p>
+                    <div class="dropdown position-absolute " style="top: 10px; right: 10px;">
+                        <i class="bi bi-three-dots-vertical btn" type="button" id="dropdownMenuButton1"
+                            data-bs-toggle="dropdown" aria-expanded="false"></i>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                            <li><a class="dropdown-item bi bi-trash" href="#">Delete</a></li>
+                            <li><a class="dropdown-item bi bi-pen" href="#">Modify</a></li>
+                            <li><a class="dropdown-item bi bi-eye" href="#">Show/Hide</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card blog-card">
+                    <img src="https://images.unsplash.com/photo-1501290741922-b56c0d0884af?q=80&w=1932&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                        class="card-img-top" alt="Journal image">
+                    <div class="card-body">
+                        <span class="blog-tag">Journal presented at Event...</span>
+                        <h5 class="card-title mt-2">Title</h5>
+                        <p class="card-text">Sub Title</p>
+                        <p class="blog-meta">January 10, 2025 • 6 min read</p>
+                        <div class="dropdown position-absolute " style="top: 10px; right: 10px;">
+                            <i class="bi bi-three-dots-vertical btn" type="button" id="dropdownMenuButton"
+                                data-bs-toggle="dropdown" aria-expanded="false"></i>
+                            <ul class="dropdown-menu " aria-labelledby="dropdownMenuButton">
+                                <li><a class="dropdown-item bi bi-trash" href="#">Delete</a></li>
+                                <li><a class="dropdown-item bi bi-pen" href="#">Modify</a></li>
+                                <li><a class="dropdown-item bi bi-eye" href="#">Show/Hide</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="col-md-4">
+                <div class="card blog-card">
+                    <img src="" class="card-img-top" alt="Journal image">
+                    <div class="card-body">
+                        <span class="blog-tag orange">Journal presented at Event...</span>
+                        <h5 class="card-title mt-2">Title</h5>
+                        <p class="card-text">
+                            Sub Title
+                        </p>
+                        <p class="blog-meta">January 03, 2025 • 4 min read</p>
+                        <div class="dropdown position-absolute " style="top: 10px; right: 10px;">
+                            <i class="bi bi-three-dots-vertical btn" type="button" id="dropdownMenuButton"
+                                data-bs-toggle="dropdown" aria-expanded="false"></i>
+                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                <li><a class="dropdown-item bi bi-trash" href="#">Delete</a></li>
+                                <li><a class="dropdown-item bi bi-pen" href="#">Modify</a></li>
+                                <li><a class="dropdown-item bi bi-eye" href="#">Show/Hide</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="card blog-card">
+                    <img src="" class="card-img-top" alt="Paper image">
+                    <div class="card-body">
+                        <span class="blog-tag blue">Paper presented at Event...</span>
+                        <h5 class="card-title mt-2">Title</h5>
+                        <p class="card-text">
+                            Sub Title
+                        </p>
+                        <p class="blog-meta">January 11, 2025 • 4 min read</p>
+                        <div class="dropdown position-absolute " style="top: 10px; right: 10px;">
+                            <i class="bi bi-three-dots-vertical btn" type="button" id="dropdownMenuButton1"
+                                data-bs-toggle="dropdown" aria-expanded="false"></i>
+                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                <li><a class="dropdown-item bi bi-trash" href="#">Delete</a></li>
+                                <li><a class="dropdown-item bi bi-pen" href="#">Modify</a></li>
+                                <li><a class="dropdown-item bi bi-eye" href="#">Show/Hide</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="card blog-card">
+                    <img src="" class="card-img-top" alt="Book image">
+                    <div class="card-body">
+                        <span class="blog-tag red">Book presented at Event...</span>
+                        <h5 class="card-title mt-2">Title</h5>
+                        <p class="card-text">
+                            Sub Title
+                        </p>
+                        <p class="blog-meta">January 02, 2025 • 105 pages</p>
+                        <div class="dropdown position-absolute " style="top: 10px; right: 10px;">
+                            <i class="bi bi-three-dots-vertical btn" type="button" id="dropdownMenuButton1"
+                                data-bs-toggle="dropdown" aria-expanded="false"></i>
+                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                <li><a class="dropdown-item bi bi-trash" href="#">Delete</a></li>
+                                <li><a class="dropdown-item bi bi-pen" href="#">Modify</a></li>
+                                <li><a class="dropdown-item bi bi-eye" href="#">Show/Hide</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="card blog-card">
+                    <img src="" class="card-img-top" alt="Paper image">
+                    <div class="card-body">
+                        <span class="blog-tag">Paper published at IEEE...</span>
+                        <h5 class="card-title mt-2">Title</h5>
+                        <p class="card-text">
+                            Sub Title
+                        </p>
+                        <p class="blog-meta">December 30, 2024 • 5 min read</p>
+                        <div class="dropdown position-absolute " style="top: 10px; right: 10px;">
+                            <i class="bi bi-three-dots-vertical btn" type="button" id="dropdownMenuButton1"
+                                data-bs-toggle="dropdown" aria-expanded="false"></i>
+                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                <li><a class="dropdown-item bi bi-trash" href="#">Delete</a></li>
+                                <li><a class="dropdown-item bi bi-pen" href="#">Modify</a></li>
+                                <li><a class="dropdown-item bi bi-eye" href="#">Show/Hide</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <!-- Newsletter Section -->
+    <div class="newsletter-section">
+        <div class="row align-items-center">
+            <div class="col-md-6">
+                <h2 class="newsletter-title">Join our newsletter and be the first to hear it!</h2>
+            </div>
+            <div class="col-md-6">
+                <p class="newsletter-description">
+                    Subscribe to get the latest news and benefit from inspiring stories delivered straight to your
+                    inbox
+                    every month.
+                </p>
+                <form class="newsletter-form">
+                    <!-- style added here -->
+                    <div class="input-container" style="padding: 0;">
+                        <input type="email" class="newsletter-input" placeholder="Your email..." required>
+                        <button type="submit" class="subscribe-button">Subscribe</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+    <!-- Footer -->
+    <footer class="py-4 bg-dark text-light">
+        <div class="container text-center">
+            <p>&copy; 2025 Your Company Name. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>
