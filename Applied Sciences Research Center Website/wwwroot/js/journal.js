@@ -46,7 +46,7 @@ $(document).ready(function () {
         updateCharCount();
     });
 
-    $.get(baseUrl + "ResearchPaper/GetAll", function (data, status) {
+    $.get(baseUrl + "/ResearchPaper/GetAll", function (data, status) {
         if (status === "success") {
             var container = $(".row.g-4");
             container.empty();
@@ -77,6 +77,6 @@ $(document).ready(function () {
             });
         }
     }).fail(function (jqXHR, textStatus, errorThrown) {
-        console.error('Request failed while getting research papers: ' + textStatus);
+        console.log('Request failed while getting research papers: ' + textStatus);
     });
 });

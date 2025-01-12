@@ -28,4 +28,8 @@ $(document).ready(function () {
     $("#nav-contact-button").on("click", function () {
         window.location.href = "contact-us";
     });
+
+    $("#nav-journal-button").on("click", function () {
+        window.location.href = "journal";
+    });
 });

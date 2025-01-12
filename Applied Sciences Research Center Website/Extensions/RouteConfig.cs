@@ -34,7 +34,7 @@
                 await context.Response.SendFileAsync("wwwroot/html/contact-us.html");
             });
 
-            app.MapGet("journals/", async context =>
+            app.MapGet("journal/", async context =>
             {
                 context.Response.ContentType = "text/html";
                 await context.Response.SendFileAsync("wwwroot/html/journal.html");
