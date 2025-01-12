@@ -46,6 +46,7 @@ body {
     align-items: center;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     transition: transform 0.3s, background-color 0.3s, box-shadow 0.3s;
+    z-index: 10;
 }
 
 #dropdownMenuButton:hover {
@@ -134,7 +135,6 @@ body {
     letter-spacing: .8px;
 }
 
-/**/
 .text-white {
     --tw-text-opacity: 1;
     color: rgb(255 255 255 / var(--tw-text-opacity, 1));

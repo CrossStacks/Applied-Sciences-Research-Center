@@ -65,24 +65,23 @@
         </div>
     </nav>
 
-    <nav class="navbar-custom d-flex align-items-center">
+    <div class="navbar-custom d-flex align-items-center">
         <li><a href="" class="navbar-brand fw-bold">Recent</a></li>
-        <li>
-            <div class="ms-auto">
+        <div>
+            <li>
                 <button class="subscribe-btn">Subscribe</button>
-            </div>
-        </li>
-        <li>
-            <div class="search-container">
-                <div class="input-group">
-                    <span class="input-group-text search-icon" id="search-icon">
-                        <i class="bi bi-search"></i>
-                    </span>
-                    <input type="text" class="form-control search-bar" id="search-bar" placeholder="Search...">
+            </li>
+            <li>
+                <div class="search-container ms-3">
+                    <div class="input-group">
+                        <span class="search-icon p-2" id="search-icon">
+                            <i class="bi bi-search"></i>
+                        </span>
+                        <input type="text" class="search-bar p-2" id="search-bar" placeholder="Search...">
+                    </div>
                 </div>
-            </div>
-        </li>
-    </nav>
+            </li>
+        </div>
     </div>
 
     <div class="container my-5" id="add-research-paper">
@@ -151,16 +150,17 @@
             </div>
             <div class="col-md-4">
                 <div class="card blog-card">
-                    <img src="" class="card-img-top" alt="Journal image">
+                    <img src="https://images.unsplash.com/photo-1501290741922-b56c0d0884af?q=80&w=1932&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                        class="card-img-top" alt="Journal image">
                     <div class="card-body">
                         <span class="blog-tag">Journal presented at Event...</span>
                         <h5 class="card-title mt-2">Title</h5>
                         <p class="card-text">Sub Title</p>
                         <p class="blog-meta">January 10, 2025 • 6 min read</p>
                         <div class="dropdown position-absolute " style="top: 10px; right: 10px;">
-                            <i class="bi bi-three-dots-vertical btn" type="button" id="dropdownMenuButton1"
+                            <i class="bi bi-three-dots-vertical btn" type="button" id="dropdownMenuButton"
                                 data-bs-toggle="dropdown" aria-expanded="false"></i>
-                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                            <ul class="dropdown-menu " aria-labelledby="dropdownMenuButton">
                                 <li><a class="dropdown-item bi bi-trash" href="#">Delete</a></li>
                                 <li><a class="dropdown-item bi bi-pen" href="#">Modify</a></li>
                                 <li><a class="dropdown-item bi bi-eye" href="#">Show/Hide</a></li>
@@ -182,9 +182,9 @@
                         </p>
                         <p class="blog-meta">January 03, 2025 • 4 min read</p>
                         <div class="dropdown position-absolute " style="top: 10px; right: 10px;">
-                            <i class="bi bi-three-dots-vertical btn" type="button" id="dropdownMenuButton1"
+                            <i class="bi bi-three-dots-vertical btn" type="button" id="dropdownMenuButton"
                                 data-bs-toggle="dropdown" aria-expanded="false"></i>
-                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                 <li><a class="dropdown-item bi bi-trash" href="#">Delete</a></li>
                                 <li><a class="dropdown-item bi bi-pen" href="#">Modify</a></li>
                                 <li><a class="dropdown-item bi bi-eye" href="#">Show/Hide</a></li>
@@ -275,7 +275,8 @@
             </div>
             <div class="col-md-6">
                 <p class="newsletter-description">
-                    Subscribe to get the latest news and benefit from inspiring stories delivered straight to your inbox
+                    Subscribe to get the latest news and benefit from inspiring stories delivered straight to your
+                    inbox
                     every month.
                 </p>
                 <form class="newsletter-form">
