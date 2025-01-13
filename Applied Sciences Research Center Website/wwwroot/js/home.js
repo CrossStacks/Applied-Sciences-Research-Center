@@ -62,6 +62,7 @@ $(document).ready(function () {
     });
 
     // TODO. if adding a new one with already used title then show alert
+    //TODO: Same in journal.js
     $('#add-research-paper-button').on("click", function (event) {
         const researchTitle = $('#researchTitle').val().trim();
         const researchDescription = $('#researchDescription').val().trim();

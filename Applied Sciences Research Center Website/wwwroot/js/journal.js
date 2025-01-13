@@ -46,6 +46,40 @@ $(document).ready(function () {
         updateCharCount();
     });
 
+    $('#add-research-paper-button').on("click", function () {
+        const $title = $('#researchTitle');
+        const $description = $('#researchDescription');
+        const $url = $('#ResearchUrl');
+
+        const researchTitle = $title.val().trim();
+        const researchDescription = $description.val().trim();
+        const researchUrl = $url.val().trim();
+
+        if (!researchTitle || !researchDescription || !researchUrl) {
+            alert('Please fill in all the required fields.');
+            return;
+        }
+
+        $.post({
+            url: `${baseUrl}/ResearchPaper/Create`,
+            data: {
+                Title: researchTitle,
+                UploaderEmail: localStorage['email'],
+                Link: researchUrl,
+                Description: researchDescription,
+                ImageUrl: ''
+            },
+            headers: { "Authorization": `Bearer ${localStorage['token']}` }
+        }).done(function () {
+            location.reload();
+        }).fail(function (jqXHR) {
+            const error = jqXHR.status === 400 ?
+                'This research title already exists. Please use a different one.' :
+                'Failed to submit the research paper. Please try again.';
+            alert(error);
+        });
+    });
+
     $.get(baseUrl + "/ResearchPaper/GetAll", function (data, status) {
         if (status === "success") {
             var container = $(".row.g-4");
