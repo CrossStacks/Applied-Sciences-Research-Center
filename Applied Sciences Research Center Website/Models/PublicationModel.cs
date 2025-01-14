@@ -3,7 +3,7 @@ using MongoDB.Bson;
 
 namespace Applied_Sciences_Research_Center_Website.Models
 {
-    public class ResearchPaperModel
+    public class PublicationModel
     {
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]
@@ -12,6 +12,8 @@ namespace Applied_Sciences_Research_Center_Website.Models
         public required string UploaderEmail { get; set; }
         public required string Link { get; set; }
         public required string Description { get; set; }
+        public required string DatePubish { get; set; }
+        public required string Type { get; set; } // Book, ResearchPaper, Journal, Artical
         public string? ImageUrl { get; set; }
     }
 }

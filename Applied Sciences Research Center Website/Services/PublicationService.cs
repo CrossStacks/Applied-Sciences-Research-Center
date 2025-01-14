@@ -5,20 +5,21 @@ using MongoDB.Driver;
 
 namespace Applied_Sciences_Research_Center_Website.Services
 {
-    public class ResearchPaperService
+    public class PublicationService
     {
-        private readonly IMongoCollection<ResearchPaperModel> _researchPaperCollection;
+        private readonly IMongoCollection<PublicationModel> _researchPaperCollection;
 
-        public ResearchPaperService(IMongoDatabase database)
+        public PublicationService(IMongoDatabase database)
         {
-            _researchPaperCollection = database.GetCollection<ResearchPaperModel>("ResearchPaper");
+            _researchPaperCollection = database.GetCollection<PublicationModel>("ResearchPaper");
         }
 
-        public async Task<ResearchPaperModel> CreatePaper(ResearchPaperViewModel vm)
+        public async Task<PublicationModel> CreatePublication(PublicationViewModel vm)
         {
-            ResearchPaperModel model = new()
+            PublicationModel model = new()
             {
                 Title = vm.Title,
+                DatePubish = 
                 Description = vm.Description,
                 Link = vm.Link,
                 UploaderEmail = vm.UploaderEmail,
@@ -30,15 +31,15 @@ namespace Applied_Sciences_Research_Center_Website.Services
             return model;
         }
 
-        public async Task<List<ResearchPaperViewModel>> GetAllPapers()
+        public async Task<List<PublicationViewModel>> GetAll()
         {
             var papers = await _researchPaperCollection.Find(x => true).ToListAsync();
 
-            List<ResearchPaperViewModel> results = [];
+            List<PublicationViewModel> results = [];
 
             foreach (var paper in papers)
             {
-                ResearchPaperViewModel result = new()
+                PublicationViewModel result = new()
                 {
                     Title = paper.Title,
                     Description = paper.Description,
@@ -51,7 +52,7 @@ namespace Applied_Sciences_Research_Center_Website.Services
             }
             return results;
         }
-        public async Task<string?> DeletePaper(string title)
+        public async Task<string?> Delete(string title)
         {
             var result = await _researchPaperCollection.DeleteOneAsync(x => x.Title == title);
             if (result.DeletedCount > 0)
@@ -59,44 +60,44 @@ namespace Applied_Sciences_Research_Center_Website.Services
             else
                 return "No record found";
         }
-        public async Task<UpdatePaperViewModel?> UpdatePaper(UpdatePaperViewModel updatePaper)
+        public async Task<UpdatePublicationViewModel?> Update(UpdatePublicationViewModel up)
         {
-            var paper = await _researchPaperCollection.Find(x => x.Title == updatePaper.OldTitle).FirstOrDefaultAsync();
+            var paper = await _researchPaperCollection.Find(x => x.Title == up.OldTitle).FirstOrDefaultAsync();
 
             if (paper is null)
                 return null;
 
-            var updateDefinition = Builders<ResearchPaperModel>.Update
-                .Set(x => x.UploaderEmail, updatePaper.NewUploaderEmail);
+            var updateDefinition = Builders<PublicationModel>.Update
+                .Set(x => x.UploaderEmail, up.NewUploaderEmail);
 
-            if (!string.IsNullOrWhiteSpace(updatePaper.NewTitle))
-                updateDefinition = updateDefinition.Set(x => x.Title, updatePaper.NewTitle);
+            if (!string.IsNullOrWhiteSpace(up.NewTitle))
+                updateDefinition = updateDefinition.Set(x => x.Title, up.NewTitle);
 
-            if (!string.IsNullOrWhiteSpace(updatePaper.NewDescription))
-                updateDefinition = updateDefinition.Set(x => x.Description, updatePaper.NewDescription);
+            if (!string.IsNullOrWhiteSpace(up.NewDescription))
+                updateDefinition = updateDefinition.Set(x => x.Description, up.NewDescription);
 
-            if (!string.IsNullOrWhiteSpace(updatePaper.NewLink))
-                updateDefinition = updateDefinition.Set(x => x.Link, updatePaper.NewLink);
+            if (!string.IsNullOrWhiteSpace(up.NewLink))
+                updateDefinition = updateDefinition.Set(x => x.Link, up.NewLink);
 
-            if (!string.IsNullOrWhiteSpace(updatePaper.NewImageUrl))
-                updateDefinition = updateDefinition.Set(x => x.ImageUrl, updatePaper.NewImageUrl);
+            if (!string.IsNullOrWhiteSpace(up.NewImageUrl))
+                updateDefinition = updateDefinition.Set(x => x.ImageUrl, up.NewImageUrl);
 
             //TODO: Use Id
-            var filter = Builders<ResearchPaperModel>.Filter.Eq(x => x.Title, updatePaper.OldTitle); //Builders<ResearchPaperModel>.Filter.Eq(x => x.Id, updatePaper.Id);
+            var filter = Builders<PublicationModel>.Filter.Eq(x => x.Title, up.OldTitle); //Builders<ResearchPaperModel>.Filter.Eq(x => x.Id, updatePaper.Id);
             var result = await _researchPaperCollection.UpdateOneAsync(filter, updateDefinition);
 
             if (!result.IsAcknowledged || result.ModifiedCount == 0)
                 return null;
 
-            var updatedTitle = string.IsNullOrWhiteSpace(updatePaper.NewTitle) ? updatePaper.OldTitle : updatePaper.NewTitle;
+            var updatedTitle = string.IsNullOrWhiteSpace(up.NewTitle) ? up.OldTitle : up.NewTitle;
             var updatedPaper = await _researchPaperCollection.Find(x => x.Title == updatedTitle).FirstOrDefaultAsync();
 
             if (updatedPaper is null)
                 return null;
 
-            return new UpdatePaperViewModel
+            return new UpdatePublicationViewModel
             {
-                OldTitle = updatePaper.OldTitle,
+                OldTitle = up.OldTitle,
                 NewTitle = updatedPaper.Title,
                 NewUploaderEmail = updatedPaper.UploaderEmail,
                 NewDescription = updatedPaper.Description,

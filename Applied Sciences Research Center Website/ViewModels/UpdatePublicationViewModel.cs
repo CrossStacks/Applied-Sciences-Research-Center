@@ -1,6 +1,6 @@
 ﻿namespace Applied_Sciences_Research_Center_Website.ViewModels
 {
-    public class UpdatePaperViewModel
+    public class UpdatePublicationViewModel
     {
         public required string OldTitle { get; set; }
         public required string NewUploaderEmail { get; set; }

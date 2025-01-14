@@ -9,37 +9,37 @@ using MongoDB.Driver;
 namespace Applied_Sciences_Research_Center_Website.Controllers
 {
     [Route("api/[controller]")]
-    public class ResearchPaperController : Controller
+    public class PublicationController : Controller
     {
         private readonly IMongoDatabase _database;
-        private readonly IMongoCollection<ResearchPaperModel> _researchPaperCollection;
-        private readonly ResearchPaperService _service;
+        private readonly IMongoCollection<PublicationModel> _researchPaperCollection;
+        private readonly PublicationService _service;
 
-        public ResearchPaperController(IOptions<DatabaseConfigModel> database, IOptions<AuthConfigModel> authConfig)
+        public PublicationController(IOptions<DatabaseConfigModel> database, IOptions<AuthConfigModel> authConfig)
         {
             var mongoClient = new MongoClient(database.Value.ConnectionString);
             _database = mongoClient.GetDatabase(database.Value.DataBase);
-            _researchPaperCollection = _database.GetCollection<ResearchPaperModel>("ResearchPaper");
-            _service = new ResearchPaperService(_database);
+            _researchPaperCollection = _database.GetCollection<PublicationModel>("ResearchPaper");
+            _service = new PublicationService(_database);
         }
 
         [Authorize(Roles = "Admin,Moderator")]
         [HttpPost("Create")]
-        public async Task<ActionResult> Create(ResearchPaperViewModel createPaperVM)
+        public async Task<ActionResult> Create(PublicationViewModel vm)
         {
             try
             {
-                if (createPaperVM == null || createPaperVM.Title == null || createPaperVM.Link == null || createPaperVM.Description == null || createPaperVM.UploaderEmail == null)
-                    return new BadRequestObjectResult("Complete information for creating new research paper is not given");
+                if (vm == null || vm.Title == null || vm.Link == null || vm.Description == null || vm.UploaderEmail == null)
+                    return new BadRequestObjectResult("Complete information for creation is not given");
 
-                var paperWithSameTitle = await _researchPaperCollection.Find(x => x.Title == createPaperVM.Title).ToListAsync();
+                var paperWithSameTitle = await _researchPaperCollection.Find(x => x.Title == vm.Title).ToListAsync();
 
                 if (paperWithSameTitle == null || paperWithSameTitle!.Count != 0)
                 {
-                    return StatusCode(409, $"Research paper of this title '{createPaperVM.Title}' already exists");
+                    return StatusCode(409, $"This title '{vm.Title}' already exists");
                 }
 
-                var result = await _service.CreatePaper(createPaperVM);
+                var result = await _service.CreatePublication(vm);
                 return Ok(result);
             }
             catch (Exception ex)
@@ -50,7 +50,7 @@ namespace Applied_Sciences_Research_Center_Website.Controllers
 
         [Authorize(Roles = "Admin")]
         [HttpPost("Update")]
-        public async Task<ActionResult> UpdatePaper(UpdatePaperViewModel updatePaper)
+        public async Task<ActionResult> UpdatePaper(UpdatePublicationViewModel updatePaper)
         {
             try
             {
@@ -68,11 +68,11 @@ namespace Applied_Sciences_Research_Center_Website.Controllers
 
                     if (paperWithSameTitle != null)
                     {
-                        return StatusCode(409, $"Research paper of this title '{updatePaper.NewTitle}' already exists");
+                        return StatusCode(409, $"This title '{updatePaper.NewTitle}' already exists");
                     }
                 }
 
-                var updatedPaper = await _service.UpdatePaper(updatePaper);
+                var updatedPaper = await _service.Update(updatePaper);
 
                 if (updatedPaper is null)
                     return NotFound($"The paper with title '{updatePaper.OldTitle}' was not found or update failed.");
@@ -91,9 +91,9 @@ namespace Applied_Sciences_Research_Center_Website.Controllers
         {
             try
             {
-                var result = await _service.GetAllPapers();
+                var result = await _service.GetAll();
                 if (result.Count == 0)
-                    return BadRequest("No research paper found");
+                    return BadRequest("No data added");
                 return Ok(result);
             }
             catch (Exception ex)
@@ -104,13 +104,13 @@ namespace Applied_Sciences_Research_Center_Website.Controllers
 
         [AllowAnonymous]
         [HttpGet("Get")]
-        public async Task<ActionResult> GetAll(int num)
+        public async Task<ActionResult> Get(int num)
         {
             try
             {
-                var result = await _service.GetAllPapers();
+                var result = await _service.GetAll();
                 if (result.Count == 0)
-                    return BadRequest("No research paper found");
+                    return BadRequest("Nothing found");
                 return Ok(result.TakeLast(num));
             }
             catch (Exception ex)
@@ -121,17 +121,17 @@ namespace Applied_Sciences_Research_Center_Website.Controllers
 
         [Authorize(Roles = "Admin")]
         [HttpDelete("Delete")]
-        public async Task<IActionResult> DeletePaper(string title)
+        public async Task<IActionResult> Delete(string title)
         {
             if (string.IsNullOrWhiteSpace(title))
                 return BadRequest("Title cannot be null or empty.");
             try
             {
-                var result = await _service.DeletePaper(title);
+                var result = await _service.Delete(title);
                 if (result == "No record found")
-                    return NotFound($"The research paper with title '{title}' was not found.");
+                    return NotFound($"No record found");
                 if (result is null)
-                    return StatusCode(500, "An unexpected error occurred while deleting the paper.");
+                    return StatusCode(500, "An unexpected error occurred while deleting.");
                 return Ok(result);
             }
             catch (Exception ex)
