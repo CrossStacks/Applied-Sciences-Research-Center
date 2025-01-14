@@ -27,7 +27,7 @@ function ensureHttps(link) {
 $(document).ready(function () {
     $('#navbar-nav').hide();
 
-    $.get(baseUrl + "/ResearchPaper/Get?num=5",
+    $.get(baseUrl + "/Publication/Get?num=5",
         function (data, status) {
             if (status == "success") {
                 data.reverse();
@@ -54,42 +54,11 @@ $(document).ready(function () {
                 $('#navbar-nav').show();
             }
         }).fail(function (jqXHR, textStatus, errorThrown) {
-            console.error('Request failed while getting research papers: ' + textStatus);
+            console.error('Request failed while getting: ' + textStatus);
         });
 
     $("#researchDescription").on("input", function () {
         updateCharCount();
-    });
-
-    // TODO. if adding a new one with already used title then show alert
-    //TODO: Same in journal.js
-    $('#add-research-paper-button').on("click", function (event) {
-        const researchTitle = $('#researchTitle').val().trim();
-        const researchDescription = $('#researchDescription').val().trim();
-        const researchUrl = $('#ResearchUrl').val().trim();
-
-        if (!researchTitle || !researchDescription || !researchUrl) {
-            console.log('Please fill in all the required fields.');
-            // TODO Add alert
-            return;
-        }
-
-        $.post({
-            url: baseUrl + '/ResearchPaper/Create',
-            data: {
-                Title: researchTitle,
-                UploaderEmail: localStorage['email'],
-                Link: researchUrl,
-                Description: researchDescription,
-                ImageUrl: '', // TODO
-            },
-            headers: { "Authorization": "Bearer " + localStorage['token'] }
-        }).done(function (data) {
-            location.reload();
-        }).fail(function (jqXHR, textStatus, errorThrown) {
-            console.error('Error submitting research paper:', textStatus);
-            alert('Failed to submit the research paper. Please try again.');
-        });
     });
 
     // Highlight the active nav-link on scroll and update navbar brand text

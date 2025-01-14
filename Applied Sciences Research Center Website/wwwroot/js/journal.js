@@ -46,52 +46,62 @@ $(document).ready(function () {
         updateCharCount();
     });
 
-    $('#add-research-paper-button').on("click", function () {
-        const $title = $('#researchTitle');
-        const $description = $('#researchDescription');
-        const $url = $('#ResearchUrl');
-
-        const researchTitle = $title.val().trim();
-        const researchDescription = $description.val().trim();
-        const researchUrl = $url.val().trim();
+    $('#add-research-paper-button').on("click", function (event) {
+        const researchTitle = $('#researchTitle').val().trim();
+        const researchDescription = $('#researchDescription').val().trim();
+        const researchUrl = $('#ResearchUrl').val().trim();
 
         if (!researchTitle || !researchDescription || !researchUrl) {
-            alert('Please fill in all the required fields.');
+            console.log('Please fill in all the required fields.');
+            // TODO Add alert
             return;
         }
 
         $.post({
-            url: `${baseUrl}/ResearchPaper/Create`,
+            url: baseUrl + '/Publication/Create',
             data: {
                 Title: researchTitle,
                 UploaderEmail: localStorage['email'],
                 Link: researchUrl,
                 Description: researchDescription,
-                ImageUrl: ''
+                ImageUrl: '', // TODO
             },
-            headers: { "Authorization": `Bearer ${localStorage['token']}` }
-        }).done(function () {
+            headers: { "Authorization": "Bearer " + localStorage['token'] }
+        }).done(function (data) {
             location.reload();
-        }).fail(function (jqXHR) {
-            const error = jqXHR.status === 400 ?
-                'This research title already exists. Please use a different one.' :
-                'Failed to submit the research paper. Please try again.';
-            alert(error);
+        }).fail(function (jqXHR, textStatus, errorThrown) {
+            console.error('Error submitting research paper:', textStatus);
+            alert('Failed to submit the research paper. Please try again.');
         });
     });
 
-    $.get(baseUrl + "/ResearchPaper/GetAll", function (data, status) {
+    $.get(baseUrl + "/Publication/GetAll", function (data, status) {
         if (status === "success") {
             var container = $(".row.g-4");
             container.empty();
 
             data.forEach(function (item) {
+                var color = '';
+
+                if (item.type == 'Journal') {
+                    color = 'text-danger'
+                }
+                else if (item.type == 'Book') {
+                    color = 'text-succes'
+                }
+                else if (item.type == 'ResearchPaper') {
+                    color = 'text-warning'
+                }
+                else if (item.type == 'Artical') {
+                    color = 'text-info'
+                }
+
                 var cardHtml = `
                     <div class="col-md-4">
                         <div class="card blog-card">
                             <img src="${item.image || ''}" class="card-img-top" alt="${item.altText || 'Journal image'}">
                             <div class="card-body">
-                                <span class="blog-tag ${item.tagColor || ''}">${item.tag || 'Journal presented at Event...'}</span>
+                                <span class="blog-tag ${color}">'${item.type} presented at Event...'</span>
                                 <h5 class="card-title mt-2">${item.title || 'Title not available'}</h5>
                                 <p class="card-text">${item.description || 'Description not available'}</p>
                                 <p class="blog-meta">${item.date || 'Date not available'} • ${item.readTime || 'N/A'}</p>
