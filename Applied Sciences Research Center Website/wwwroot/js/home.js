@@ -31,12 +31,12 @@ $(document).ready(function () {
         function (data, status) {
             if (status == "success") {
                 data.reverse();
+                var token = localStorage['token'];
 
                 for (var paper in data) {
                     var idOfSection = data[paper].title.replace(/ /g, '-');
 
                     $('#second-nav').append('<li class="nav-item"> <a class="nav-link" href="#' + idOfSection + '">' + data[paper].title + '</a> </li>');
-
                     $('#research-paper-section').append('<div id = "' + idOfSection + '" class= "container my-5">'
                         + '<div class="research-page position-relative">'
                         + '<h2>' + data[paper].title + '</h2>'
@@ -44,7 +44,7 @@ $(document).ready(function () {
                         + '<a href = "' + ensureHttps(data[paper].link) + '"> <p>' + data[paper].link + '</p> </a>'
                         + '<p>' + data[paper].uploaderEmail + '</p>'
                         + '<div class="dropdown position-absolute">'
-                        + '<i class="bi bi-three-dots-vertical btn" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false"></i>'
+                        + `<i class="bi bi-three-dots-vertical btn" type="button" id="dropdownMenuButton1 admin-publications-options" data-bs-toggle="dropdown" aria-expanded="false" ${token ? '' : 'hidden'}></i>`
                         + '<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">'
                         + '<li><a class="dropdown-item bi bi-trash" href="#">Delete</a></li>'
                         + '<li><a class="dropdown-item bi bi-pen" href="#">Modify</a></li>'
