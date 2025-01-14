@@ -120,10 +120,6 @@ li a:hover:not(.active) {
     overflow: hidden;
 }
 
-.blog-card:hover {
-    transform: translateY(-5px);
-}
-
 .blog-tag {
     display: block;
     font-size: 12px;
