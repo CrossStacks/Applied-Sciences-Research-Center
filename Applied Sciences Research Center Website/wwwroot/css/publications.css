@@ -6,10 +6,6 @@
     padding-top: 10px;
 }
 
-li {
-    float: left;
-}
-
 li a {
     display: block;
     color: #666;
@@ -188,7 +184,7 @@ li a:hover:not(.active) {
     transition: all 0.5s ease;
     font-size: 1rem;
 }
-
+    
 .search-bar.expanded {
     width: 200px;
     opacity: 1;
