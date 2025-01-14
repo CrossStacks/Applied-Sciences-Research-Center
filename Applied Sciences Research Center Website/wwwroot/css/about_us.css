@@ -31,17 +31,6 @@
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 1px 4px rgba(0, 0, 0, 0.05);
 }
 
-.contact-us-section {
-    border: 1px solid #ccc;
-    background-color: var(--research-bg);
-    border-radius: 30px;
-    position: relative;
-    background-color: #fff;
-    margin: 20px 0;
-    padding: 50px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 1px 4px rgba(0, 0, 0, 0.05);
-}
-
 .card-title {
     color: #333;
     font-weight: bold;
