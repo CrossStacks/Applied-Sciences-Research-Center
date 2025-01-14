@@ -12,14 +12,14 @@ namespace Applied_Sciences_Research_Center_Website.Controllers
     public class PublicationController : Controller
     {
         private readonly IMongoDatabase _database;
-        private readonly IMongoCollection<PublicationModel> _researchPaperCollection;
+        private readonly IMongoCollection<PublicationModel> _publicationCollection;
         private readonly PublicationService _service;
 
         public PublicationController(IOptions<DatabaseConfigModel> database, IOptions<AuthConfigModel> authConfig)
         {
             var mongoClient = new MongoClient(database.Value.ConnectionString);
             _database = mongoClient.GetDatabase(database.Value.DataBase);
-            _researchPaperCollection = _database.GetCollection<PublicationModel>("ResearchPaper");
+            _publicationCollection = _database.GetCollection<PublicationModel>("Publications");
             _service = new PublicationService(_database);
         }
 
@@ -32,7 +32,7 @@ namespace Applied_Sciences_Research_Center_Website.Controllers
                 if (vm == null || vm.Title == null || vm.Link == null || vm.Description == null || vm.UploaderEmail == null)
                     return new BadRequestObjectResult("Complete information for creation is not given");
 
-                var paperWithSameTitle = await _researchPaperCollection.Find(x => x.Title == vm.Title).ToListAsync();
+                var paperWithSameTitle = await _publicationCollection.Find(x => x.Title == vm.Title).ToListAsync();
 
                 if (paperWithSameTitle == null || paperWithSameTitle!.Count != 0)
                 {
@@ -64,7 +64,7 @@ namespace Applied_Sciences_Research_Center_Website.Controllers
 
                 if (updatePaper.OldTitle != updatePaper.NewTitle)
                 {
-                    var paperWithSameTitle = await _researchPaperCollection.Find(x => x.Title == updatePaper.NewTitle).ToListAsync();
+                    var paperWithSameTitle = await _publicationCollection.Find(x => x.Title == updatePaper.NewTitle).ToListAsync();
 
                     if (paperWithSameTitle != null)
                     {
