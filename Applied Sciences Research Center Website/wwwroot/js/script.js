@@ -29,7 +29,7 @@ $(document).ready(function () {
         window.location.href = "contact-us";
     });
 
-    $("#nav-journal-button").on("click", function () {
-        window.location.href = "journal";
+    $("#nav-publications-button").on("click", function () {
+        window.location.href = "publications";
     });
 });
