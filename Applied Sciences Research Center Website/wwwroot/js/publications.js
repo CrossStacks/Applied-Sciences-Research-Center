@@ -46,7 +46,7 @@ $(document).ready(function () {
         updateCharCount();
     });
 
-    $('#add-research-paper-button').on("click", function (event) {
+    $('#add-publication-button').on("click", function (event) {
         const researchTitle = $('#researchTitle').val().trim();
         const researchDescription = $('#researchDescription').val().trim();
         const researchUrl = $('#ResearchUrl').val().trim();
