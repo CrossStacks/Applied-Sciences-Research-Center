@@ -46,6 +46,16 @@ $(document).ready(function () {
         updateCharCount();
     });
 
+    $(document).on('click', '.delete-button', function (e) {
+        // TODO
+        console.log('delete button clicked: ' + $(this).data('internalsr'));
+    });
+
+    $(document).on('click', '.modify-button', function (e) {
+        // TODO
+        console.log('modify button clicked: ' + $(this).data('internalsr'));
+    });
+
     $('#add-publication-button').on("click", function (event) {
         const researchTitle = $('#researchTitle').val().trim();
         const researchDescription = $('#researchDescription').val().trim();
@@ -98,27 +108,23 @@ $(document).ready(function () {
                     color = 'text-info'
                 }
 
-                var cardHtml = `
-                    <div class="col-md-4">
-                        <div class="card blog-card">
-                            <img src="${item.image || ''}" class="card-img-top" alt="${item.altText || 'Journal image'}">
-                            <div class="card-body">
-                                <span class="blog-tag ${color}">'${item.type} presented at Event...'</span>
-                                <h5 class="card-title mt-2">${item.title || 'Title not available'}</h5>
-                                <p class="card-text">${item.description || 'Description not available'}</p>
-                                <p class="blog-meta">${item.datePubish || 'Date not available'}</p>
-                                <div class="dropdown position-absolute" style="top: 10px; right: 10px;"  ${token ? '' : 'hidden'}>
-                                    <i class="bi bi-three-dots-vertical btn" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false"></i>
-                                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                        <li><a class="dropdown-item bi bi-trash" href="#">Delete</a></li>
-                                        <li><a class="dropdown-item bi bi-pen" href="#">Modify</a></li>
-                                        <li><a class="dropdown-item bi bi-eye" href="#">Show/Hide</a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                `;
+                var cardHtml =
+                    '<div class="col-md-4">' +
+                    '<div class="card blog-card">' +
+                    '<img src="' + (item.image || '') + '" class="card-img-top" alt="' + (item.altText || 'Journal image') + '">' +
+                    '<div class="card-body">' +
+                    '<span class="blog-tag ' + color + '">' + (item.type + ' presented at Event...' || '') + '</span>' +
+                    '<h5 class="card-title mt-2">' + (item.title || 'Title not available') + '</h5>' +
+                    '<p class="card-text">' + (item.description || 'Description not available') + '</p>' +
+                    '<p class="blog-meta">' + (item.datePubish || 'Date not available') + '</p>' +
+                    '<div class="dropdown position-absolute" style="top: 10px; right: 10px;" ' + (token ? '' : 'hidden') + '>' +
+                    '<i class="bi bi-three-dots-vertical btn" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false"></i>' +
+                    '<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">' +
+                    '<li><a class="dropdown-item bi bi-trash delete-button" data-internalSR="' + item.sr + '">Delete</a></li>' +
+                    '<li><a class="dropdown-item bi bi-pen modify-button" data-internalSR="' + item.sr + '" href="#">Modify</a></li>' +
+                    //'<li><a class="dropdown-item bi bi-eye hide-button" data-internalSR="' + item.sr + '" href="#">Show/Hide</a></li>' +
+                    '</ul></div></div></div></div>';
+
                 container.append(cardHtml);
             });
         }
