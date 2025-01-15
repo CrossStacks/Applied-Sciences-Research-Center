@@ -47,8 +47,26 @@ $(document).ready(function () {
     });
 
     $(document).on('click', '.delete-button', function (e) {
-        // TODO
-        console.log('delete button clicked: ' + $(this).data('internalsr'));
+        if ($(this).data('internalsr') == '' || $(this).data('internalsr') == null) {
+            console.log('SR was null');
+            alert('Error while deleting. Please try again.');
+            return;
+        }
+
+        $.post({
+            url: baseUrl + '/Publication/Delete',
+            type: 'DELETE',
+            data: {
+                sr: $(this).data('internalsr')
+            },
+            headers: { "Authorization": "Bearer " + localStorage['token'] }
+        }).done(function (data) {
+            // TODO: Add some kind of success message
+            location.reload();
+        }).fail(function (jqXHR, textStatus, errorThrown) {
+            console.error('Error deleting research paper:', textStatus);
+            alert('Error while deleting. Please try again.');
+        });
     });
 
     $(document).on('click', '.modify-button', function (e) {
