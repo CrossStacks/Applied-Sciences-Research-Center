@@ -18,6 +18,7 @@ $(document).ready(function () {
     $("#logout-button").on("click", function () {
         token = null;
         localStorage.removeItem('token');
+        localStorage.removeItem('email');
         location.reload();
     });
 
