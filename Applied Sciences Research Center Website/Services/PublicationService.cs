@@ -14,10 +14,24 @@ namespace Applied_Sciences_Research_Center_Website.Services
             _publicationsCollection = database.GetCollection<PublicationModel>("Publications");
         }
 
-        public async Task<PublicationModel> CreatePublication(PublicationViewModel vm)
+        public async Task<PublicationModel> CreatePublication(CreatePublicationViewModel vm)
         {
+            var allPublications = await _publicationsCollection.Find(x => true).ToListAsync();
+
+            int sr;
+
+            if (allPublications.Count == 0)
+            {
+                sr = 0;
+            }
+            else
+            {
+                sr = allPublications.LastOrDefault()!.SR + 1;
+            }
+
             PublicationModel model = new()
             {
+                SR = sr,
                 Title = vm.Title,
                 DatePubish = vm.DatePubish,
                 Description = vm.Description,
@@ -42,6 +56,7 @@ namespace Applied_Sciences_Research_Center_Website.Services
             {
                 PublicationViewModel result = new()
                 {
+                    SR = publication.SR,
                     Title = publication.Title,
                     Description = publication.Description,
                     Type = publication.Type,
@@ -55,17 +70,17 @@ namespace Applied_Sciences_Research_Center_Website.Services
             }
             return results;
         }
-        public async Task<string?> Delete(string title)
+        public async Task<string?> Delete(int sr)
         {
-            var result = await _publicationsCollection.DeleteOneAsync(x => x.Title == title);
+            var result = await _publicationsCollection.DeleteOneAsync(x => x.SR == sr);
             if (result.DeletedCount > 0)
-                return $"'{title}' has been successfully deleted.";
+                return $"'{sr}' has been successfully deleted.";
             else
                 return "No record found";
         }
         public async Task<UpdatePublicationViewModel?> Update(UpdatePublicationViewModel up)
         {
-            var paper = await _publicationsCollection.Find(x => x.Title == up.OldTitle).FirstOrDefaultAsync();
+            var paper = await _publicationsCollection.Find(x => x.SR == up.SR).FirstOrDefaultAsync();
 
             if (paper is null)
                 return null;
@@ -85,22 +100,23 @@ namespace Applied_Sciences_Research_Center_Website.Services
             if (!string.IsNullOrWhiteSpace(up.NewImageUrl))
                 updateDefinition = updateDefinition.Set(x => x.ImageUrl, up.NewImageUrl);
 
-            //TODO: Use Id
-            var filter = Builders<PublicationModel>.Filter.Eq(x => x.Title, up.OldTitle); //Builders<ResearchPaperModel>.Filter.Eq(x => x.Id, updatePaper.Id);
+            if (!string.IsNullOrWhiteSpace(up.NewTitle))
+                updateDefinition = updateDefinition.Set(x => x.Title, up.NewTitle);
+
+            var filter = Builders<PublicationModel>.Filter.Eq(x => x.SR, up.SR); 
             var result = await _publicationsCollection.UpdateOneAsync(filter, updateDefinition);
 
             if (!result.IsAcknowledged || result.ModifiedCount == 0)
                 return null;
 
-            var updatedTitle = string.IsNullOrWhiteSpace(up.NewTitle) ? up.OldTitle : up.NewTitle;
-            var updatedPublication = await _publicationsCollection.Find(x => x.Title == updatedTitle).FirstOrDefaultAsync();
+            var updatedPublication = await _publicationsCollection.Find(x => x.SR == up.SR).FirstOrDefaultAsync();
 
             if (updatedPublication is null)
                 return null;
 
             return new UpdatePublicationViewModel
             {
-                OldTitle = up.OldTitle,
+                SR = updatedPublication.SR,
                 NewTitle = updatedPublication.Title,
                 NewUploaderEmail = updatedPublication.UploaderEmail,
                 NewDescription = updatedPublication.Description,

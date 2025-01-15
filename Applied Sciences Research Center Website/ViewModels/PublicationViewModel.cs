@@ -2,6 +2,7 @@
 {
     public class PublicationViewModel
     {
+        public required int SR { get; set; }
         public required string Title { get; set; }
         public required string UploaderEmail { get; set; }
         public required string Link { get; set; }

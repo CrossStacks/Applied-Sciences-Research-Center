@@ -25,19 +25,12 @@ namespace Applied_Sciences_Research_Center_Website.Controllers
 
         [Authorize(Roles = "Admin,Moderator")]
         [HttpPost("Create")]
-        public async Task<ActionResult> Create(PublicationViewModel vm)
+        public async Task<ActionResult> Create(CreatePublicationViewModel vm)
         {
             try
             {
                 if (vm == null || vm.Title == null || vm.Link == null || vm.Description == null || vm.UploaderEmail == null)
                     return new BadRequestObjectResult("Complete information for creation is not given");
-
-                var paperWithSameTitle = await _publicationCollection.Find(x => x.Title == vm.Title).ToListAsync();
-
-                if (paperWithSameTitle == null || paperWithSameTitle!.Count != 0)
-                {
-                    return StatusCode(409, $"This title '{vm.Title}' already exists");
-                }
 
                 var result = await _service.CreatePublication(vm);
                 return Ok(result);
@@ -54,28 +47,18 @@ namespace Applied_Sciences_Research_Center_Website.Controllers
         {
             try
             {
-                if (updatePaper.OldTitle == null || updatePaper.NewUploaderEmail == null)
-                    return BadRequest("OldTitle and NewUploaderEmail are required.");
+                if (updatePaper.SR == 0)
+                    return BadRequest("SR and New Uploader Email are required.");
 
-                if (string.IsNullOrWhiteSpace(updatePaper.NewTitle) && string.IsNullOrWhiteSpace(updatePaper.NewDescription) && string.IsNullOrWhiteSpace(updatePaper.NewLink) && string.IsNullOrWhiteSpace(updatePaper.NewImageUrl))
+                if (string.IsNullOrWhiteSpace(updatePaper.NewUploaderEmail) && string.IsNullOrWhiteSpace(updatePaper.NewTitle) && string.IsNullOrWhiteSpace(updatePaper.NewDescription) && string.IsNullOrWhiteSpace(updatePaper.NewLink) && string.IsNullOrWhiteSpace(updatePaper.NewImageUrl))
                 {
                     return BadRequest("At least one field to update must be provided.");
-                }
-
-                if (updatePaper.OldTitle != updatePaper.NewTitle)
-                {
-                    var paperWithSameTitle = await _publicationCollection.Find(x => x.Title == updatePaper.NewTitle).ToListAsync();
-
-                    if (paperWithSameTitle != null)
-                    {
-                        return StatusCode(409, $"This title '{updatePaper.NewTitle}' already exists");
-                    }
                 }
 
                 var updatedPaper = await _service.Update(updatePaper);
 
                 if (updatedPaper is null)
-                    return NotFound($"The paper with title '{updatePaper.OldTitle}' was not found or update failed.");
+                    return NotFound($"The paper with SR '{updatePaper.SR}' was not found or update failed.");
 
                 return Ok("Updated successfully");
             }
@@ -121,13 +104,13 @@ namespace Applied_Sciences_Research_Center_Website.Controllers
 
         [Authorize(Roles = "Admin")]
         [HttpDelete("Delete")]
-        public async Task<IActionResult> Delete(string title)
+        public async Task<IActionResult> Delete(int sr)
         {
-            if (string.IsNullOrWhiteSpace(title))
-                return BadRequest("Title cannot be null or empty.");
+            if (sr == 0)
+                return BadRequest("Sr cannot be null or empty.");
             try
             {
-                var result = await _service.Delete(title);
+                var result = await _service.Delete(sr);
                 if (result == "No record found")
                     return NotFound($"No record found");
                 if (result is null)

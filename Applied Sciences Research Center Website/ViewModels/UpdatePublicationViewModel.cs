@@ -2,7 +2,7 @@
 {
     public class UpdatePublicationViewModel
     {
-        public required string OldTitle { get; set; }
+        public required int SR { get; set; }
         public required string NewUploaderEmail { get; set; }
         public string? NewTitle { get; set; }
         public string? NewDescription { get; set; }

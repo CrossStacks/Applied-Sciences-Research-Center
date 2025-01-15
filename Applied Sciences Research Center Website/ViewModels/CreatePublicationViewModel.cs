@@ -1,14 +1,7 @@
-﻿using MongoDB.Bson.Serialization.Attributes;
-using MongoDB.Bson;
-
-namespace Applied_Sciences_Research_Center_Website.Models
+﻿namespace Applied_Sciences_Research_Center_Website.ViewModels
 {
-    public class PublicationModel
+    public class CreatePublicationViewModel
     {
-        [BsonId]
-        [BsonRepresentation(BsonType.ObjectId)]
-        public ObjectId Id { get; set; }
-        public required int SR { get; set; }
         public required string Title { get; set; }
         public required string UploaderEmail { get; set; }
         public required string Link { get; set; }
