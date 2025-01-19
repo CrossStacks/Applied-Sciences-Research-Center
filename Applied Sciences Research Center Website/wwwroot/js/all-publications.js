@@ -17,8 +17,7 @@ $(document).ready(function () {
     }
 
     $(document).on('click', '.publication-container', function (e) {
-        console.log('modify button clicked: ' + $(this).data('internalsr'));
-        window.location.href = "publication";
+        window.location.href = "publication?publicationSr=" + $(this).data('internalsr');
     });
 
     searchIcon.on('click', function () {
