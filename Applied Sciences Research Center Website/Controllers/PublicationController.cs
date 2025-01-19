@@ -101,6 +101,23 @@ namespace Applied_Sciences_Research_Center_Website.Controllers
                 return StatusCode(500, $"An error occurred: {ex.Message}");
             }
         }
+        
+        [AllowAnonymous]
+        [HttpGet("GetBySr")]
+        public async Task<ActionResult> GetBySr(int sr)
+        {
+            try
+            {
+                var result = await _service.GetBySr(sr);
+                if (result == null)
+                    return BadRequest("Nothing found");
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"An error occurred: {ex.Message}");
+            }
+        }
 
         [Authorize(Roles = "Admin")]
         [HttpDelete("Delete")]

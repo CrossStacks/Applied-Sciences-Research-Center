@@ -70,6 +70,26 @@ namespace Applied_Sciences_Research_Center_Website.Services
             }
             return results;
         }
+        
+        public async Task<PublicationViewModel> GetBySr(int sr)
+        {
+            var publication = await _publicationsCollection.Find(x => x.SR == sr).FirstOrDefaultAsync();
+
+            PublicationViewModel result = new()
+            {
+                SR = publication.SR,
+                Title = publication.Title,
+                Description = publication.Description,
+                Type = publication.Type,
+                DatePubish = publication.DatePubish,
+                Link = publication.Link,
+                UploaderEmail = publication.UploaderEmail,
+                ImageUrl = publication.ImageUrl,
+            };
+
+            return result;
+        }
+
         public async Task<string?> Delete(int sr)
         {
             var result = await _publicationsCollection.DeleteOneAsync(x => x.SR == sr);
