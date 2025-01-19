@@ -11,6 +11,11 @@ $(document).ready(function () {
     const searchBar = $('#search-bar');
     const searchIcon = $('#search-icon');
 
+    var token = localStorage['token'];
+    if (token && token != null) {
+        $('#add-research-paper').removeAttr('hidden');
+    }
+
     searchIcon.on('click', function () {
         if (!searchContainer.hasClass('expanded')) {
             searchContainer.addClass('expanded').css('width', '250px');
