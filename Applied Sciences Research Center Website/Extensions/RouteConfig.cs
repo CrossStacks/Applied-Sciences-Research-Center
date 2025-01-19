@@ -34,10 +34,16 @@
                 await context.Response.SendFileAsync("wwwroot/html/contact-us.html");
             });
 
-            app.MapGet("publications/", async context =>
+            app.MapGet("all-publications/", async context =>
             {
                 context.Response.ContentType = "text/html";
-                await context.Response.SendFileAsync("wwwroot/html/publications.html");
+                await context.Response.SendFileAsync("wwwroot/html/all-publications.html");
+            });
+            
+            app.MapGet("publication/", async context =>
+            {
+                context.Response.ContentType = "text/html";
+                await context.Response.SendFileAsync("wwwroot/html/publication.html");
             });
         }
     }

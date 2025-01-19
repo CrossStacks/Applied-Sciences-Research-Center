@@ -31,6 +31,6 @@ $(document).ready(function () {
     });
 
     $("#nav-publications-button").on("click", function () {
-        window.location.href = "publications";
+        window.location.href = "all-publications";
     });
 });

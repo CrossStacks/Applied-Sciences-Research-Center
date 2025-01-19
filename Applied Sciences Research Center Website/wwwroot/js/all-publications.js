@@ -16,6 +16,11 @@ $(document).ready(function () {
         $('#add-research-paper').removeAttr('hidden');
     }
 
+    $(document).on('click', '.publication-container', function (e) {
+        console.log('modify button clicked: ' + $(this).data('internalsr'));
+        window.location.href = "publication";
+    });
+
     searchIcon.on('click', function () {
         if (!searchContainer.hasClass('expanded')) {
             searchContainer.addClass('expanded').css('width', '250px');
@@ -133,7 +138,7 @@ $(document).ready(function () {
 
                 var cardHtml =
                     '<div class="col-md-4">' +
-                    '<div class="card blog-card">' +
+                    '<div class="card blog-card publication-container" data-internalSR="' + item.sr + '">' +
                     '<img src="' + (item.image || '') + '" class="card-img-top" alt="' + (item.altText || 'Journal image') + '">' +
                     '<div class="card-body">' +
                     '<span class="blog-tag ' + color + '">' + (item.type + ' presented at Event...' || '') + '</span>' +
