@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+    <script src="../js/bootstrap.bundle.min.js"></script>
+    <!-- jQuery -->
+    <script src="../js/jquery.min.js"></script>
+    <!-- Global -->
+    <script src="../js/script.js"></script>
+    <link rel="stylesheet" href="../css/style.css">
+
+    <link rel="stylesheet" href="../css/add-user.css">
+    <link rel="stylesheet" href="../css/login.css">
+    <script src="../js/add-user.js"></script>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+
+
+    <title>Membership Form</title>
+</head>
+
+<body>
+    <div class="container mt-5">
+        <div class="outer-white-box p-4">
+            <div class="text-center mb-4">
+                <h1 class="fw-bold text-primary">Society for Promotion of Science and Technology (SPST)</h1>
+                <h4 class="text-secondary">Lahore College for Women University, Lahore</h4>
+                <p><a href="https://www.facebook.com/jis.spst" target="_blank">https://www.facebook.com/jis.spst</a></p>
+            </div>
+            <form id="membershipForm" method="POST" action="#">
+                <div class="mb-3">
+                    <label for="name" class="form-label">Name</label>
+                    <input type="text" class="form-control input-container" id="name" name="name"
+                        placeholder="Full name..." required>
+                </div>
+                <div class="mb-3">
+                    <label for="designation" class="form-label">Designation</label>
+                    <input type="text" class="form-control input-container" id="designation" name="designation"
+                        placeholder="Your designation..." required>
+                </div>
+                <div class="mb-3">
+                    <label for="organization" class="form-label">Organization</label>
+                    <input type="text" class="form-control input-container" id="organization" name="organization"
+                        placeholder="Your organization..." required>
+                </div>
+                <div class="mb-3">
+                    <label for="address" class="form-label">Address</label>
+                    <textarea class="form-control input-container" id="address" name="address" rows="2"
+                        placeholder="Your address..." required></textarea>
+                </div>
+                <div class="mb-3">
+                    <label for="city" class="form-label">City</label>
+                    <input type="text" class="form-control input-container" id="city" name="city" placeholder="City..."
+                        required>
+                </div>
+                <div class="mb-3">
+                    <label for="phoneOffice" class="form-label">Phone No. Office</label>
+                    <input type="tel" class="form-control input-container" id="phoneOffice" name="phoneOffice"
+                        placeholder="Office phone number...">
+                </div>
+                <div class="mb-3">
+                    <label for="phoneRes" class="form-label">Phone No. Res</label>
+                    <input type="tel" class="form-control input-container" id="phoneRes" name="phoneRes"
+                        placeholder="Residential phone number...">
+                </div>
+                <div class="mb-3">
+                    <label for="fax" class="form-label">Fax No.</label>
+                    <input type="text" class="form-control input-container" id="fax" name="fax"
+                        placeholder="Fax number...">
+                </div>
+                <div class="mb-3">
+                    <label for="cell" class="form-label">Cell No.</label>
+                    <input type="tel" class="form-control input-container" id="cell" name="cell"
+                        placeholder="Cell phone number..." required>
+                </div>
+                <div class="mb-3">
+                    <label for="email" class="form-label">Email</label>
+                    <input type="email" class="form-control input-container" id="email" name="email"
+                        placeholder="Your email..." required>
+                </div>
+                <div class="mb-3">
+                    <label for="contribution" class="form-label">What can you contribute to the Society?</label>
+                    <textarea class="form-control input-container" id="contribution" name="contribution" rows="3"
+                        placeholder="Your contribution..." required></textarea>
+                </div>
+                <p class="text-secondary">Annual Registration Fee: For students Rs. 200/- | Professionals Rs. 500/-</p>
+                <div class="d-grid">
+                    <button type="submit" class="btn btn-primary">Submit Membership Form</button>
+                </div>
+            </form>
+            <div class="mt-4">
+                <h5 class="fw-bold">Acknowledgment Receipt</h5>
+                <p>Received Amount of Rs. _________</p>
+                <p>Name __________________________ Department _____________ Designation ____________</p>
+                <p>University _______________________________________________________</p>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

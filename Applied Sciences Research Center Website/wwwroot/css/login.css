@@ -11,7 +11,7 @@ body {
 .outer-white-box {
     width: 100%;
     max-width: 450px;
-    border-radius: 30px;
+    border-radius: 24px;
     background: white;
     padding: 50px;
     box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.1);
@@ -28,7 +28,6 @@ body {
 
 .inner-container {
     background: white;
-    border-radius: 22px;
     height: 100%;
     width: 100%;
     padding: 20px;
