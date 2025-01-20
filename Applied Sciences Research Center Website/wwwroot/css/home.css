@@ -171,3 +171,180 @@ mt-4 {
         padding-bottom: 1rem;
     }
 }
+
+.profile-container {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 24px;
+    max-width: 1200px;
+    background-color: #F4F1ED;
+    padding: 32px;
+}
+
+.image-section {
+    position: relative;
+    margin: 0 auto;
+    display: flex;
+    aspect-ratio: 1;
+    width: 100%;
+}
+
+.profile-image {
+    height: 100%;
+    width: 100%;
+    object-fit: contain;
+    filter: grayscale(100%);
+}
+
+.image-fade {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 33.333%;
+    background: linear-gradient(to top, #F4F1ED, transparent);
+}
+
+.designation-badge {
+    position: absolute;
+    bottom: 1.5rem;
+    left: 1rem;
+    right: 1rem;
+    display: flex;
+    justify-content: center;
+}
+
+.designation-text {
+    background-color: white;
+    border-radius: 1.5rem;
+    padding: 0.25rem 1.5rem;
+    text-align: center;
+    line-height: 1.75rem;
+    letter-spacing: 0.4px;
+}
+
+.linkedin-icon {
+    position: absolute;
+    right: 1rem;
+    top: 1rem;
+    display: flex;
+    justify-content: flex-end;
+    pointer-events: none;
+}
+
+.linkedin-link {
+    pointer-events: auto;
+    display: flex;
+    height: 3rem;
+    width: 3rem;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #9ca3af;
+    border-radius: 0.75rem;
+}
+
+.profile-name {
+    padding-top: 0.5rem;
+    text-align: center;
+    font-size: 24px;
+    font-weight: 500;
+    line-height: 32px;
+    letter-spacing: 0.8px;
+}
+
+.profile-title {
+    padding-bottom: 1.5rem;
+    padding-top: 0.25rem;
+    text-align: center;
+    line-height: 28px;
+    letter-spacing: 0.4px;
+    color: #4b5563;
+}
+
+.profile-description {
+    max-width: 600px;
+    padding-bottom: 4rem;
+    line-height: 1.75rem;
+    letter-spacing: 0.4px;
+    color: #374151;
+    text-align: justify;
+}
+
+@media (min-width: 640px) {
+    .image-section {
+        max-width: 240px;
+        flex-shrink: 0;
+    }
+}
+
+@media (min-width: 768px) {
+    .profile-container {
+        flex-direction: row;
+        gap: 4rem;
+        border-radius: 32px;
+        padding: 2rem;
+    }
+
+    .designation-badge {
+        bottom: 1rem;
+    }
+
+    .linkedin-icon {
+        position: static;
+    }
+
+    .profile-name {
+        padding-top: 0;
+        text-align: left;
+        font-size: 32px;
+        line-height: 40px;
+    }
+
+    .profile-title {
+        padding-bottom: 2rem;
+        padding-top: 0;
+        text-align: left;
+        font-size: 20px;
+        line-height: 32px;
+    }
+}
+
+@media (min-width: 1024px) {
+    .image-section {
+        max-width: 384px;
+    }
+
+    .designation-text {
+        font-size: 1.25rem;
+        line-height: 2rem;
+    }
+}
+
+.outer-white-box {
+    width: 100%;
+    align-items: center;
+    border-radius: 24px;
+    background: white;
+    padding: 160px;
+    box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.1);
+}
+
+.h1-profile {
+    font-size: 2.5rem;
+    font-weight: 600;
+    color: #484C51;
+    margin: 0;
+    font-size: 72px;
+}
+
+.h2-profile {
+    color: #16181D;
+    font-size: 72px;
+}
+
+.p-profile {
+    font-size: 1.1rem;
+    line-height: 1.6;
+}
