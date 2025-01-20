@@ -33,7 +33,7 @@ namespace Applied_Sciences_Research_Center_Website.Services
             {
                 SR = sr,
                 Title = vm.Title,
-                DatePubish = vm.DatePubish,
+                DatePublish = vm.DatePubish,
                 Description = vm.Description,
                 Type = vm.Type,
                 Link = vm.Link,
@@ -60,7 +60,7 @@ namespace Applied_Sciences_Research_Center_Website.Services
                     Title = publication.Title,
                     Description = publication.Description,
                     Type = publication.Type,
-                    DatePubish = publication.DatePubish,
+                    DatePubish = publication.DatePublish,
                     Link = publication.Link,
                     UploaderEmail = publication.UploaderEmail,
                     ImageUrl = publication.ImageUrl,
@@ -70,7 +70,7 @@ namespace Applied_Sciences_Research_Center_Website.Services
             }
             return results;
         }
-        
+
         public async Task<PublicationViewModel> GetBySr(int sr)
         {
             var publication = await _publicationsCollection.Find(x => x.SR == sr).FirstOrDefaultAsync();
@@ -81,7 +81,7 @@ namespace Applied_Sciences_Research_Center_Website.Services
                 Title = publication.Title,
                 Description = publication.Description,
                 Type = publication.Type,
-                DatePubish = publication.DatePubish,
+                DatePubish = publication.DatePublish,
                 Link = publication.Link,
                 UploaderEmail = publication.UploaderEmail,
                 ImageUrl = publication.ImageUrl,
@@ -123,7 +123,7 @@ namespace Applied_Sciences_Research_Center_Website.Services
             if (!string.IsNullOrWhiteSpace(up.NewTitle))
                 updateDefinition = updateDefinition.Set(x => x.Title, up.NewTitle);
 
-            var filter = Builders<PublicationModel>.Filter.Eq(x => x.SR, up.SR); 
+            var filter = Builders<PublicationModel>.Filter.Eq(x => x.SR, up.SR);
             var result = await _publicationsCollection.UpdateOneAsync(filter, updateDefinition);
 
             if (!result.IsAcknowledged || result.ModifiedCount == 0)

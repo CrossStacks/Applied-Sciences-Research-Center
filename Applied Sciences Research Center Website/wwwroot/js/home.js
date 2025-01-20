@@ -43,6 +43,7 @@ $(document).ready(function () {
                         + '<p>' + data[paper].description + '</p>'
                         + '<a href = "' + ensureHttps(data[paper].link) + '"> <p>' + data[paper].link + '</p> </a>'
                         + '<p>' + data[paper].uploaderEmail + '</p>'
+                        + '<img src="' + data[paper].image + '" class="img-fluid" alt="Responsive image">'
                         + '<div class="dropdown position-absolute">'
                         + `<i class="bi bi-three-dots-vertical btn" type="button" id="dropdownMenuButton1 admin-publications-options" data-bs-toggle="dropdown" aria-expanded="false" ${token ? '' : 'hidden'}></i>`
                         + '<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">'
