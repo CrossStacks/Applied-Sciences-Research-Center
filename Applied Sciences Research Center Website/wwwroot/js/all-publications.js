@@ -55,6 +55,14 @@ $(document).ready(function () {
         updateCharCount();
     });
 
+    $(document).ready(function () {
+        $('#slideButton').click(function () {
+            $('html, body').animate({
+                scrollTop: $('#target').offset().top
+            }, 50);
+        });
+    });
+
     $(document).on('click', '.delete-button', function (e) {
         if ($(this).data('internalsr') == '' || $(this).data('internalsr') == null) {
             console.log('SR was null');
