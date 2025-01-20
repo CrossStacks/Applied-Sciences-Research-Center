@@ -1,0 +1,131 @@
+.container {
+    margin-top: 5rem;
+    text-align: center;
+}
+
+.center-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.text-title {
+    font-size: 32px;
+    line-height: 40px;
+    font-weight: 500;
+    margin-bottom: 16px;
+}
+
+.text-description {
+    max-width: 600px;
+    font-size: 20px;
+    line-height: 32px;
+    color: #555;
+    margin-bottom: 20px;
+}
+
+.newsletter-form {
+    display: flex;
+    align-items: center;
+    max-width: 400px;
+    position: relative;
+}
+
+.newsletter-input {
+    flex-grow: 1;
+    padding: 12px 100px 12px 20px;
+    border: 1px solid #ddd;
+    border-radius: 24px;
+    font-size: 16px;
+    color: #555;
+    background-color: #f9f9f9;
+    outline: none;
+    transition: all 0.3s ease;
+}
+
+.subscribe-button {
+    position: absolute;
+    right: 5px;
+    background: linear-gradient(to right, #ff7e5f, #ff6347);
+    color: white;
+    border: none;
+    border-radius: 24px;
+    padding: 10px 20px;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.subscribe-button:hover {
+    background: linear-gradient(to right, #f97d59, #fd7463);
+}
+
+.timeline {
+    align-items: start;
+    justify-self: start;
+    position: relative;
+    padding-left: 40px;
+}
+
+.timeline::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 20px;
+    width: 2px;
+    background: repeating-linear-gradient(to bottom,
+            #ccc 0,
+            #ccc 4px,
+            transparent 4px,
+            transparent 8px);
+}
+
+.timeline-item {
+    position: relative;
+    margin-bottom: 40px;
+}
+
+.timeline-item::before {
+    content: '';
+    position: absolute;
+    left: -20px;
+    top: 6px;
+    border-style: solid;
+    border-width: 6px 0 6px 10px;
+    border-color: transparent transparent transparent black;
+}
+
+.timeline-date {
+    font-size: 0.9rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.update-text {
+    color: #ff7043;
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+}
+
+.blog-card {
+    max-width: 800px;
+    max-height: 440px;
+    border-radius: 24px;
+    overflow: hidden;
+    transition: transform 0.3s ease-in-out;
+}
+
+.blog-card img {
+    border-radius: 24px;
+    transition: transform 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.blog-card img:hover {
+    transform: scale(1.1);
+}

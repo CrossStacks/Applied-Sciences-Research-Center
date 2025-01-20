@@ -131,16 +131,16 @@ $(document).ready(function () {
                 var color = '';
 
                 if (item.type == 'Journal') {
-                    color = 'text-danger'
+                    color = 'orange'
                 }
                 else if (item.type == 'Book') {
-                    color = 'text-succes'
+                    color = 'blue'
                 }
                 else if (item.type == 'ResearchPaper') {
-                    color = 'text-warning'
+                    color = 'red'
                 }
-                else if (item.type == 'Artical') {
-                    color = 'text-info'
+                else if (item.type == 'Article') {
+                    color = ''
                 }
 
                 var cardHtml =
