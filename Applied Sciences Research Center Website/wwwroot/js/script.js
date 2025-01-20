@@ -33,4 +33,8 @@ $(document).ready(function () {
     $("#nav-publications-button").on("click", function () {
         window.location.href = "all-publications";
     });
+
+    $("#nav-events-button").on("click", function () {
+        window.location.href = "events";
+    });
 });

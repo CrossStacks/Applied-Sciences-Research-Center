@@ -45,6 +45,12 @@
                 context.Response.ContentType = "text/html";
                 await context.Response.SendFileAsync("wwwroot/html/publication.html");
             });
+
+            app.MapGet("events/", async context =>
+            {
+                context.Response.ContentType = "text/html";
+                await context.Response.SendFileAsync("wwwroot/html/events.html");
+            });
         }
     }
 }
