@@ -151,7 +151,7 @@ $(document).ready(function () {
                     '<span class="blog-tag ' + color + '">' + (item.type + ' presented at Event...' || '') + '</span>' +
                     '<h5 class="card-title mt-2">' + (item.title || 'Title not available') + '</h5>' +
                     '<p class="card-text">' + (item.description || 'Description not available') + '</p>' +
-                    '<p class="blog-meta">' + (item.datePubish || 'Date not available') + '</p>' +
+                    '<p class="blog-meta">' + (item.datePublish || 'Date not available') + '</p>' +
                     '<div class="dropdown position-absolute" style="top: 10px; right: 10px;" ' + (token ? '' : 'hidden') + '>' +
                     '<i class="bi bi-three-dots-vertical btn" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false"></i>' +
                     '<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">' +
