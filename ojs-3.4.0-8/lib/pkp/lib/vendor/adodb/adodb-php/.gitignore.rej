@@ -1,5 +1,0 @@
---- .gitignore
-+++ .gitignore
-@@ -1,2 +0,0 @@
--# Python byte code
--*.pyc
