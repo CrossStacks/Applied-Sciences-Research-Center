@@ -27,14 +27,14 @@
 
 ; An application-specific key that is required for the app to run
 ; Internally this is used for any encryption (specifically cookie encryption if enabled)
-app_key =
+app_key = "base64:ITilbCPRZSaQ1205YkH0Y0OG8DjKpZiLb0NCIt/9rvc="
 
 ; Set this to On once the system has been installed
 ; (This is generally done automatically by the installer)
-installed = Off
+installed = On
 
 ; The canonical URL to the OJS installation (excluding the trailing slash)
-base_url = "https://pkp.sfu.ca/ojs"
+base_url = "http://localhost:8000"
 
 ; Enable strict mode. This will more aggressively cause errors/warnings when
 ; deprecated behaviour exists in the codebase.
@@ -60,7 +60,7 @@ session_samesite = Lax
 ; time zones.
 ; I.e.: "Europe/Amsterdam"
 ; time_zone="Europe/Amsterdam"
-time_zone = "UTC"
+time_zone = UTC
 
 ; Short and long date formats
 date_format_short = "Y-m-d"
@@ -97,7 +97,7 @@ restful_urls = Off
 ; An empty string indicates that all hosts should be trusted (not recommended!)
 ; Example:
 ; allowed_hosts = '["myjournal.tld", "anotherjournal.tld", "mylibrary.tld"]'
-allowed_hosts = ''
+allowed_hosts = "[\"localhost\"]"
 
 ; Allow the X_FORWARDED_FOR header to override the REMOTE_ADDR as the source IP
 ; Set this to "On" if you are behind a reverse proxy and you control the
@@ -209,7 +209,7 @@ connection_charset = utf8
 ; Complete path to directory to store uploaded files
 ; (This directory should not be directly web-accessible)
 ; Windows users should use forward slashes
-files_dir = files
+files_dir = "D:/CrossStacks/Applied-Sciences-Research-Center/ojsFiles"
 
 ; Path to the directory to store public uploaded files
 ; (This directory should be web-accessible and the specified path
@@ -402,7 +402,7 @@ oai = On
 
 ; OAI Repository identifier. This setting forms part of OAI-PMH record IDs.
 ; Changing this setting may affect existing clients and is not recommended.
-repository_id = ojs.pkp.sfu.ca
+repository_id = "ojs2.localhost:8000"
 
 ; Maximum number of records per request to serve via OAI
 oai_max_records = 100
@@ -420,6 +420,7 @@ items_per_page = 25
 ; Number of page links to display; can be overridden on a per-journal basis
 page_links = 10
 
+enabled = On
 
 ;;;;;;;;;;;;;;;;;;;;
 ; Captcha Settings ;
