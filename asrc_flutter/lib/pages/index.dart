@@ -46,10 +46,10 @@ class Index extends StatelessWidget {
                       message: 'Account',
                       child: IconButton(
                         onPressed: () => {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => AboutPage()))
+                          // Navigator.push(
+                          //     context,
+                          //     MaterialPageRoute(
+                          //         builder: (context) => AboutPage()))
                         },
                         icon: Icon(Icons.person),
                       ),
@@ -58,10 +58,10 @@ class Index extends StatelessWidget {
                       message: 'Sign In',
                       child: IconButton(
                         onPressed: () => {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => AboutPage()))
+                          // Navigator.push(
+                          //     context,
+                          //     MaterialPageRoute(
+                          //         builder: (context) => AboutPage()))
                         },
                         hoverColor: AppColor.primaryColor,
                         icon: Icon(Icons.person),
