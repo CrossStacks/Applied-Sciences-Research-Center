@@ -98,6 +98,11 @@ app.UseAuthorization();
 
 app.MapControllers();
 
-app.ConfigureRoutes();
+//app.ConfigureRoutes();
+
+app.MapGet("/", async context =>
+{
+    context.Response.Redirect("/swagger");
+});
 
 app.Run();
