@@ -7,36 +7,39 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          // ? Slide show images
-          AspectRatio(
-            aspectRatio: 21 / 9,
-            child: ImageSlideshow(
-              indicatorColor: Colors.blue,
-              autoPlayInterval: 3000,
-              isLoop: true,
-              children: [
-                Image.asset(
-                  'assets/logo1.jpg',
-                  fit: BoxFit.cover,
-                ),
-                Image.asset(
-                  'assets/logo2.jpg',
-                  fit: BoxFit.cover,
-                ),
-                Image.asset(
-                  'assets/logo3.jpg',
-                  fit: BoxFit.cover,
-                ),
-              ],
+      body: SingleChildScrollView(
+        scrollDirection: Axis.vertical,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            // ? Slide show images
+            AspectRatio(
+              aspectRatio: 21 / 9,
+              child: ImageSlideshow(
+                indicatorColor: Colors.blue,
+                autoPlayInterval: 3000,
+                isLoop: true,
+                children: [
+                  Image.asset(
+                    'assets/logo1.jpg',
+                    fit: BoxFit.cover,
+                  ),
+                  Image.asset(
+                    'assets/logo2.jpg',
+                    fit: BoxFit.cover,
+                  ),
+                  Image.asset(
+                    'assets/logo3.jpg',
+                    fit: BoxFit.cover,
+                  ),
+                ],
+              ),
             ),
-          ),
 
-          // ? Middle navigation bar
-        ],
+            // ? Middle navigation bar
+          ],
+        ),
       ),
     );
   }
