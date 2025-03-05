@@ -1,10 +1,16 @@
 import 'package:flutter/material.dart';
 import '../utils/constants.dart';
+import 'about_page.dart';
+import 'event_page.dart';
 import 'home_page.dart';
+import 'publication_page.dart';
 
 class Index extends StatelessWidget {
   final List<Widget> _tabs = [
     HomePage(),
+    PublicationPage(),
+    EventPage(),
+    AboutPage(),
   ];
   Index({super.key});
 
