@@ -1,3 +1,4 @@
+import 'package:asrc_flutter/pages/signin_page.dart';
 import 'package:flutter/material.dart';
 import 'pages/index.dart';
 import 'utils/colors.dart';
@@ -19,7 +20,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: AppColor.primaryColor),
         useMaterial3: true,
       ),
-      home: Index(),
+      home: SignInPage(),
     );
   }
 }
