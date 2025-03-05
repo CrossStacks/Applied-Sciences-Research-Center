@@ -1,3 +1,5 @@
+import 'package:asrc_flutter/utils/colors.dart';
+import 'package:asrc_flutter/utils/global.dart';
 import 'package:flutter/material.dart';
 import '../utils/constants.dart';
 import 'about_page.dart';
@@ -23,10 +25,48 @@ class Index extends StatelessWidget {
           toolbarHeight: 0,
           bottom: TabBar(
             tabs: [
-              Tab(icon: Icon(Icons.home), text: 'Home'),
-              Tab(icon: Icon(Icons.newspaper_rounded), text: 'Publications'),
-              Tab(icon: Icon(Icons.event), text: 'Events'),
-              Tab(icon: Icon(Icons.info_outline_rounded), text: 'About'),
+              Tooltip(
+                message: 'Home',
+                child: Icon(Icons.home),
+              ),
+              Tooltip(
+                message: 'Publications',
+                child: Icon(Icons.newspaper_rounded),
+              ),
+              Tooltip(
+                message: 'Events',
+                child: Icon(Icons.event),
+              ),
+              Tooltip(
+                message: 'About us',
+                child: Icon(Icons.info_outline_rounded),
+              ),
+              Global.isLoggedIn
+                  ? Tooltip(
+                      message: 'Account',
+                      child: IconButton(
+                        onPressed: () => {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => AboutPage()))
+                        },
+                        icon: Icon(Icons.person),
+                      ),
+                    )
+                  : Tooltip(
+                      message: 'Sign In',
+                      child: IconButton(
+                        onPressed: () => {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => AboutPage()))
+                        },
+                        hoverColor: AppColor.primaryColor,
+                        icon: Icon(Icons.person),
+                      ),
+                    )
             ],
           ),
         ),

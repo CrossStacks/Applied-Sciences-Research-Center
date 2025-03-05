@@ -1,3 +1,3 @@
 class Global {
-  static int page = 0;
+  static bool isLoggedIn = false;
 }
