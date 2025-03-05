@@ -1,3 +1,4 @@
+import 'package:asrc_flutter/pages/signin_page.dart';
 import 'package:asrc_flutter/utils/colors.dart';
 import 'package:asrc_flutter/utils/global.dart';
 import 'package:flutter/material.dart';
@@ -58,10 +59,10 @@ class Index extends StatelessWidget {
                       message: 'Sign In',
                       child: IconButton(
                         onPressed: () => {
-                          // Navigator.push(
-                          //     context,
-                          //     MaterialPageRoute(
-                          //         builder: (context) => AboutPage()))
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => SignInPage()))
                         },
                         hoverColor: AppColor.primaryColor,
                         icon: Icon(Icons.person),
