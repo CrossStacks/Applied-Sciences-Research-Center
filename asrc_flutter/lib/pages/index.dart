@@ -20,7 +20,7 @@ class Index extends StatelessWidget {
       length: _tabs.length,
       child: Scaffold(
         appBar: AppBar(
-          title: Text(Constants.appName),
+          toolbarHeight: 0,
           bottom: TabBar(
             tabs: [
               Tab(icon: Icon(Icons.home), text: 'Home'),
