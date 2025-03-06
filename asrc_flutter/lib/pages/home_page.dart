@@ -38,6 +38,8 @@ class HomePage extends StatelessWidget {
             ),
 
             // ? Middle navigation bar
+            // ? slected journals
+            // ?selected books
           ],
         ),
       ),
