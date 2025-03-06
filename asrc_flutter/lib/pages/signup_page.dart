@@ -1,32 +1,64 @@
 import 'package:asrc_flutter/models/auth_models.dart';
-import 'package:asrc_flutter/pages/signup_page.dart';
 import 'package:asrc_flutter/services/api/auth_service.dart';
 import 'package:asrc_flutter/utils/colors.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
-class SignInPage extends StatefulWidget {
-  const SignInPage({super.key});
+class SignUpPage extends StatefulWidget {
+  const SignUpPage({super.key});
 
   @override
-  State<SignInPage> createState() => _SignInPageState();
+  State<SignUpPage> createState() => _SignUpPageState();
 }
 
-class _SignInPageState extends State<SignInPage> {
+class _SignUpPageState extends State<SignUpPage> {
   final TextEditingController _emailTxtController = TextEditingController();
   final TextEditingController _passwordTxtController = TextEditingController();
+  final TextEditingController _confirmPasswordTxtController =
+      TextEditingController();
+  final TextEditingController _nameTxtController = TextEditingController();
 
-  Future<void> _loginHandler() async {
+  Future<void> _signUpHandler() async {
     String email = _emailTxtController.text;
     String password = _passwordTxtController.text;
+    String confirmPassword = _confirmPasswordTxtController.text;
+    String name = _nameTxtController.text;
 
-    var (response, status) =
-        await loginRequest(LoginRequestModel(email: email, password: password));
+    if (name == "" ||
+        email == "" ||
+        password == "" ||
+        confirmPassword == "" ||
+        (password != confirmPassword)) {
+      Fluttertoast.showToast(
+        msg: "Requirements not provided properly",
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.BOTTOM,
+        backgroundColor: AppColor.primaryColor,
+        textColor: Colors.white,
+        fontSize: 16.0,
+      );
+      return;
+    }
 
-    // TODO
+    var (response, status) = await registerRequest(SignupRequestModel(
+      email: email,
+      password: password,
+      name: name,
+    ));
+
     if (status == "Ok")
       print(response!.email);
-    else
+    else {
       print(status);
+      Fluttertoast.showToast(
+        msg: status,
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.BOTTOM,
+        backgroundColor: AppColor.primaryColor,
+        textColor: Colors.white,
+        fontSize: 16.0,
+      );
+    }
   }
 
   @override
@@ -42,7 +74,7 @@ class _SignInPageState extends State<SignInPage> {
         borderRadius: BorderRadius.circular(20),
         child: Container(
           width: 400,
-          height: 450,
+          height: 570,
           padding: EdgeInsets.all(25),
           decoration: BoxDecoration(
             color: AppColor.primaryColor,
@@ -51,7 +83,7 @@ class _SignInPageState extends State<SignInPage> {
           child: Column(
             children: [
               Text(
-                "Sign In",
+                "Sign Up",
                 style: TextStyle(
                   color: AppColor.secondaryColor,
                   fontWeight: FontWeight.bold,
@@ -59,11 +91,31 @@ class _SignInPageState extends State<SignInPage> {
                 ),
               ),
               Text(
-                "Welcome back! Please sign in to continue",
+                "Welcome! Please sign up to get started.",
                 style:
                     TextStyle(color: const Color.fromARGB(255, 142, 155, 161)),
               ),
               SizedBox(height: 50),
+              TextField(
+                controller: _nameTxtController,
+                decoration: InputDecoration(
+                  labelText: "Your Name...",
+                  enabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide(
+                      color: const Color.fromARGB(255, 204, 209, 211),
+                    ),
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(
+                      color: const Color.fromARGB(255, 204, 209, 211),
+                      width: 2,
+                    ),
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                ),
+              ),
+              SizedBox(height: 20),
               TextField(
                 controller: _emailTxtController,
                 decoration: InputDecoration(
@@ -103,10 +155,30 @@ class _SignInPageState extends State<SignInPage> {
                   ),
                 ),
               ),
-              SizedBox(height: 50),
+              SizedBox(height: 20),
+              TextField(
+                controller: _confirmPasswordTxtController,
+                decoration: InputDecoration(
+                  labelText: "Confirm password...",
+                  enabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide(
+                      color: const Color.fromARGB(255, 204, 209, 211),
+                    ),
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(
+                      color: const Color.fromARGB(255, 204, 209, 211),
+                      width: 2,
+                    ),
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                ),
+              ),
+              SizedBox(height: 45),
               TextButton(
                 onPressed: () {
-                  _loginHandler();
+                  _signUpHandler();
                 },
                 style: TextButton.styleFrom(
                   backgroundColor: AppColor.secondaryColor,
@@ -116,28 +188,18 @@ class _SignInPageState extends State<SignInPage> {
                   padding: EdgeInsets.symmetric(vertical: 21, horizontal: 100),
                 ),
                 child: Text(
-                  "SIGN IN",
+                  "SIGN UP",
                   style: TextStyle(color: Colors.white), // White text color
                 ),
               ),
-              SizedBox(height: 10),
+              SizedBox(height: 15),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   TextButton(
-                    onPressed: () => {
-                      //TODO
-                    },
-                    child: Text("Forgot Password"),
+                    onPressed: () => {Navigator.pop(context)},
+                    child: Text("Already have an account"),
                   ),
-                  Text("|"),
-                  TextButton(
-                    onPressed: () => {
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => SignUpPage()))
-                    },
-                    child: Text("Create Account"),
-                  )
                 ],
               )
             ],

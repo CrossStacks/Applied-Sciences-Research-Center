@@ -1,4 +1,3 @@
-import 'package:asrc_flutter/pages/publication_page.dart';
 import 'package:flutter/material.dart';
 import 'pages/index.dart';
 import 'utils/colors.dart';
