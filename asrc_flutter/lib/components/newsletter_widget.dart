@@ -37,7 +37,7 @@ class NewsletterWidget extends StatelessWidget {
         Text(
           'Join our newsletter and be the first to hear it!',
           style: const TextStyle(
-            fontSize: 28,
+            fontSize: 21,
             color: Color.fromARGB(255, 50, 53, 62),
           ),
         ),
@@ -122,7 +122,7 @@ class NewsletterWidget extends StatelessWidget {
           child: Text(
             'Join our newsletter and be the first to hear it!',
             style: const TextStyle(
-              fontSize: 48,
+              fontSize: 27,
               color: Color.fromARGB(255, 50, 53, 62),
             ),
           ),
@@ -137,7 +137,7 @@ class NewsletterWidget extends StatelessWidget {
               const Text(
                 'Subscribe to get the latest news and benefit from inspiring stories delivered straight to your inbox every month.',
                 style: TextStyle(
-                  fontSize: 20,
+                  fontSize: 17,
                   color: Color.fromARGB(255, 72, 76, 81),
                 ),
               ),
