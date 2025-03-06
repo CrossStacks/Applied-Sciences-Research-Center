@@ -1,4 +1,5 @@
-import 'package:asrc_flutter/services/api/loginService.dart';
+import 'package:asrc_flutter/models/login_models.dart';
+import 'package:asrc_flutter/services/api/login_service.dart';
 import 'package:asrc_flutter/utils/colors.dart';
 import 'package:flutter/material.dart';
 
@@ -17,10 +18,11 @@ class _SignInPageState extends State<SignInPage> {
     String email = _emailTxtController.text;
     String password = _passwordTxtController.text;
 
-    var (response, status) = await loginRequest(email, password);
+    var (response, status) =
+        await loginRequest(LoginRequestModel(email: email, password: password));
 
     if (status == "Ok")
-      print(response!.body);
+      print(response!.email);
     else
       print(status);
   }
