@@ -14,14 +14,14 @@ class AboutPage extends StatelessWidget {
         child: Center(
           child: Column(
             children: [
-              SizedBox(
-                height: 96,
-              ),
-              Text(
-                'About Us',
-                style: TextStyle(
-                    fontSize: 16, color: Color.fromARGB(255, 236, 121, 72)),
-              ),
+              // SizedBox(
+              //   height: 96,
+              // ),
+              // Text(
+              //   'About Us',
+              //   style: TextStyle(
+              //       fontSize: 16, color: Color.fromARGB(255, 236, 121, 72)),
+              // ),
               SizedBox(
                 height: 52,
               ),
@@ -33,11 +33,13 @@ class AboutPage extends StatelessWidget {
                   children: <Widget>[
                     Text(
                       'Meet Our In-House',
+                      textAlign: TextAlign.center,
                       style: TextStyle(
                           fontSize: 72, color: Color.fromARGB(255, 72, 76, 81)),
                     ),
                     Text(
                       'Scientists & Expert Council',
+                      textAlign: TextAlign.center,
                       style: TextStyle(fontSize: 72),
                     ),
                     Text(
