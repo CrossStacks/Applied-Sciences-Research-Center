@@ -14,14 +14,14 @@ class AboutPage extends StatelessWidget {
         child: Center(
           child: Column(
             children: [
-              // SizedBox(
-              //   height: 96,
-              // ),
-              // Text(
-              //   'About Us',
-              //   style: TextStyle(
-              //       fontSize: 16, color: Color.fromARGB(255, 236, 121, 72)),
-              // ),
+              SizedBox(
+                height: 96,
+              ),
+              Text(
+                'About Us',
+                style: TextStyle(
+                    fontSize: 16, color: Color.fromARGB(255, 236, 121, 72)),
+              ),
               SizedBox(
                 height: 52,
               ),
