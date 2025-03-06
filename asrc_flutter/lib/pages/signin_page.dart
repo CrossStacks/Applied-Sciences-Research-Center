@@ -1,8 +1,29 @@
+import 'package:asrc_flutter/services/api/loginService.dart';
 import 'package:asrc_flutter/utils/colors.dart';
 import 'package:flutter/material.dart';
 
-class SignInPage extends StatelessWidget {
+class SignInPage extends StatefulWidget {
   const SignInPage({super.key});
+
+  @override
+  State<SignInPage> createState() => _SignInPageState();
+}
+
+class _SignInPageState extends State<SignInPage> {
+  final TextEditingController _emailTxtController = TextEditingController();
+  final TextEditingController _passwordTxtController = TextEditingController();
+
+  Future<void> _loginHandler() async {
+    String email = _emailTxtController.text;
+    String password = _passwordTxtController.text;
+
+    var (response, status) = await loginRequest(email, password);
+
+    if (status == "Ok")
+      print(response!.body);
+    else
+      print(status);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -48,6 +69,7 @@ class SignInPage extends StatelessWidget {
               // SizedBox(height: 5),
 
               TextField(
+                controller: _emailTxtController,
                 decoration: InputDecoration(
                   labelText: "Your email...",
                   enabledBorder: OutlineInputBorder(
@@ -73,6 +95,7 @@ class SignInPage extends StatelessWidget {
               //   child: Text("Password"),
               // ),
               TextField(
+                controller: _passwordTxtController,
                 decoration: InputDecoration(
                   labelText: "Your password...",
                   enabledBorder: OutlineInputBorder(
@@ -95,7 +118,7 @@ class SignInPage extends StatelessWidget {
 
               TextButton(
                 onPressed: () {
-                  //TODO
+                  _loginHandler();
                 },
                 style: TextButton.styleFrom(
                   backgroundColor: AppColor.secondaryColor,
