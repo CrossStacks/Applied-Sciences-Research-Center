@@ -1,3 +1,4 @@
+import 'package:asrc_flutter/components/newsletter_widget.dart';
 import 'package:flutter/material.dart';
 
 class PublicationPage extends StatelessWidget {
@@ -5,6 +6,10 @@ class PublicationPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return Scaffold(
+      body: Center(
+        child: NewsletterWidget(),
+      ),
+    );
   }
 }
