@@ -24,7 +24,7 @@ namespace Applied_Sciences_Research_Center_Website.Controllers
             _userService = new UserService(_database, authConfig);
         }
 
-        //[AllowAnonymous]
+        [AllowAnonymous]
         [HttpPost("CreateUser")]
         public async Task<ActionResult> CreateUser(CreateUserViewModel createUserVM)
         {
