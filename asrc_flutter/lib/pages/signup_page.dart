@@ -54,7 +54,7 @@ class _SignUpPageState extends State<SignUpPage> {
         msg: status,
         toastLength: Toast.LENGTH_SHORT,
         gravity: ToastGravity.BOTTOM,
-        backgroundColor: AppColor.primaryColor,
+        backgroundColor: AppColor.whiteColor,
         textColor: Colors.white,
         fontSize: 16.0,
       );
@@ -77,7 +77,7 @@ class _SignUpPageState extends State<SignUpPage> {
           height: 570,
           padding: EdgeInsets.all(25),
           decoration: BoxDecoration(
-            color: AppColor.primaryColor,
+            color: AppColor.whiteColor,
             borderRadius: BorderRadius.circular(20),
           ),
           child: Column(

@@ -45,7 +45,7 @@ class _SignInPageState extends State<SignInPage> {
           height: 450,
           padding: EdgeInsets.all(25),
           decoration: BoxDecoration(
-            color: AppColor.primaryColor,
+            color: AppColor.whiteColor,
             borderRadius: BorderRadius.circular(20),
           ),
           child: Column(
