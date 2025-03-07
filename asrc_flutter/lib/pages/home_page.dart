@@ -126,8 +126,6 @@ class _NavBarItemState extends State<NavBarItem> {
   Widget build(BuildContext context) {
     final Color selectedBackground = const Color.fromARGB(255, 245, 245, 245);
     final Color unselectedTextColor = const Color.fromARGB(255, 72, 76, 81);
-    final Color selectedUnderlineColor =
-        const Color.fromARGB(255, 158, 157, 164);
 
     return InkWell(
       onTap: () {
@@ -145,6 +143,9 @@ class _NavBarItemState extends State<NavBarItem> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            SizedBox(
+              height: 2,
+            ),
             Expanded(
               child: Center(
                 child: Text(
@@ -159,15 +160,16 @@ class _NavBarItemState extends State<NavBarItem> {
                 ),
               ),
             ),
-            if (widget.isSelected)
-              Container(
-                height: 2,
-                width: double.infinity,
-                decoration: BoxDecoration(
-                  color: selectedUnderlineColor,
-                  borderRadius: BorderRadius.circular(1),
-                ),
+            Container(
+              height: 2,
+              width: double.infinity,
+              decoration: BoxDecoration(
+                color: widget.isSelected
+                    ? const Color.fromARGB(255, 158, 157, 164)
+                    : Colors.transparent,
+                borderRadius: BorderRadius.circular(1),
               ),
+            ),
           ],
         ),
       ),
