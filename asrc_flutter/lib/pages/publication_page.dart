@@ -137,7 +137,7 @@ class _PublicationPageState extends State<PublicationPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: Color.fromARGB(255, 252, 246, 243),
       body: SingleChildScrollView(
         controller: _scrollController,
         scrollDirection: Axis.vertical,
