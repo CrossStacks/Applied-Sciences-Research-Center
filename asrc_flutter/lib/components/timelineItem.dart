@@ -50,11 +50,14 @@ class TimelineItem extends StatelessWidget {
                 children: [
                   ClipRRect(
                     borderRadius: BorderRadius.circular(12),
-                    child: Image.network(
-                      event['imageUrl'] ?? '',
-                      width: 680,
-                      height: 453.89,
-                      fit: BoxFit.cover,
+                    child: AspectRatio(
+                      aspectRatio: 1.8181818181818181,
+                      child: Image.network(
+                        event['imageUrl'] ?? '',
+                        width: 680,
+                        height: 453.89,
+                        fit: BoxFit.cover,
+                      ),
                     ),
                   ),
                   const SizedBox(height: 12),
