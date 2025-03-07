@@ -34,7 +34,6 @@ Future<(AuthResponseModel?, String)> loginRequest(
   }
 }
 
-//! Fix it
 Future<(AuthResponseModel?, String)> registerRequest(
     SignupRequestModel model) async {
   try {

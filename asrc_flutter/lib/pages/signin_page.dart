@@ -1,4 +1,5 @@
 import 'package:asrc_flutter/models/auth_models.dart';
+import 'package:asrc_flutter/pages/ojs_page.dart';
 import 'package:asrc_flutter/pages/signup_page.dart';
 import 'package:asrc_flutter/services/api/auth_service.dart';
 import 'package:asrc_flutter/utils/colors.dart';
@@ -23,9 +24,10 @@ class _SignInPageState extends State<SignInPage> {
         await loginRequest(LoginRequestModel(email: email, password: password));
 
     // TODO
-    if (status == "Ok")
-      print(response!.email);
-    else
+    if (status == "Ok") {
+      Navigator.push(
+          context, MaterialPageRoute(builder: (context) => OjsPage()));
+    } else
       print(status);
   }
 
