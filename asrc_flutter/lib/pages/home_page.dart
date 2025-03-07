@@ -51,8 +51,23 @@ class HomePage extends StatelessWidget {
   }
 }
 
-class NavBar extends StatelessWidget {
+class NavBar extends StatefulWidget {
   const NavBar({super.key});
+
+  @override
+  State<NavBar> createState() => _NavBarState();
+}
+
+class _NavBarState extends State<NavBar> {
+  int selectedIndex = 0;
+
+  final List<String> titles = [
+    "Journal of Zoology and Marine Biology",
+    "Journal of Psychology and Behavioral Science",
+    "Journal of Computer Science and Information Technology",
+    "Journal of Environmental Science and Public Health",
+    "Journal of Business and Management",
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -68,94 +83,70 @@ class NavBar extends StatelessWidget {
         borderRadius: BorderRadius.circular(24),
         boxShadow: [
           BoxShadow(
-            color: Color.fromARGB(5, 0, 0, 0),
+            color: const Color.fromARGB(5, 0, 0, 0),
             offset: const Offset(0, 2),
             blurRadius: 4,
           ),
         ],
       ),
       child: Row(
-        children: [
-          Expanded(
+        children: List.generate(titles.length, (index) {
+          return Expanded(
             child: NavBarItem(
-              title: "Journal of Zoology and Marine Biology",
-              isSelected: true,
+              title: titles[index],
+              isSelected: index == selectedIndex,
+              onTap: () {
+                setState(() {
+                  selectedIndex = index;
+                });
+              },
             ),
-          ),
-          Expanded(
-            child: NavBarItem(
-              title: "Journal of Psychology and Behavioral Science",
-              isSelected: false,
-            ),
-          ),
-          Expanded(
-            child: NavBarItem(
-              title: "Journal of Computer Science and Information Technology",
-              isSelected: false,
-            ),
-          ),
-          Expanded(
-            child: NavBarItem(
-              title: "Journal of Environmental Science and Public Health",
-              isSelected: false,
-            ),
-          ),
-          Expanded(
-            child: NavBarItem(
-              title: "Journal of Business and Management",
-              isSelected: false,
-            ),
-          ),
-        ],
+          );
+        }),
       ),
     );
   }
 }
 
-class NavBarItem extends StatefulWidget {
+class NavBarItem extends StatelessWidget {
   final String title;
-  bool isSelected;
-  NavBarItem({super.key, required this.title, required this.isSelected});
+  final bool isSelected;
+  final VoidCallback onTap;
 
-  @override
-  State<NavBarItem> createState() => _NavBarItemState();
-}
+  const NavBarItem({
+    super.key,
+    required this.title,
+    required this.isSelected,
+    required this.onTap,
+  });
 
-class _NavBarItemState extends State<NavBarItem> {
   @override
   Widget build(BuildContext context) {
     final Color selectedBackground = const Color.fromARGB(255, 245, 245, 245);
     final Color unselectedTextColor = const Color.fromARGB(255, 72, 76, 81);
 
     return InkWell(
-      onTap: () {
-        setState(() {
-          widget.isSelected = true;
-        });
-      },
+      onTap: onTap,
       borderRadius: BorderRadius.circular(16),
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 16.0),
         decoration: BoxDecoration(
-          color: widget.isSelected ? selectedBackground : Colors.transparent,
+          color: isSelected ? selectedBackground : Colors.transparent,
           borderRadius: BorderRadius.circular(16),
         ),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            SizedBox(
-              height: 2,
-            ),
+            const SizedBox(height: 2),
             Expanded(
               child: Center(
                 child: Text(
-                  widget.title,
+                  title,
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     fontSize: 14,
                     fontWeight: FontWeight.w500,
-                    color:
-                        widget.isSelected ? Colors.black : unselectedTextColor,
+                    color: isSelected ? Colors.black : unselectedTextColor,
                   ),
                 ),
               ),
@@ -164,7 +155,7 @@ class _NavBarItemState extends State<NavBarItem> {
               height: 2,
               width: double.infinity,
               decoration: BoxDecoration(
-                color: widget.isSelected
+                color: isSelected
                     ? const Color.fromARGB(255, 158, 157, 164)
                     : Colors.transparent,
                 borderRadius: BorderRadius.circular(1),
