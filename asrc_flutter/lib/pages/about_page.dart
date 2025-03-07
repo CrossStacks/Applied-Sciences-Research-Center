@@ -15,17 +15,17 @@ class AboutPage extends StatelessWidget {
         child: Center(
           child: Column(
             children: [
-              SizedBox(
-                height: 96,
-              ),
-              Text(
-                'About Us',
-                style: TextStyle(
-                    fontSize: 16, color: Color.fromARGB(255, 236, 121, 72)),
-              ),
-              SizedBox(
-                height: 52,
-              ),
+              // SizedBox(
+              //   height: 96,
+              // ),
+              // Text(
+              //   'About Us',
+              //   style: TextStyle(
+              //       fontSize: 16, color: Color.fromARGB(255, 236, 121, 72)),
+              // ),
+              // SizedBox(
+              //   height: 52,
+              // ),
               CustomWhiteContainer(
                 containerPadding: const EdgeInsets.only(
                     top: 160, left: 120, right: 120, bottom: 120),
