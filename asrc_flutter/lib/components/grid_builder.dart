@@ -85,120 +85,135 @@ class _GridBState extends State<GridB> {
 
   @override
   Widget build(BuildContext context) {
-    final int crossAxisCount = Dimensions.isMobile(context)
-        ? 1
-        : Dimensions.isTablet(context)
-            ? 2
-            : 3;
-    final double imageHeight = Dimensions.isMobile(context)
-        ? 200
-        : Dimensions.isTablet(context)
-            ? 250
-            : 314;
-    final double childAspectRatio = Dimensions.isMobile(context)
-        ? 0.8
-        : Dimensions.isTablet(context)
-            ? 1.0
-            : 1.2;
+    int crossAxisCount;
+    double mainAxisSpacing;
+    double crossAxisSpacing;
+    double childAspectRatio;
+    EdgeInsets gridPadding;
 
-    return GridView.builder(
-      physics: const NeverScrollableScrollPhysics(),
-      shrinkWrap: true,
-      padding: const EdgeInsets.all(16.0),
-      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: crossAxisCount,
-        crossAxisSpacing: 16.0,
-        mainAxisSpacing: 16.0,
-        childAspectRatio: childAspectRatio,
-      ),
-      itemCount: gridMap.length,
-      itemBuilder: (_, index) {
-        final item = gridMap[index];
-        return Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            ClipRRect(
-              borderRadius: const BorderRadius.all(Radius.circular(25.0)),
-              child: Image.network(
-                item['images'],
-                height: imageHeight,
-                width: double.infinity,
-                fit: BoxFit.cover,
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    item['publicationType'],
-                    style: TextStyle(
-                      fontSize: 12,
-                      fontWeight: FontWeight.bold,
-                      color: selectColor(item['publicationType']),
+    if (Dimensions.isDesktop(context)) {
+      crossAxisCount = 3;
+      mainAxisSpacing = 80.0;
+      crossAxisSpacing = 40.0;
+      childAspectRatio = 1.2;
+      gridPadding = const EdgeInsets.fromLTRB(16.0, 40.0, 16.0, 16.0);
+    } else if (Dimensions.isTablet(context)) {
+      crossAxisCount = 2;
+      mainAxisSpacing = 64.0;
+      crossAxisSpacing = 16.0;
+      childAspectRatio = 1.0;
+      gridPadding = const EdgeInsets.fromLTRB(16.0, 24.0, 16.0, 16.0);
+    } else {
+      crossAxisCount = 1;
+      mainAxisSpacing = 40.0;
+      crossAxisSpacing = 16.0;
+      childAspectRatio = 0.8;
+      gridPadding = const EdgeInsets.fromLTRB(16.0, 24.0, 16.0, 16.0);
+    }
+
+    return Center(
+      child: Container(
+        constraints: const BoxConstraints(maxWidth: 1496),
+        child: GridView.builder(
+          physics: const NeverScrollableScrollPhysics(),
+          shrinkWrap: true,
+          padding: gridPadding,
+          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: crossAxisCount,
+            mainAxisSpacing: mainAxisSpacing,
+            crossAxisSpacing: crossAxisSpacing,
+            childAspectRatio: childAspectRatio,
+          ),
+          itemCount: gridMap.length,
+          itemBuilder: (_, index) {
+            final item = gridMap[index];
+            return Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                ClipRRect(
+                  borderRadius: const BorderRadius.all(Radius.circular(25.0)),
+                  child: AspectRatio(
+                    aspectRatio: 1.49813,
+                    child: Image.network(
+                      item['images'],
+                      fit: BoxFit.cover,
                     ),
                   ),
-                  Text(
-                    item['title'],
-                    style: const TextStyle(
-                      fontSize: 24,
-                      fontWeight: FontWeight.bold,
-                      color: Color.fromARGB(255, 22, 24, 29),
-                    ),
-                  ),
-                  const SizedBox(height: 8.0),
-                  Text(
-                    item['description'],
-                    maxLines: 2,
-                    softWrap: true,
-                    overflow: TextOverflow.ellipsis,
-                    style: const TextStyle(
-                      fontWeight: FontWeight.w700,
-                      fontSize: 16,
-                      color: Color.fromARGB(255, 72, 76, 81),
-                    ),
-                  ),
-                  const SizedBox(height: 8.0),
-                  Row(
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        item['date'],
-                        style: const TextStyle(
-                          color: Color.fromARGB(255, 72, 76, 81),
-                          fontSize: 14,
-                        ),
-                      ),
-                      const Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 8.0),
-                        child: Icon(
-                          Icons.circle,
-                          size: 6,
-                          color: Color.fromARGB(255, 72, 76, 81),
+                        item['publicationType'],
+                        style: TextStyle(
+                          fontSize: 12,
+                          fontWeight: FontWeight.bold,
+                          color: selectColor(item['publicationType']),
                         ),
                       ),
                       Text(
-                        item['read'],
+                        item['title'],
                         style: const TextStyle(
-                          color: Color.fromARGB(255, 72, 76, 81),
-                          fontSize: 14,
+                          fontSize: 24,
+                          fontWeight: FontWeight.bold,
+                          color: Color.fromARGB(255, 22, 24, 29),
                         ),
                       ),
+                      const SizedBox(height: 8.0),
+                      Text(
+                        item['description'],
+                        maxLines: 2,
+                        softWrap: true,
+                        overflow: TextOverflow.ellipsis,
+                        style: const TextStyle(
+                          fontWeight: FontWeight.w700,
+                          fontSize: 16,
+                          color: Color.fromARGB(255, 72, 76, 81),
+                        ),
+                      ),
+                      const SizedBox(height: 8.0),
+                      Row(
+                        children: [
+                          Text(
+                            item['date'],
+                            style: const TextStyle(
+                              color: Color.fromARGB(255, 72, 76, 81),
+                              fontSize: 14,
+                            ),
+                          ),
+                          const Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 8.0),
+                            child: Icon(
+                              Icons.circle,
+                              size: 5,
+                              color: Color.fromARGB(255, 72, 76, 81),
+                            ),
+                          ),
+                          Text(
+                            item['read'],
+                            style: const TextStyle(
+                              color: Color.fromARGB(255, 72, 76, 81),
+                              fontSize: 14,
+                            ),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: 8.0),
                     ],
                   ),
-                  const SizedBox(height: 8.0),
-                  // New field: Publication Type.
-                ],
-              ),
-            ),
-          ],
-        );
-      },
+                ),
+              ],
+            );
+          },
+        ),
+      ),
     );
   }
 
-  selectColor(item) {
-    switch (item) {
+  Color selectColor(String publicationType) {
+    switch (publicationType) {
       case "Journal Article":
         return AppColor.orange;
       case "Research Paper":

@@ -38,6 +38,7 @@ dependencies:
   http: ^1.3.0
   flutter_svg: ^2.0.17
   fluttertoast: ^8.2.12
+  dotted_line: ^3.2.3
 
 dev_dependencies:
   flutter_test:

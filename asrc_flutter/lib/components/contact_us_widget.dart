@@ -1,3 +1,4 @@
+import 'package:asrc_flutter/components/custom_button_widget.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
@@ -53,7 +54,9 @@ class _ContactUsWidgetState extends State<ContactUsWidget> {
             const Text(
               'What can we help you\nwith today?',
               style: TextStyle(
-                  fontSize: 40, color: Color.fromARGB(255, 72, 76, 81)),
+                fontSize: 40,
+                color: Color.fromARGB(255, 72, 76, 81),
+              ),
               textAlign: TextAlign.center,
             ),
             const SizedBox(height: 24),
@@ -115,14 +118,18 @@ class _ContactUsWidgetState extends State<ContactUsWidget> {
               },
             ),
             const SizedBox(height: 24),
-            //TODO: make UI better
-            ElevatedButton(
-              onPressed: _sendForm,
-              child: const Text(
-                'Send',
-                style: TextStyle(fontSize: 16),
+            CustomButtonWidget(
+              text: 'Send',
+              textStyle: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 16,
               ),
-            ),
+              initialColor: Colors.black,
+              initialTextColor: Colors.white,
+              hoverColor: Color.fromARGB(255, 105, 53, 227),
+              hoverTextColor: Colors.white,
+              onTap: _sendForm,
+            )
           ],
         ),
       ),

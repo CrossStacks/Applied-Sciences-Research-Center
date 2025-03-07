@@ -135,31 +135,37 @@ class _PublicationPageState extends State<PublicationPage> {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      controller: _scrollController,
-      scrollDirection: Axis.vertical,
-      child: Column(
-        children: [
-          Row(
-            children: [
-              Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: const Text(
-                  'Publications',
-                  style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+    return Scaffold(
+      backgroundColor: Color.fromARGB(255, 252, 246, 243),
+      body: SingleChildScrollView(
+        controller: _scrollController,
+        scrollDirection: Axis.vertical,
+        child: Column(
+          children: [
+            Row(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: const Text(
+                    'Publications',
+                    style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                  ),
                 ),
-              ),
-              const Spacer(),
-              _buildSubscribeButton(),
-              _buildSearchBar(),
-            ],
-          ),
-          const Padding(
-            padding: EdgeInsets.all(64.0),
-            child: GridB(),
-          ),
-          const NewsletterWidget(),
-        ],
+                const Spacer(),
+                _buildSubscribeButton(),
+                _buildSearchBar(),
+              ],
+            ),
+            const Padding(
+              padding: EdgeInsets.all(64.0),
+              child: GridB(),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(120.0),
+              child: const NewsletterWidget(),
+            ),
+          ],
+        ),
       ),
     );
   }
