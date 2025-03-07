@@ -95,19 +95,19 @@ class _GridBState extends State<GridB> {
       crossAxisCount = 3;
       mainAxisSpacing = 80.0;
       crossAxisSpacing = 40.0;
-      childAspectRatio = 1.2;
+      childAspectRatio = 0.91;
       gridPadding = const EdgeInsets.fromLTRB(16.0, 40.0, 16.0, 16.0);
     } else if (Dimensions.isTablet(context)) {
       crossAxisCount = 2;
       mainAxisSpacing = 64.0;
       crossAxisSpacing = 16.0;
-      childAspectRatio = 1.0;
+      childAspectRatio = 0.88;
       gridPadding = const EdgeInsets.fromLTRB(16.0, 24.0, 16.0, 16.0);
     } else {
       crossAxisCount = 1;
       mainAxisSpacing = 40.0;
       crossAxisSpacing = 16.0;
-      childAspectRatio = 0.8;
+      childAspectRatio = 0.65;
       gridPadding = const EdgeInsets.fromLTRB(16.0, 24.0, 16.0, 16.0);
     }
 
@@ -200,7 +200,6 @@ class _GridBState extends State<GridB> {
                           ),
                         ],
                       ),
-                      const SizedBox(height: 8.0),
                     ],
                   ),
                 ),

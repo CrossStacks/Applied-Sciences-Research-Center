@@ -2,6 +2,7 @@ import 'package:asrc_flutter/components/newsletter_widget.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import '../components/grid_builder.dart';
+import '../utils/colors.dart';
 
 class PublicationPage extends StatefulWidget {
   const PublicationPage({super.key});
@@ -136,7 +137,7 @@ class _PublicationPageState extends State<PublicationPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color.fromARGB(255, 252, 246, 243),
+      backgroundColor: Colors.white,
       body: SingleChildScrollView(
         controller: _scrollController,
         scrollDirection: Axis.vertical,
