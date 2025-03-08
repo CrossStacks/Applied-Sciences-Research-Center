@@ -38,8 +38,7 @@ class HomePage extends StatelessWidget {
             ),
 
             Padding(
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 176.0, vertical: 16),
+              padding: const EdgeInsets.all(8),
               child: NavBar(),
             ),
             // ? slected journals
@@ -71,12 +70,10 @@ class _NavBarState extends State<NavBar> {
 
   @override
   Widget build(BuildContext context) {
-    final double screenWidth = MediaQuery.of(context).size.width;
-
     return Container(
       margin: const EdgeInsets.only(bottom: 16.0),
       padding: const EdgeInsets.all(8.0),
-      width: screenWidth,
+      width: 1240,
       height: 80,
       decoration: BoxDecoration(
         color: Colors.white,
