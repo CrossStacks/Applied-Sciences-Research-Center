@@ -91,7 +91,7 @@ class ReadingPage extends StatelessWidget {
                   ),
                 ],
               ),
-              Container(
+              SizedBox(
                 width: 984,
                 child: Padding(
                   padding: const EdgeInsets.symmetric(vertical: 24),
@@ -206,6 +206,29 @@ class ReadingPage extends StatelessWidget {
                             ),
                           ),
                         ],
+                      ),
+                      ClipRRect(
+                        borderRadius: BorderRadius.circular(48),
+                        child: Image.network(
+                          'https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?auto=format&fit=crop&w=800&q=80',
+                          width: 1240,
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                      Text(
+                        title,
+                        style: TextStyle(
+                          fontSize: 48,
+                          fontWeight: FontWeight.bold,
+                          color: Color.fromARGB(255, 13, 15, 17),
+                        ),
+                      ),
+                      Text(
+                        'The connection between music and sleep is real—and backed by science. Listening to calming music before bed can help lower stress, relax your body, and create the perfect environment for sleep. Music uniquely syncs with your brain, slowing your heart rate and reducing cortisol (the stress hormone). Certain types of music, especially classical or soothing instrumental pieces, are often recommended to help you unwind. But not all music works the same for everyone. So now you’re wondering, “Does classical music improve sleep quality?” “Is it safe to sleep with music on?” and “Does music really help with insomnia?” Well, stick around as we tackle all that and much more!',
+                        style: TextStyle(
+                          fontSize: 20,
+                          color: Color.fromARGB(255, 50, 53, 62),
+                        ),
                       ),
                     ],
                   ),
