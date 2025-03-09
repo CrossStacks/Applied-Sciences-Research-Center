@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import '../models/reading_page_model.dart';
+import '../pages/reading_page.dart';
 import '../utils/colors.dart';
 import '../utils/dimensions.dart';
 
@@ -82,6 +84,74 @@ class _GridBState extends State<GridB> {
       "publicationType": "Article",
     },
   ];
+  void onCellTap(int index) {
+    final item = gridMap[index];
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text(item["title"]),
+          content: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text("Date: ${item['date']}"),
+              Text("Read Time: ${item['read']}"),
+              Text("Publication Type: ${item['publicationType']}"),
+              SizedBox(height: 10),
+              Text(item['description']),
+            ],
+          ),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: const Text("close"),
+            ),
+            TextButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => ReadingPage(
+                      previousPageTitle: "Publications",
+                      title: "Music and Sleep – Does Music Help You Sleep?",
+                      description:
+                          "Music uniquely syncs with your brain, slowing your heart rate and reducing cortisol - the stress hormone.",
+                      content: [
+                        ReadingContent(
+                            type: "paragraph",
+                            content:
+                                'The connection between music and sleep is real—and backed by science. Listening to calming music before bed can help lower stress, relax your body, and create the perfect environment for sleep. Music uniquely syncs with your brain, slowing your heart rate and reducing cortisol (the stress hormone). Certain types of music, especially classical or soothing instrumental pieces, are often recommended to help you unwind. But not all music works the same for everyone. So now you’re wondering, “Does classical music improve sleep quality?” “Is it safe to sleep with music on?” and “Does music really help with insomnia?” Well, stick around as we tackle all that and much more!'),
+                        ReadingContent(
+                            type: "image",
+                            content: "",
+                            imageUrl:
+                                "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=800&q=80"),
+                        ReadingContent(
+                            type: "heading",
+                            content: "How Music Helps You Sleep"),
+                        ReadingContent(
+                            type: "paragraph",
+                            content:
+                                "These quick adjustments will be completed before January 5th and will greatly improve the experience of the mask as we gear up for Beta production."),
+                        ReadingContent(
+                            type: "paragraph",
+                            content:
+                                "We’re thrilled with how far we’ve come and can’t wait to bring you the ultimate sleep experience."),
+                      ],
+                    ),
+                  ),
+                );
+              },
+              child: const Text("read more"),
+            ),
+          ],
+        );
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -127,83 +197,86 @@ class _GridBState extends State<GridB> {
           itemCount: gridMap.length,
           itemBuilder: (_, index) {
             final item = gridMap[index];
-            return Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                ClipRRect(
-                  borderRadius: const BorderRadius.all(Radius.circular(25.0)),
-                  child: AspectRatio(
-                    aspectRatio: 1.49813,
-                    child: Image.network(
-                      item['images'],
-                      fit: BoxFit.cover,
+            return GestureDetector(
+              onTap: () => onCellTap(index),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  ClipRRect(
+                    borderRadius: const BorderRadius.all(Radius.circular(25.0)),
+                    child: AspectRatio(
+                      aspectRatio: 1.49813,
+                      child: Image.network(
+                        item['images'],
+                        fit: BoxFit.cover,
+                      ),
                     ),
                   ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        item['publicationType'],
-                        style: TextStyle(
-                          fontSize: 12,
-                          fontWeight: FontWeight.bold,
-                          color: selectColor(item['publicationType']),
-                        ),
-                      ),
-                      Text(
-                        item['title'],
-                        style: const TextStyle(
-                          fontSize: 24,
-                          fontWeight: FontWeight.bold,
-                          color: Color.fromARGB(255, 22, 24, 29),
-                        ),
-                      ),
-                      const SizedBox(height: 8.0),
-                      Text(
-                        item['description'],
-                        maxLines: 2,
-                        softWrap: true,
-                        overflow: TextOverflow.ellipsis,
-                        style: const TextStyle(
-                          fontWeight: FontWeight.w700,
-                          fontSize: 16,
-                          color: Color.fromARGB(255, 72, 76, 81),
-                        ),
-                      ),
-                      const SizedBox(height: 8.0),
-                      Row(
-                        children: [
-                          Text(
-                            item['date'],
-                            style: const TextStyle(
-                              color: Color.fromARGB(255, 72, 76, 81),
-                              fontSize: 14,
-                            ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          item['publicationType'],
+                          style: TextStyle(
+                            fontSize: 12,
+                            fontWeight: FontWeight.bold,
+                            color: selectColor(item['publicationType']),
                           ),
-                          const Padding(
-                            padding: EdgeInsets.symmetric(horizontal: 8.0),
-                            child: Icon(
-                              Icons.circle,
-                              size: 5,
-                              color: Color.fromARGB(255, 72, 76, 81),
-                            ),
+                        ),
+                        Text(
+                          item['title'],
+                          style: const TextStyle(
+                            fontSize: 24,
+                            fontWeight: FontWeight.bold,
+                            color: Color.fromARGB(255, 22, 24, 29),
                           ),
-                          Text(
-                            item['read'],
-                            style: const TextStyle(
-                              color: Color.fromARGB(255, 72, 76, 81),
-                              fontSize: 14,
-                            ),
+                        ),
+                        const SizedBox(height: 8.0),
+                        Text(
+                          item['description'],
+                          maxLines: 2,
+                          softWrap: true,
+                          overflow: TextOverflow.ellipsis,
+                          style: const TextStyle(
+                            fontWeight: FontWeight.w700,
+                            fontSize: 16,
+                            color: Color.fromARGB(255, 72, 76, 81),
                           ),
-                        ],
-                      ),
-                    ],
+                        ),
+                        const SizedBox(height: 8.0),
+                        Row(
+                          children: [
+                            Text(
+                              item['date'],
+                              style: const TextStyle(
+                                color: Color.fromARGB(255, 72, 76, 81),
+                                fontSize: 14,
+                              ),
+                            ),
+                            const Padding(
+                              padding: EdgeInsets.symmetric(horizontal: 8.0),
+                              child: Icon(
+                                Icons.circle,
+                                size: 5,
+                                color: Color.fromARGB(255, 72, 76, 81),
+                              ),
+                            ),
+                            Text(
+                              item['read'],
+                              style: const TextStyle(
+                                color: Color.fromARGB(255, 72, 76, 81),
+                                fontSize: 14,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             );
           },
         ),

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:dotted_line/dotted_line.dart';
+import '../models/reading_page_model.dart';
+import '../pages/reading_page.dart';
 import 'custom_button_widget.dart';
 
 class TimelineItem extends StatelessWidget {
@@ -130,7 +132,42 @@ class TimelineItem extends StatelessWidget {
                     initialTextColor: Color.fromARGB(255, 31, 11, 4),
                     hoverColor: Colors.black,
                     hoverTextColor: Colors.white,
-                    onTap: () {},
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => ReadingPage(
+                            previousPageTitle: "Events",
+                            title:
+                                "Music and Sleep – Does Music Help You Sleep?",
+                            description:
+                                "Music uniquely syncs with your brain, slowing your heart rate and reducing cortisol - the stress hormone.",
+                            content: [
+                              ReadingContent(
+                                  type: "paragraph",
+                                  content:
+                                      'The connection between music and sleep is real—and backed by science. Listening to calming music before bed can help lower stress, relax your body, and create the perfect environment for sleep. Music uniquely syncs with your brain, slowing your heart rate and reducing cortisol (the stress hormone). Certain types of music, especially classical or soothing instrumental pieces, are often recommended to help you unwind. But not all music works the same for everyone. So now you’re wondering, “Does classical music improve sleep quality?” “Is it safe to sleep with music on?” and “Does music really help with insomnia?” Well, stick around as we tackle all that and much more!'),
+                              ReadingContent(
+                                  type: "image",
+                                  content: "",
+                                  imageUrl:
+                                      "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=800&q=80"),
+                              ReadingContent(
+                                  type: "heading",
+                                  content: "How Music Helps You Sleep"),
+                              ReadingContent(
+                                  type: "paragraph",
+                                  content:
+                                      "These quick adjustments will be completed before January 5th and will greatly improve the experience of the mask as we gear up for Beta production."),
+                              ReadingContent(
+                                  type: "paragraph",
+                                  content:
+                                      "We’re thrilled with how far we’ve come and can’t wait to bring you the ultimate sleep experience."),
+                            ],
+                          ),
+                        ),
+                      );
+                    },
                     text: 'Read More',
                     textStyle: TextStyle(
                       fontSize: 16,

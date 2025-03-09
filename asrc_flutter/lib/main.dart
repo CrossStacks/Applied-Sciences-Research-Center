@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'pages/index.dart';
-import 'pages/reading_page.dart';
 import 'utils/colors.dart';
 import 'utils/constants.dart';
 
@@ -21,9 +20,7 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
       ),
       // home: Index(),
-      home: ReadingPage(
-        title: 'Music and Sleep – Does Music Help You Sleep?',
-      ),
+      home: Index(),
     );
   }
 }

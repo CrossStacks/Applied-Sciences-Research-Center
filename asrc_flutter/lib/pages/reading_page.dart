@@ -1,11 +1,20 @@
 import 'package:asrc_flutter/components/newsletter_widget.dart';
 import 'package:flutter/material.dart';
 
+import '../models/reading_page_model.dart';
+import 'home_page.dart';
+
 class ReadingPage extends StatelessWidget {
+  final String previousPageTitle;
   final String title;
+  final String description;
+  final List<ReadingContent> content;
   const ReadingPage({
     super.key,
     required this.title,
+    required this.content,
+    required this.description,
+    required this.previousPageTitle,
   });
 
   String getFirstThreeWordsWithEllipsis(String input) {
@@ -30,58 +39,26 @@ class ReadingPage extends StatelessWidget {
       backgroundColor: Color.fromARGB(255, 252, 246, 243),
       body: SingleChildScrollView(
         scrollDirection: Axis.vertical,
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 64, vertical: 16),
-          child: Column(
-            children: [
-              Row(
+        child: Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 64, vertical: 16),
+              child: Row(
                 children: [
-                  MouseRegion(
-                    onEnter: (_) => {},
-                    onExit: (_) => {},
-                    child: InkWell(
-                      onTap: () {
-                        // Navigator.pop(context);
-                      },
-                      child: Text(
-                        'Home',
-                        style: TextStyle(
-                          fontSize: 14,
-                          color: Color.fromARGB(255, 72, 76, 81),
-                        ),
-                      ),
-                    ),
-                  ),
-                  Text(
-                    ' / ',
-                    style: TextStyle(
-                      fontSize: 16,
-                      color: Color.fromARGB(255, 158, 157, 164),
-                    ),
-                  ),
-                  MouseRegion(
-                    onEnter: (_) => {},
-                    onExit: (_) => {},
-                    child: InkWell(
-                      onTap: () {
-                        // Navigator.pop(context);
-                      },
-                      child: Text(
-                        'Reading',
-                        style: TextStyle(
-                          fontSize: 14,
-                          color: Color.fromARGB(255, 72, 76, 81),
-                        ),
-                      ),
-                    ),
-                  ),
-                  Text(
-                    ' / ',
-                    style: TextStyle(
-                      fontSize: 16,
-                      color: Color.fromARGB(255, 158, 157, 164),
-                    ),
-                  ),
+                  _buildBreadcrumbItem(
+                      'Home',
+                      (() => {
+                            // Navigator.pushAndRemoveUntil(
+                            //   context,
+                            //   MaterialPageRoute(
+                            //       builder: (context) => HomePage()),
+                            //   (Route<dynamic> route) => false,
+                            // ),
+                          })),
+                  _buildBreadcrumbSeparator(),
+                  _buildBreadcrumbItem(
+                      previousPageTitle, (() => {Navigator.pop(context)})),
+                  _buildBreadcrumbSeparator(),
                   Text(
                     getFirstThreeWordsWithEllipsis(title),
                     style: TextStyle(
@@ -91,171 +68,222 @@ class ReadingPage extends StatelessWidget {
                   ),
                 ],
               ),
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical: 24),
-                child: Column(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 12.0),
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 24),
+              child: Column(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 12.0),
+                    child: Text(
+                      previousPageTitle,
+                      style: TextStyle(
+                        color: Color.fromARGB(255, 240, 106, 106),
+                      ),
+                    ),
+                  ),
+                  if (title.contains('–'))
+                    ConstrainedBox(
+                      constraints: BoxConstraints(maxWidth: 1000),
+                      child: RichText(
+                        textAlign: TextAlign.center,
+                        text: TextSpan(
+                          children: [
+                            TextSpan(
+                              text: getWords(title)[0],
+                              style: TextStyle(
+                                fontSize: 72,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.black,
+                              ),
+                            ),
+                            TextSpan(
+                              text: '–',
+                              style: TextStyle(
+                                fontSize: 72,
+                                fontWeight: FontWeight.bold,
+                                color: Color.fromARGB(255, 72, 76, 81),
+                              ),
+                            ),
+                            TextSpan(
+                              text: getWords(title)[1],
+                              style: TextStyle(
+                                fontSize: 72,
+                                fontWeight: FontWeight.bold,
+                                color: Color.fromARGB(255, 72, 76, 81),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  if (!title.contains('–'))
+                    ConstrainedBox(
+                      constraints: BoxConstraints(maxWidth: 1000),
                       child: Text(
-                        'Event',
+                        title,
                         style: TextStyle(
-                          color: Color.fromARGB(255, 240, 106, 106),
+                          fontSize: 72,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black,
                         ),
+                        textAlign: TextAlign.center,
                       ),
                     ),
-                    if (title.contains('–'))
-                      ConstrainedBox(
-                        constraints: BoxConstraints(maxWidth: 1000),
-                        child: RichText(
-                          textAlign: TextAlign.center,
-                          text: TextSpan(
-                            children: [
-                              TextSpan(
-                                text: getWords(title)[0],
-                                style: TextStyle(
-                                  fontSize: 72,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.black,
-                                ),
-                              ),
-                              TextSpan(
-                                text: '–',
-                                style: TextStyle(
-                                  fontSize: 72,
-                                  fontWeight: FontWeight.bold,
-                                  color: Color.fromARGB(255, 72, 76, 81),
-                                ),
-                              ),
-                              TextSpan(
-                                text: getWords(title)[1],
-                                style: TextStyle(
-                                  fontSize: 72,
-                                  fontWeight: FontWeight.bold,
-                                  color: Color.fromARGB(255, 72, 76, 81),
-                                ),
-                              ),
-                            ],
-                          ),
+                  Padding(
+                    padding: const EdgeInsets.all(32.0),
+                    child: ConstrainedBox(
+                      constraints: BoxConstraints(maxWidth: 750),
+                      child: Text(
+                        description,
+                        style: TextStyle(
+                          fontSize: 20,
+                          color: Color.fromARGB(255, 13, 15, 17),
                         ),
-                      ),
-                    if (!title.contains('–'))
-                      ConstrainedBox(
-                        constraints: BoxConstraints(maxWidth: 1000),
-                        child: Text(
-                          title,
-                          style: TextStyle(
-                            fontSize: 72,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.black,
-                          ),
-                          textAlign: TextAlign.center,
-                        ),
-                      ),
-                    Padding(
-                      padding: const EdgeInsets.all(32.0),
-                      child: ConstrainedBox(
-                        constraints: BoxConstraints(maxWidth: 750),
-                        child: Text(
-                          'Music uniquely syncs with your brain, slowing your heart rate and reducing cortisol - the stress hormone.',
-                          style: TextStyle(
-                            fontSize: 20,
-                            color: Color.fromARGB(255, 13, 15, 17),
-                          ),
-                          textAlign: TextAlign.center,
-                        ),
+                        textAlign: TextAlign.center,
                       ),
                     ),
-                    Row(
-                      mainAxisSize: MainAxisSize.min,
-                      spacing: 10,
-                      children: [
-                        ClipOval(
-                          child: Image.asset(
-                            'assets/najiyaalarifazoo.jpg',
-                            width: 40,
-                            height: 40,
-                            fit: BoxFit.cover,
-                          ),
-                        ),
-                        Text(
-                          'Name',
-                          style: TextStyle(fontSize: 16, color: Colors.black),
-                        ),
-                        Icon(
-                          Icons.circle,
-                          size: 8,
-                          color: Color.fromARGB(255, 72, 76, 81),
-                        ),
-                        Text(
-                          'February 17, 2025',
-                          style: TextStyle(
-                            fontSize: 16,
-                            color: Color.fromARGB(255, 72, 76, 81),
-                          ),
-                        ),
-                        Icon(
-                          Icons.circle,
-                          size: 8,
-                          color: Color.fromARGB(255, 72, 76, 81),
-                        ),
-                        Text(
-                          '8 min read',
-                          style: TextStyle(
-                            fontSize: 16,
-                            color: Color.fromARGB(255, 72, 76, 81),
-                          ),
-                        ),
-                      ],
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(top: 80.0),
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(48),
-                        child: Image.network(
-                          scale: 5380 / 3587,
-                          'https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?auto=format&fit=crop&w=800&q=80',
-                          width: 984,
+                  ),
+                  Row(
+                    mainAxisSize: MainAxisSize.min,
+                    spacing: 10,
+                    children: [
+                      ClipOval(
+                        child: Image.asset(
+                          'assets/najiyaalarifazoo.jpg',
+                          width: 40,
+                          height: 40,
                           fit: BoxFit.cover,
                         ),
                       ),
-                    ),
-                    SizedBox(
-                      width: 728,
-                      child: Column(
-                        children: [
-                          Padding(
-                            padding:
-                                const EdgeInsets.only(top: 96.0, bottom: 48),
-                            child: Text(
-                              title,
-                              style: TextStyle(
-                                fontSize: 48,
-                                fontWeight: FontWeight.bold,
-                                color: Color.fromARGB(255, 13, 15, 17),
-                              ),
-                            ),
+                      Text(
+                        'Name',
+                        style: TextStyle(fontSize: 16, color: Colors.black),
+                      ),
+                      Icon(
+                        Icons.circle,
+                        size: 8,
+                        color: Color.fromARGB(255, 72, 76, 81),
+                      ),
+                      Text(
+                        'February 17, 2025',
+                        style: TextStyle(
+                          fontSize: 16,
+                          color: Color.fromARGB(255, 72, 76, 81),
+                        ),
+                      ),
+                      Icon(
+                        Icons.circle,
+                        size: 8,
+                        color: Color.fromARGB(255, 72, 76, 81),
+                      ),
+                      Text(
+                        '8 min read',
+                        style: TextStyle(
+                          fontSize: 16,
+                          color: Color.fromARGB(255, 72, 76, 81),
+                        ),
+                      ),
+                    ],
+                  ),
+                  SizedBox(
+                    width: 984,
+                    child: Padding(
+                      padding: const EdgeInsets.only(top: 80.0),
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(48),
+                        child: AspectRatio(
+                          aspectRatio: 984 / 541,
+                          child: Image.network(
+                            // scale: 3 / 2,
+                            width: double.infinity,
+                            // height: 3587,
+                            'https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?auto=format&fit=crop&w=800&q=80',
+                            fit: BoxFit.cover,
                           ),
-                          Text(
-                            'The connection between music and sleep is real—and backed by science. Listening to calming music before bed can help lower stress, relax your body, and create the perfect environment for sleep. Music uniquely syncs with your brain, slowing your heart rate and reducing cortisol (the stress hormone). Certain types of music, especially classical or soothing instrumental pieces, are often recommended to help you unwind. But not all music works the same for everyone. So now you’re wondering, “Does classical music improve sleep quality?” “Is it safe to sleep with music on?” and “Does music really help with insomnia?” Well, stick around as we tackle all that and much more!',
-                            style: TextStyle(
-                              fontSize: 20,
-                              color: Color.fromARGB(255, 50, 53, 62),
-                            ),
-                          ),
-                        ],
+                        ),
                       ),
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical: 120.0),
-                child: NewsletterWidget(),
+            ),
+            SizedBox(
+              width: 728,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: content.map((item) {
+                  if (item.type == "heading") {
+                    return Padding(
+                      padding: const EdgeInsets.only(top: 96, bottom: 48),
+                      child: Text(
+                        item.content,
+                        style: const TextStyle(
+                          fontSize: 28,
+                          fontWeight: FontWeight.bold,
+                          color: Color.fromARGB(255, 13, 15, 17),
+                        ),
+                      ),
+                    );
+                  } else if (item.type == "paragraph") {
+                    return Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 25),
+                      child: Text(
+                        item.content,
+                        style: const TextStyle(
+                          fontSize: 20,
+                          color: Color.fromARGB(255, 50, 53, 62),
+                        ),
+                      ),
+                    );
+                  } else if (item.type == "image" && item.imageUrl != null) {
+                    return Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 40),
+                      child: AspectRatio(
+                        aspectRatio: 364 / 185,
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(16),
+                          child: Image.network(
+                            item.imageUrl!,
+                            fit: BoxFit.cover,
+                          ),
+                        ),
+                      ),
+                    );
+                  }
+                  return const SizedBox();
+                }).toList(),
               ),
-            ],
-          ),
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 120.0),
+              child: NewsletterWidget(),
+            ),
+          ],
         ),
+      ),
+    );
+  }
+
+  Widget _buildBreadcrumbItem(String text, dynamic function) {
+    return InkWell(
+      onTap: function,
+      child: Text(
+        text,
+        style: const TextStyle(
+          fontSize: 14,
+          color: Color.fromARGB(255, 72, 76, 81),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildBreadcrumbSeparator() {
+    return const Text(
+      ' / ',
+      style: TextStyle(
+        fontSize: 16,
+        color: Color.fromARGB(255, 158, 157, 164),
       ),
     );
   }
