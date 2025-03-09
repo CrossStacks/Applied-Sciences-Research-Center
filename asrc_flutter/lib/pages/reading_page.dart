@@ -1,8 +1,7 @@
 import 'package:asrc_flutter/components/newsletter_widget.dart';
+import 'package:asrc_flutter/pages/index.dart';
 import 'package:flutter/material.dart';
-
 import '../models/reading_page_model.dart';
-import 'home_page.dart';
 
 class ReadingPage extends StatelessWidget {
   final String previousPageTitle;
@@ -48,12 +47,11 @@ class ReadingPage extends StatelessWidget {
                   _buildBreadcrumbItem(
                       'Home',
                       (() => {
-                            // Navigator.pushAndRemoveUntil(
-                            //   context,
-                            //   MaterialPageRoute(
-                            //       builder: (context) => HomePage()),
-                            //   (Route<dynamic> route) => false,
-                            // ),
+                            Navigator.pushAndRemoveUntil(
+                              context,
+                              MaterialPageRoute(builder: (context) => Index()),
+                              (Route<dynamic> route) => false,
+                            ),
                           })),
                   _buildBreadcrumbSeparator(),
                   _buildBreadcrumbItem(
