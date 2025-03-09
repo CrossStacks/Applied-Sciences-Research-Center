@@ -1,9 +1,11 @@
 import 'package:asrc_flutter/components/newsletter_widget.dart';
 import 'package:asrc_flutter/pages/index.dart';
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../models/reading_page_model.dart';
 
 class ReadingPage extends StatelessWidget {
+  final Uri url;
   final String previousPageTitle;
   final String title;
   final String description;
@@ -14,6 +16,7 @@ class ReadingPage extends StatelessWidget {
     required this.content,
     required this.description,
     required this.previousPageTitle,
+    required this.url,
   });
 
   String getFirstThreeWordsWithEllipsis(String input) {
@@ -25,6 +28,12 @@ class ReadingPage extends StatelessWidget {
     }
 
     return result;
+  }
+
+  Future<void> _launchUrl() async {
+    if (!await launchUrl(url)) {
+      throw Exception('Could not launch $url');
+    }
   }
 
   List<String> getWords(String text) {
@@ -251,6 +260,56 @@ class ReadingPage extends StatelessWidget {
                   }
                   return const SizedBox();
                 }).toList(),
+              ),
+            ),
+            SizedBox(
+              width: 728,
+              child: Row(
+                children: [
+                  const Text(
+                    'DOI: ',
+                    style: TextStyle(
+                      fontSize: 14,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black,
+                    ),
+                  ),
+                  InkWell(
+                    splashColor: Colors.transparent,
+                    highlightColor: Colors.transparent,
+                    hoverColor: Colors.transparent,
+                    onTap: _launchUrl,
+                    child: Text(
+                      url.toString(),
+                      style: TextStyle(
+                        decoration: TextDecoration.underline,
+                        fontSize: 14,
+                        color: Colors.black,
+                      ),
+                    ),
+                  ),
+                  Spacer(),
+                  InkWell(
+                    onTap: () {
+                      // !TODO: Open PDF
+                    },
+                    child: Container(
+                      height: 50,
+                      width: 50,
+                      padding: EdgeInsets.all(13),
+                      decoration: BoxDecoration(
+                        border: Border.all(
+                          color: Colors.grey,
+                          width: 0.5,
+                        ),
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      child: Icon(
+                        Icons.picture_as_pdf_outlined,
+                      ),
+                    ),
+                  ),
+                ],
               ),
             ),
             Padding(

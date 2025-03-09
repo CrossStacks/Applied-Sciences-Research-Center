@@ -115,6 +115,7 @@ class _GridBState extends State<GridB> {
                   context,
                   MaterialPageRoute(
                     builder: (context) => ReadingPage(
+                      url: Uri.parse('https://flutter.dev'),
                       previousPageTitle: "Publications",
                       title: "Music and Sleep – Does Music Help You Sleep?",
                       description:

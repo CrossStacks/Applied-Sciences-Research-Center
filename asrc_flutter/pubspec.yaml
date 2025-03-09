@@ -41,6 +41,7 @@ dependencies:
   dotted_line: ^3.2.3
   fwfh_webview: ^0.15.4
   flutter_widget_from_html_core: ^0.16.0
+  url_launcher: ^6.3.1
 
 dev_dependencies:
   flutter_test:

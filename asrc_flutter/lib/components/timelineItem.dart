@@ -137,6 +137,7 @@ class TimelineItem extends StatelessWidget {
                         context,
                         MaterialPageRoute(
                           builder: (context) => ReadingPage(
+                            url: Uri.parse('https://flutter.dev'),
                             previousPageTitle: "Events",
                             title:
                                 "Music and Sleep – Does Music Help You Sleep?",
