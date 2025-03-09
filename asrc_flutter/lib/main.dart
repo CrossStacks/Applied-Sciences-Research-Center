@@ -20,6 +20,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: AppColor.primaryColor),
         useMaterial3: true,
       ),
+      // home: Index(),
       home: ReadingPage(
         title: 'Music and Sleep – Does Music Help You Sleep?',
       ),

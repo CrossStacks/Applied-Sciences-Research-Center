@@ -1,3 +1,4 @@
+import 'package:asrc_flutter/components/footer.dart';
 import 'package:asrc_flutter/pages/signin_page.dart';
 import 'package:asrc_flutter/utils/colors.dart';
 import 'package:asrc_flutter/utils/global.dart';
@@ -98,6 +99,11 @@ class Index extends StatelessWidget {
         body: TabBarView(
           children: tabs,
         ),
+        // extendBody: true,
+        // persistentFooterAlignment: ,
+        // persistentFooterButtons: [
+        //   Footer(),
+        // ],
       ),
     );
   }
