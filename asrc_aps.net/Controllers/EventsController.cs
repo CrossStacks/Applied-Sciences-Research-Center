@@ -45,7 +45,8 @@ namespace Applied_Sciences_Research_Center_Website.Controllers
                 return StatusCode(500, $"An error occurred: {ex.Message}");
             }
         }
-        
+
+        [AllowAnonymous]
         [HttpPost("GetAll")]
         public async Task<ActionResult> GetAll()
         {
