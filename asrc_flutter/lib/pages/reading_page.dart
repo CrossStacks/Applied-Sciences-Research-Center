@@ -264,55 +264,58 @@ class ReadingPage extends StatelessWidget {
             ),
             SizedBox(
               width: 728,
-              child: Row(
-                children: [
-                  const Text(
-                    'DOI: ',
-                    style: TextStyle(
-                      fontSize: 14,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.black,
-                    ),
-                  ),
-                  InkWell(
-                    splashColor: Colors.transparent,
-                    highlightColor: Colors.transparent,
-                    hoverColor: Colors.transparent,
-                    onTap: _launchUrl,
-                    child: Text(
-                      url.toString(),
+              child: Padding(
+                padding: const EdgeInsets.symmetric(vertical: 25.0),
+                child: Row(
+                  children: [
+                    const Text(
+                      'DOI: ',
                       style: TextStyle(
-                        decoration: TextDecoration.underline,
-                        fontSize: 14,
-                        color: Colors.black,
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                        color: Color.fromARGB(255, 50, 53, 62),
                       ),
                     ),
-                  ),
-                  Spacer(),
-                  InkWell(
-                    customBorder: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    onTap: () {
-                      // !TODO: Open PDF
-                    },
-                    child: Container(
-                      height: 50,
-                      width: 50,
-                      padding: EdgeInsets.all(13),
-                      decoration: BoxDecoration(
-                        border: Border.all(
-                          color: Colors.grey,
-                          width: 0.5,
+                    InkWell(
+                      splashColor: Colors.transparent,
+                      highlightColor: Colors.transparent,
+                      hoverColor: Colors.transparent,
+                      onTap: _launchUrl,
+                      child: Text(
+                        url.toString(),
+                        style: TextStyle(
+                          decoration: TextDecoration.underline,
+                          fontSize: 20,
+                          color: Color.fromARGB(255, 17, 24, 39),
                         ),
+                      ),
+                    ),
+                    Spacer(),
+                    InkWell(
+                      customBorder: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10),
                       ),
-                      child: Icon(
-                        Icons.picture_as_pdf_outlined,
+                      onTap: () {
+                        // !TODO: Open PDF
+                      },
+                      child: Container(
+                        height: 50,
+                        width: 50,
+                        padding: EdgeInsets.all(13),
+                        decoration: BoxDecoration(
+                          border: Border.all(
+                            color: Colors.grey,
+                            width: 0.5,
+                          ),
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        child: Icon(
+                          Icons.picture_as_pdf_outlined,
+                        ),
                       ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
             Padding(
