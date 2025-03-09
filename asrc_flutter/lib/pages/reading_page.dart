@@ -290,6 +290,9 @@ class ReadingPage extends StatelessWidget {
                   ),
                   Spacer(),
                   InkWell(
+                    customBorder: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
                     onTap: () {
                       // !TODO: Open PDF
                     },

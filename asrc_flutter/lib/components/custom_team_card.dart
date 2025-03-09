@@ -23,6 +23,9 @@ class CustomTeamCard extends StatelessWidget {
               right: 0,
               top: 0,
               child: InkWell(
+                customBorder: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10),
+                ),
                 onTap: () {
                   // !TODO: Define your LinkedIn button's action here
                 },
