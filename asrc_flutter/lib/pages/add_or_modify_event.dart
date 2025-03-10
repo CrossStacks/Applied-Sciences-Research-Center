@@ -1,22 +1,43 @@
+import 'dart:typed_data';
 import 'package:asrc_flutter/components/add_contributors.dart';
 import 'package:asrc_flutter/components/custom_button_widget.dart';
 import 'package:asrc_flutter/components/custom_input_widget.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import '../components/date_picker.dart';
+import '../services/app/image_picker.dart';
 import '../utils/constants.dart';
 
-class AddOrModifyEvent extends StatelessWidget {
+class AddOrModifyEvent extends StatefulWidget {
   const AddOrModifyEvent({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    TextEditingController title = TextEditingController();
-    TextEditingController eventType = TextEditingController();
-    TextEditingController metaDescription = TextEditingController();
-    TextEditingController readingTime = TextEditingController();
-    TextEditingController body = TextEditingController();
+  State<AddOrModifyEvent> createState() => _AddOrModifyEventState();
+}
 
+class _AddOrModifyEventState extends State<AddOrModifyEvent> {
+  final TextEditingController title = TextEditingController();
+
+  final TextEditingController eventType = TextEditingController();
+
+  final TextEditingController metaDescription = TextEditingController();
+
+  final TextEditingController readingTime = TextEditingController();
+
+  final TextEditingController body = TextEditingController();
+
+  Uint8List? coverImage;
+
+  void onSelectImage() async {
+    Uint8List? img = await PickImage().pickImage(ImageSource.gallery);
+    setState(() {
+      coverImage = img;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
@@ -155,7 +176,7 @@ class AddOrModifyEvent extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'Author’s Information',
+                      'Organizer’s and Contributor’s Information',
                       style: TextStyle(
                         fontSize: 24,
                         fontWeight: FontWeight.bold,
@@ -163,7 +184,7 @@ class AddOrModifyEvent extends StatelessWidget {
                       ),
                     ),
                     Text(
-                      'Name of Author’s and Contributors',
+                      'Name of Organizer’s and Contributor’s',
                       style: TextStyle(
                         fontSize: 16,
                         color: Color.fromARGB(255, 50, 53, 62),
@@ -195,35 +216,19 @@ class AddOrModifyEvent extends StatelessWidget {
                       hoverColor: Colors.transparent,
                       highlightColor: Colors.transparent,
                       splashColor: Colors.transparent,
-                      onTap: () {},
+                      onTap: onSelectImage,
                       child: DottedBorder(
                         color: Colors.black,
                         strokeWidth: 1,
-                        dashPattern: [4, 2],
+                        dashPattern: const [4, 2],
                         borderType: BorderType.RRect,
-                        radius: Radius.circular(24),
+                        radius: const Radius.circular(24),
                         child: SizedBox(
                           height: 126,
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text(
-                                'Browse files',
-                                style: TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 20,
-                                  decoration: TextDecoration.underline,
-                                ),
-                              ),
-                              Text(
-                                ' or drag-and-drop',
-                                style: TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 20,
-                                ),
-                              ),
-                            ],
-                          ),
+                          width: double.infinity,
+                          child: coverImage == null
+                              ? _buildEmptyState(context)
+                              : _buildImagePreview(),
                         ),
                       ),
                     ),
@@ -239,6 +244,64 @@ class AddOrModifyEvent extends StatelessWidget {
                         color: Color.fromARGB(255, 13, 15, 17),
                       ),
                     ),
+                    Text(
+                      'Please provide the event details below:',
+                      style: TextStyle(
+                        color: Color.fromARGB(255, 50, 53, 62),
+                        fontSize: 16,
+                      ),
+                    ),
+                    Row(
+                      children: [
+                        Icon(
+                          Icons.circle_outlined,
+                          color: Color.fromARGB(255, 252, 137, 95),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(4),
+                          child: Text(
+                            'Event Type: e.g., Conference, Workshop, Panel Discussion, etc.',
+                            style: TextStyle(
+                                color: Color.fromARGB(255, 13, 15, 17),
+                                fontSize: 16),
+                          ),
+                        ),
+                      ],
+                    ),
+                    Row(
+                      children: [
+                        Icon(
+                          Icons.circle_outlined,
+                          color: Color.fromARGB(255, 252, 137, 95),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(4),
+                          child: Text(
+                            'Meta Description: Provide a brief 1-2 sentence overview of the event.',
+                            style: TextStyle(
+                                color: Color.fromARGB(255, 13, 15, 17),
+                                fontSize: 16),
+                          ),
+                        ),
+                      ],
+                    ),
+                    Row(
+                      children: [
+                        Icon(
+                          Icons.circle_outlined,
+                          color: Color.fromARGB(255, 252, 137, 95),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(4),
+                          child: Text(
+                            'Reading Time: Specify an estimated duration (e.g., "5 min read" or "10 min read").',
+                            style: TextStyle(
+                                color: Color.fromARGB(255, 13, 15, 17),
+                                fontSize: 16),
+                          ),
+                        ),
+                      ],
+                    ),
                     CustomInputWidget(
                       hintText: 'Enter the title...',
                       controller: title,
@@ -248,31 +311,28 @@ class AddOrModifyEvent extends StatelessWidget {
                     ),
                     DatePicker(),
                     CustomInputWidget(
-                      hintText:
-                          'Enter the event type...  i.e. Conference / Workshop / Panel Talk e.t.c.',
+                      hintText: 'Enter the event type...',
                       controller: eventType,
                       label: 'Event Type',
                       width: 728,
                       keyboardType: TextInputType.text,
                     ),
                     CustomInputWidget(
-                      hintText:
-                          'Enter the meta description...  i.e. A 1-2 line description of the event',
+                      hintText: 'Enter the meta description...',
                       controller: metaDescription,
                       label: 'Meta Description',
                       width: 728,
                       keyboardType: TextInputType.text,
                     ),
                     CustomInputWidget(
-                      hintText:
-                          'Enter the reading time...  i.e. 5 min read / 10 min read',
+                      hintText: 'Enter the reading time...',
                       controller: readingTime,
                       label: 'Reading Time',
                       width: 728,
                       keyboardType: TextInputType.text,
                     ),
                     CustomInputWidget(
-                      hintText: 'Enter the main content of the event',
+                      hintText: 'Content of the event...',
                       controller: body,
                       label: 'Body',
                       maxLines: 10,
@@ -285,6 +345,52 @@ class AddOrModifyEvent extends StatelessWidget {
             ),
           ],
         ),
+      ),
+    );
+  }
+
+  Widget _buildEmptyState(BuildContext context) {
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Icon(
+            Icons.file_upload_outlined,
+            size: 40,
+            color: Colors.grey[700],
+          ),
+          const SizedBox(height: 8),
+          RichText(
+            text: TextSpan(
+              style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                    fontSize: 16,
+                    color: Colors.black,
+                  ),
+              children: [
+                TextSpan(
+                  text: 'Browse files',
+                  style: const TextStyle(
+                    decoration: TextDecoration.underline,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                const TextSpan(text: ' or drag-and-drop'),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildImagePreview() {
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(24),
+      child: Image.memory(
+        coverImage!,
+        fit: BoxFit.cover,
+        width: double.infinity,
+        height: 126,
       ),
     );
   }

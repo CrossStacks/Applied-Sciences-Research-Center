@@ -106,8 +106,9 @@ class _ContributorsFormState extends State<ContributorsForm> {
         ...contributors.asMap().entries.map((entry) {
           int index = entry.key;
           Contributor contributor = entry.value;
-          String label =
-              index == 0 ? 'Main Author' : '${ordinal(index)} Co Author';
+          String label = index == 0
+              ? 'Main Organizer'
+              : '${ordinal(index)} Co Organizer / Contributor';
           return AddContributors(
             label: label,
             firstName: contributor.firstNameController,
