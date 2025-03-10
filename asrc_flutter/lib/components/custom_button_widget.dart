@@ -51,7 +51,7 @@ class _CustomButtonWidgetState extends State<CustomButtonWidget> {
     final style = widget.textStyle.copyWith(color: textColor);
     return Container(
       width: widget.width,
-      margin: const EdgeInsets.symmetric(),
+      padding: const EdgeInsets.symmetric(vertical: 16),
       child: Material(
         color: Colors.transparent,
         child: InkWell(
@@ -71,6 +71,7 @@ class _CustomButtonWidgetState extends State<CustomButtonWidget> {
             ),
             child: Text(
               widget.text,
+              textAlign: TextAlign.center,
               style: style,
             ),
           ),
