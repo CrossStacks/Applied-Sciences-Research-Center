@@ -1,10 +1,12 @@
 import 'package:asrc_flutter/components/newsletter_widget.dart';
 import 'package:asrc_flutter/pages/index.dart';
 import 'package:flutter/material.dart';
-import 'package:url_launcher/url_launcher.dart';
+import 'package:flutter/services.dart';
+import '../components/icon_button.dart';
 import '../models/reading_page_model.dart';
+import '../utils/url_launcher.dart';
 
-class ReadingPage extends StatelessWidget {
+class ReadingPage extends StatefulWidget {
   final Uri url;
   final String previousPageTitle;
   final String title;
@@ -19,6 +21,11 @@ class ReadingPage extends StatelessWidget {
     required this.url,
   });
 
+  @override
+  State<ReadingPage> createState() => _ReadingPageState();
+}
+
+class _ReadingPageState extends State<ReadingPage> {
   String getFirstThreeWordsWithEllipsis(String input) {
     List<String> words = input.split(RegExp(r'\s+'));
     String result = words.take(3).join(' ');
@@ -30,15 +37,33 @@ class ReadingPage extends StatelessWidget {
     return result;
   }
 
-  Future<void> _launchUrl() async {
-    if (!await launchUrl(url)) {
-      throw Exception('Could not launch $url');
-    }
-  }
-
   List<String> getWords(String text) {
     List<String> parts = text.split('–');
     return parts;
+  }
+
+  final ScrollController _scrollController = ScrollController();
+  double fabPosition = 500;
+  final double stopPosition = 40;
+
+  @override
+  void initState() {
+    super.initState();
+    _scrollController.addListener(() {
+      setState(() {
+        double newFabPosition = 500 - (_scrollController.position.pixels - 500);
+
+        double newsletterPosition = 1000;
+
+        if (_scrollController.position.pixels < 500) {
+          fabPosition = 500;
+        } else if (_scrollController.position.pixels >= newsletterPosition) {
+          fabPosition = newsletterPosition - 50;
+        } else {
+          fabPosition = newFabPosition;
+        }
+      });
+    });
   }
 
   @override
@@ -46,6 +71,7 @@ class ReadingPage extends StatelessWidget {
     return Scaffold(
       backgroundColor: Color.fromARGB(255, 252, 246, 243),
       body: SingleChildScrollView(
+        controller: _scrollController,
         scrollDirection: Axis.vertical,
         child: Column(
           children: [
@@ -63,11 +89,11 @@ class ReadingPage extends StatelessWidget {
                             ),
                           })),
                   _buildBreadcrumbSeparator(),
-                  _buildBreadcrumbItem(
-                      previousPageTitle, (() => {Navigator.pop(context)})),
+                  _buildBreadcrumbItem(widget.previousPageTitle,
+                      (() => {Navigator.pop(context)})),
                   _buildBreadcrumbSeparator(),
                   Text(
-                    getFirstThreeWordsWithEllipsis(title),
+                    getFirstThreeWordsWithEllipsis(widget.title),
                     style: TextStyle(
                       fontSize: 14,
                       color: Color.fromARGB(255, 158, 157, 164),
@@ -83,13 +109,13 @@ class ReadingPage extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.symmetric(vertical: 12.0),
                     child: Text(
-                      previousPageTitle,
+                      widget.previousPageTitle,
                       style: TextStyle(
                         color: Color.fromARGB(255, 240, 106, 106),
                       ),
                     ),
                   ),
-                  if (title.contains('–'))
+                  if (widget.title.contains('–'))
                     ConstrainedBox(
                       constraints: BoxConstraints(maxWidth: 1000),
                       child: RichText(
@@ -97,7 +123,7 @@ class ReadingPage extends StatelessWidget {
                         text: TextSpan(
                           children: [
                             TextSpan(
-                              text: getWords(title)[0],
+                              text: getWords(widget.title)[0],
                               style: TextStyle(
                                 fontSize: 72,
                                 fontWeight: FontWeight.bold,
@@ -113,7 +139,7 @@ class ReadingPage extends StatelessWidget {
                               ),
                             ),
                             TextSpan(
-                              text: getWords(title)[1],
+                              text: getWords(widget.title)[1],
                               style: TextStyle(
                                 fontSize: 72,
                                 fontWeight: FontWeight.bold,
@@ -124,11 +150,11 @@ class ReadingPage extends StatelessWidget {
                         ),
                       ),
                     ),
-                  if (!title.contains('–'))
+                  if (!widget.title.contains('–'))
                     ConstrainedBox(
                       constraints: BoxConstraints(maxWidth: 1000),
                       child: Text(
-                        title,
+                        widget.title,
                         style: TextStyle(
                           fontSize: 72,
                           fontWeight: FontWeight.bold,
@@ -142,7 +168,7 @@ class ReadingPage extends StatelessWidget {
                     child: ConstrainedBox(
                       constraints: BoxConstraints(maxWidth: 750),
                       child: Text(
-                        description,
+                        widget.description,
                         style: TextStyle(
                           fontSize: 20,
                           color: Color.fromARGB(255, 13, 15, 17),
@@ -215,109 +241,169 @@ class ReadingPage extends StatelessWidget {
                 ],
               ),
             ),
-            SizedBox(
-              width: 728,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: content.map((item) {
-                  if (item.type == "heading") {
-                    return Padding(
-                      padding: const EdgeInsets.only(top: 96, bottom: 48),
-                      child: Text(
-                        item.content,
-                        style: const TextStyle(
-                          fontSize: 28,
-                          fontWeight: FontWeight.bold,
-                          color: Color.fromARGB(255, 13, 15, 17),
-                        ),
+            Stack(
+              children: [
+                SizedBox(
+                  width: 728,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: widget.content.map((item) {
+                      if (item.type == "heading") {
+                        return Padding(
+                          padding: const EdgeInsets.only(top: 96, bottom: 48),
+                          child: Text(
+                            item.content,
+                            style: const TextStyle(
+                              fontSize: 28,
+                              fontWeight: FontWeight.bold,
+                              color: Color.fromARGB(255, 13, 15, 17),
+                            ),
+                          ),
+                        );
+                      } else if (item.type == "paragraph") {
+                        return Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 25),
+                          child: Text(
+                            item.content,
+                            style: const TextStyle(
+                              fontSize: 20,
+                              color: Color.fromARGB(255, 50, 53, 62),
+                            ),
+                          ),
+                        );
+                      } else if (item.type == "image" &&
+                          item.imageUrl != null) {
+                        return Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 40),
+                          child: AspectRatio(
+                            aspectRatio: 364 / 185,
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(16),
+                              child: Image.network(
+                                item.imageUrl!,
+                                fit: BoxFit.cover,
+                              ),
+                            ),
+                          ),
+                        );
+                      }
+                      return const SizedBox();
+                    }).toList(),
+                  ),
+                ),
+                Positioned(
+                  left: -20,
+                  top: fabPosition,
+                  child: Column(
+                    spacing: 4,
+                    children: [
+                      IconButtonWidget(
+                          icon: Icons.facebook,
+                          onTap: () {
+                            launchUrlSafe(
+                              Uri.parse(
+                                'https://www.facebook.com',
+                              ),
+                            );
+                          }),
+                      IconButtonWidget(
+                        onTap: () {
+                          launchUrlSafe(
+                            Uri.parse(
+                              'https://www.linkedin.com',
+                            ),
+                          );
+                        },
+                        usingPicture: true,
+                        picturePath: 'assets/linkedin.svg',
                       ),
-                    );
-                  } else if (item.type == "paragraph") {
-                    return Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 25),
-                      child: Text(
-                        item.content,
-                        style: const TextStyle(
+                      IconButtonWidget(
+                        usingPicture: true,
+                        picturePath: 'assets/twitter-x.svg',
+                        onTap: () {
+                          launchUrlSafe(
+                            Uri.parse(
+                              'x.com',
+                            ),
+                          );
+                        },
+                      ),
+                      IconButtonWidget(
+                        icon: Icons.link,
+                        onTap: () {
+                          Clipboard.setData(ClipboardData(
+                              text: 'Link of article')); //TODO: Add link
+
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                                content: Text('Link copied to clipboard!')),
+                          );
+                        },
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+            if (widget.previousPageTitle == "Publications")
+              SizedBox(
+                width: 728,
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 25.0),
+                  child: Row(
+                    children: [
+                      const Text(
+                        'DOI: ',
+                        style: TextStyle(
                           fontSize: 20,
+                          fontWeight: FontWeight.bold,
                           color: Color.fromARGB(255, 50, 53, 62),
                         ),
                       ),
-                    );
-                  } else if (item.type == "image" && item.imageUrl != null) {
-                    return Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 40),
-                      child: AspectRatio(
-                        aspectRatio: 364 / 185,
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(16),
-                          child: Image.network(
-                            item.imageUrl!,
-                            fit: BoxFit.cover,
+                      InkWell(
+                        splashColor: Colors.transparent,
+                        highlightColor: Colors.transparent,
+                        hoverColor: Colors.transparent,
+                        onTap: () {
+                          launchUrlSafe(widget.url);
+                        },
+                        child: Text(
+                          widget.url.toString(),
+                          style: TextStyle(
+                            decoration: TextDecoration.underline,
+                            fontSize: 20,
+                            color: Color.fromARGB(255, 17, 24, 39),
                           ),
                         ),
                       ),
-                    );
-                  }
-                  return const SizedBox();
-                }).toList(),
-              ),
-            ),
-            SizedBox(
-              width: 728,
-              child: Padding(
-                padding: const EdgeInsets.symmetric(vertical: 25.0),
-                child: Row(
-                  children: [
-                    const Text(
-                      'DOI: ',
-                      style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                        color: Color.fromARGB(255, 50, 53, 62),
-                      ),
-                    ),
-                    InkWell(
-                      splashColor: Colors.transparent,
-                      highlightColor: Colors.transparent,
-                      hoverColor: Colors.transparent,
-                      onTap: _launchUrl,
-                      child: Text(
-                        url.toString(),
-                        style: TextStyle(
-                          decoration: TextDecoration.underline,
-                          fontSize: 20,
-                          color: Color.fromARGB(255, 17, 24, 39),
-                        ),
-                      ),
-                    ),
-                    Spacer(),
-                    InkWell(
-                      customBorder: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      onTap: () {
-                        // !TODO: Open PDF
-                      },
-                      child: Container(
-                        height: 50,
-                        width: 50,
-                        padding: EdgeInsets.all(13),
-                        decoration: BoxDecoration(
-                          border: Border.all(
-                            color: Colors.grey,
-                            width: 0.5,
-                          ),
+                      Spacer(),
+                      InkWell(
+                        customBorder: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10),
                         ),
-                        child: Icon(
-                          Icons.picture_as_pdf_outlined,
+                        onTap: () {
+                          // !TODO: Open PDF
+                        },
+                        child: Container(
+                          height: 50,
+                          width: 50,
+                          padding: EdgeInsets.all(13),
+                          decoration: BoxDecoration(
+                            border: Border.all(
+                              color: Colors.grey,
+                              width: 0.5,
+                            ),
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          child: Icon(
+                            Icons.picture_as_pdf_outlined,
+                          ),
                         ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
-            ),
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 120.0),
               child: NewsletterWidget(),
