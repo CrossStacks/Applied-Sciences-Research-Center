@@ -118,6 +118,10 @@ class _ContributorsFormState extends State<ContributorsForm> {
           spacing: 10,
           children: [
             InkWell(
+              focusColor: Colors.transparent,
+              hoverColor: Colors.transparent,
+              highlightColor: Colors.transparent,
+              splashColor: Colors.transparent,
               customBorder: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(10),
               ),
@@ -142,6 +146,10 @@ class _ContributorsFormState extends State<ContributorsForm> {
             if (contributors.length == 1) Text('Add Co Author'),
             if (contributors.length > 1)
               InkWell(
+                focusColor: Colors.transparent,
+                hoverColor: Colors.transparent,
+                highlightColor: Colors.transparent,
+                splashColor: Colors.transparent,
                 customBorder: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(10),
                 ),

@@ -193,6 +193,7 @@ class AddOrModifyEvent extends StatelessWidget {
                       borderRadius: BorderRadius.circular(24),
                       focusColor: Colors.transparent,
                       hoverColor: Colors.transparent,
+                      highlightColor: Colors.transparent,
                       splashColor: Colors.transparent,
                       onTap: () {},
                       child: DottedBorder(
