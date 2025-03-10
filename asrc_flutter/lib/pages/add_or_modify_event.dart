@@ -172,172 +172,190 @@ class _AddOrModifyEventState extends State<AddOrModifyEvent> {
               child: SizedBox(
                 width: 728,
                 child: Column(
-                  spacing: 16,
+                  spacing: 56,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      'Organizer’s and Contributor’s Information',
-                      style: TextStyle(
-                        fontSize: 24,
-                        fontWeight: FontWeight.bold,
-                        color: Color.fromARGB(255, 13, 15, 17),
-                      ),
-                    ),
-                    Text(
-                      'Name of Organizer’s and Contributor’s',
-                      style: TextStyle(
-                        fontSize: 16,
-                        color: Color.fromARGB(255, 50, 53, 62),
-                      ),
-                    ),
-                    ContributorsForm(),
-                    Divider(
-                      color: Color.fromARGB(255, 219, 219, 220),
-                      thickness: 1,
-                    ),
-                    Text(
-                      'Upload Cover Image',
-                      style: TextStyle(
-                        fontSize: 24,
-                        fontWeight: FontWeight.bold,
-                        color: Color.fromARGB(255, 13, 15, 17),
-                      ),
-                    ),
-                    Text(
-                      'Supported Formats: png, jpg, pdf. Max: 25MB.',
-                      style: TextStyle(
-                        fontSize: 16,
-                        color: Color.fromARGB(255, 50, 53, 62),
-                      ),
-                    ),
-                    InkWell(
-                      borderRadius: BorderRadius.circular(24),
-                      focusColor: Colors.transparent,
-                      hoverColor: Colors.transparent,
-                      highlightColor: Colors.transparent,
-                      splashColor: Colors.transparent,
-                      onTap: onSelectImage,
-                      child: DottedBorder(
-                        color: Colors.black,
-                        strokeWidth: 1,
-                        dashPattern: const [4, 2],
-                        borderType: BorderType.RRect,
-                        radius: const Radius.circular(24),
-                        child: SizedBox(
-                          height: 126,
-                          width: double.infinity,
-                          child: coverImage == null
-                              ? _buildEmptyState(context)
-                              : _buildImagePreview(),
+                    Column(
+                      spacing: 16,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Organizer’s and Contributor’s Information',
+                          style: TextStyle(
+                            fontSize: 24,
+                            fontWeight: FontWeight.bold,
+                            color: Color.fromARGB(255, 13, 15, 17),
+                          ),
                         ),
-                      ),
+                        Text(
+                          'Name of Organizer’s and Contributor’s',
+                          style: TextStyle(
+                            fontSize: 16,
+                            color: Color.fromARGB(255, 50, 53, 62),
+                          ),
+                        ),
+                        ContributorsForm(),
+                      ],
                     ),
                     Divider(
                       color: Color.fromARGB(255, 219, 219, 220),
                       thickness: 1,
                     ),
-                    Text(
-                      'Event Information',
-                      style: TextStyle(
-                        fontSize: 24,
-                        fontWeight: FontWeight.bold,
-                        color: Color.fromARGB(255, 13, 15, 17),
-                      ),
-                    ),
-                    Text(
-                      'Please provide the event details below:',
-                      style: TextStyle(
-                        color: Color.fromARGB(255, 50, 53, 62),
-                        fontSize: 16,
-                      ),
-                    ),
-                    Row(
+                    Column(
+                      spacing: 16,
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Icon(
-                          Icons.circle_outlined,
-                          color: Color.fromARGB(255, 252, 137, 95),
+                        Text(
+                          'Upload Cover Image',
+                          style: TextStyle(
+                            fontSize: 24,
+                            fontWeight: FontWeight.bold,
+                            color: Color.fromARGB(255, 13, 15, 17),
+                          ),
                         ),
-                        Padding(
-                          padding: const EdgeInsets.all(4),
-                          child: Text(
-                            'Event Type: e.g., Conference, Workshop, Panel Discussion, etc.',
-                            style: TextStyle(
-                                color: Color.fromARGB(255, 13, 15, 17),
-                                fontSize: 16),
+                        Text(
+                          'Supported Formats: png, jpg, pdf. Max: 25MB.',
+                          style: TextStyle(
+                            fontSize: 16,
+                            color: Color.fromARGB(255, 50, 53, 62),
+                          ),
+                        ),
+                        InkWell(
+                          borderRadius: BorderRadius.circular(24),
+                          focusColor: Colors.transparent,
+                          hoverColor: Colors.transparent,
+                          highlightColor: Colors.transparent,
+                          splashColor: Colors.transparent,
+                          onTap: onSelectImage,
+                          child: DottedBorder(
+                            color: Colors.black,
+                            strokeWidth: 1,
+                            dashPattern: const [4, 2],
+                            borderType: BorderType.RRect,
+                            radius: const Radius.circular(24),
+                            child: SizedBox(
+                              height: 126,
+                              width: double.infinity,
+                              child: coverImage == null
+                                  ? _buildEmptyState(context)
+                                  : _buildImagePreview(),
+                            ),
                           ),
                         ),
                       ],
                     ),
-                    Row(
+                    Divider(
+                      color: Color.fromARGB(255, 219, 219, 220),
+                      thickness: 1,
+                    ),
+                    Column(
+                      spacing: 16,
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Icon(
-                          Icons.circle_outlined,
-                          color: Color.fromARGB(255, 252, 137, 95),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(4),
-                          child: Text(
-                            'Meta Description: Provide a brief 1-2 sentence overview of the event.',
-                            style: TextStyle(
-                                color: Color.fromARGB(255, 13, 15, 17),
-                                fontSize: 16),
+                        Text(
+                          'Event Information',
+                          style: TextStyle(
+                            fontSize: 24,
+                            fontWeight: FontWeight.bold,
+                            color: Color.fromARGB(255, 13, 15, 17),
                           ),
                         ),
-                      ],
-                    ),
-                    Row(
-                      children: [
-                        Icon(
-                          Icons.circle_outlined,
-                          color: Color.fromARGB(255, 252, 137, 95),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(4),
-                          child: Text(
-                            'Reading Time: Specify an estimated duration (e.g., "5 min read" or "10 min read").',
-                            style: TextStyle(
-                                color: Color.fromARGB(255, 13, 15, 17),
-                                fontSize: 16),
+                        Text(
+                          'Please provide the event details below:',
+                          style: TextStyle(
+                            color: Color.fromARGB(255, 50, 53, 62),
+                            fontSize: 16,
                           ),
                         ),
+                        Row(
+                          children: [
+                            Icon(
+                              Icons.circle_outlined,
+                              color: Color.fromARGB(255, 252, 137, 95),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.all(4),
+                              child: Text(
+                                'Event Type: e.g., Conference, Workshop, Panel Discussion, etc.',
+                                style: TextStyle(
+                                    color: Color.fromARGB(255, 13, 15, 17),
+                                    fontSize: 16),
+                              ),
+                            ),
+                          ],
+                        ),
+                        Row(
+                          children: [
+                            Icon(
+                              Icons.circle_outlined,
+                              color: Color.fromARGB(255, 252, 137, 95),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.all(4),
+                              child: Text(
+                                'Meta Description: Provide a brief 1-2 sentence overview of the event.',
+                                style: TextStyle(
+                                    color: Color.fromARGB(255, 13, 15, 17),
+                                    fontSize: 16),
+                              ),
+                            ),
+                          ],
+                        ),
+                        Row(
+                          children: [
+                            Icon(
+                              Icons.circle_outlined,
+                              color: Color.fromARGB(255, 252, 137, 95),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.all(4),
+                              child: Text(
+                                'Reading Time: Specify an estimated duration (e.g., "5 min read" or "10 min read").',
+                                style: TextStyle(
+                                    color: Color.fromARGB(255, 13, 15, 17),
+                                    fontSize: 16),
+                              ),
+                            ),
+                          ],
+                        ),
+                        CustomInputWidget(
+                          hintText: 'Enter the title...',
+                          controller: title,
+                          label: 'Title',
+                          width: 728,
+                          keyboardType: TextInputType.text,
+                        ),
+                        DatePicker(),
+                        CustomInputWidget(
+                          hintText: 'Enter the event type...',
+                          controller: eventType,
+                          label: 'Event Type',
+                          width: 728,
+                          keyboardType: TextInputType.text,
+                        ),
+                        CustomInputWidget(
+                          hintText: 'Enter the meta description...',
+                          controller: metaDescription,
+                          label: 'Meta Description',
+                          width: 728,
+                          keyboardType: TextInputType.text,
+                        ),
+                        CustomInputWidget(
+                          hintText: 'Enter the reading time...',
+                          controller: readingTime,
+                          label: 'Reading Time',
+                          width: 728,
+                          keyboardType: TextInputType.text,
+                        ),
+                        CustomInputWidget(
+                          hintText: 'Content of the event...',
+                          controller: body,
+                          label: 'Body',
+                          maxLines: 10,
+                          width: 728,
+                          keyboardType: TextInputType.text,
+                        ),
                       ],
-                    ),
-                    CustomInputWidget(
-                      hintText: 'Enter the title...',
-                      controller: title,
-                      label: 'Title',
-                      width: 728,
-                      keyboardType: TextInputType.text,
-                    ),
-                    DatePicker(),
-                    CustomInputWidget(
-                      hintText: 'Enter the event type...',
-                      controller: eventType,
-                      label: 'Event Type',
-                      width: 728,
-                      keyboardType: TextInputType.text,
-                    ),
-                    CustomInputWidget(
-                      hintText: 'Enter the meta description...',
-                      controller: metaDescription,
-                      label: 'Meta Description',
-                      width: 728,
-                      keyboardType: TextInputType.text,
-                    ),
-                    CustomInputWidget(
-                      hintText: 'Enter the reading time...',
-                      controller: readingTime,
-                      label: 'Reading Time',
-                      width: 728,
-                      keyboardType: TextInputType.text,
-                    ),
-                    CustomInputWidget(
-                      hintText: 'Content of the event...',
-                      controller: body,
-                      label: 'Body',
-                      maxLines: 10,
-                      width: 728,
-                      keyboardType: TextInputType.text,
                     ),
                   ],
                 ),

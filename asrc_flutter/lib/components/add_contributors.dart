@@ -15,36 +15,39 @@ class AddContributors extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          label,
-          style: TextStyle(
-            fontSize: 20,
-            fontWeight: FontWeight.bold,
+    return Padding(
+      padding: const EdgeInsets.only(top: 24.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            label,
+            style: TextStyle(
+              fontSize: 20,
+              fontWeight: FontWeight.bold,
+            ),
           ),
-        ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            CustomInputWidget(
-              hintText: 'Your first name...',
-              keyboardType: TextInputType.name,
-              controller: firstName,
-              label: 'First Name',
-              width: 344,
-            ),
-            CustomInputWidget(
-              hintText: 'Your last name...',
-              keyboardType: TextInputType.name,
-              controller: lastName,
-              label: 'Last Name',
-              width: 344,
-            ),
-          ],
-        ),
-      ],
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              CustomInputWidget(
+                hintText: 'Your first name...',
+                keyboardType: TextInputType.name,
+                controller: firstName,
+                label: 'First Name',
+                width: 344,
+              ),
+              CustomInputWidget(
+                hintText: 'Your last name...',
+                keyboardType: TextInputType.name,
+                controller: lastName,
+                label: 'Last Name',
+                width: 344,
+              ),
+            ],
+          ),
+        ],
+      ),
     );
   }
 }
