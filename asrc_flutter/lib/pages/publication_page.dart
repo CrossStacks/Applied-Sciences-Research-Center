@@ -2,7 +2,6 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import '../components/grid_builder.dart';
 import '../components/newsletter_widget.dart';
-import '../utils/colors.dart';
 
 class PublicationPage extends StatefulWidget {
   const PublicationPage({super.key});

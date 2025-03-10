@@ -6,6 +6,8 @@ class CustomButtonWidget extends StatefulWidget {
   final Color initialColor;
   final Color initialTextColor;
   final Color hoverColor;
+  final Color? initialBorderColor;
+  final Color? hoverBorderColor;
   final Color hoverTextColor;
   final double? width;
   final VoidCallback onTap;
@@ -20,6 +22,8 @@ class CustomButtonWidget extends StatefulWidget {
     required this.hoverTextColor,
     this.width,
     required this.onTap,
+    this.initialBorderColor,
+    this.hoverBorderColor,
   });
 
   @override
@@ -59,6 +63,11 @@ class _CustomButtonWidgetState extends State<CustomButtonWidget> {
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(50),
               color: containerColor,
+              border: Border.all(
+                color: _isHovered
+                    ? widget.hoverBorderColor ?? Colors.transparent
+                    : widget.initialBorderColor ?? Colors.transparent,
+              ),
             ),
             child: Text(
               textAlign: TextAlign.center,

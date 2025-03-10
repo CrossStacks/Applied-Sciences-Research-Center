@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
-
-import '../models/contributors.dart';
 import 'custom_input_widget.dart';
+import '../models/contributors.dart';
 
 class AddContributors extends StatelessWidget {
   final TextEditingController firstName;
   final TextEditingController lastName;
+  final String label;
   const AddContributors({
     super.key,
     required this.firstName,
     required this.lastName,
+    required this.label,
   });
 
   @override
@@ -18,18 +19,10 @@ class AddContributors extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          'Author’s Information',
+          label,
           style: TextStyle(
-            fontSize: 24,
+            fontSize: 20,
             fontWeight: FontWeight.bold,
-            color: Color.fromARGB(255, 13, 15, 17),
-          ),
-        ),
-        Text(
-          'Name of Author’s and Contributors',
-          style: TextStyle(
-            fontSize: 16,
-            color: Color.fromARGB(255, 50, 53, 62),
           ),
         ),
         Row(
@@ -51,13 +44,11 @@ class AddContributors extends StatelessWidget {
             ),
           ],
         ),
-        SizedBox(height: 16), // Spacing between rows.
       ],
     );
   }
 }
 
-// A stateful widget to manage multiple contributor rows.
 class ContributorsForm extends StatefulWidget {
   const ContributorsForm({super.key});
 
@@ -71,11 +62,16 @@ class _ContributorsFormState extends State<ContributorsForm> {
   @override
   void initState() {
     super.initState();
-    // Initialize with one contributor row.
     addContributor();
   }
 
-  // Adds a new contributor row.
+  String ordinal(int number) {
+    if (number == 1) return '1st';
+    if (number == 2) return '2nd';
+    if (number == 3) return '3rd';
+    return '${number}th';
+  }
+
   void addContributor() {
     setState(() {
       contributors.add(
@@ -87,9 +83,14 @@ class _ContributorsFormState extends State<ContributorsForm> {
     });
   }
 
+  void reduceContributor() {
+    setState(() {
+      contributors.removeLast();
+    });
+  }
+
   @override
   void dispose() {
-    // Dispose of all controllers to prevent memory leaks.
     for (var contributor in contributors) {
       contributor.firstNameController.dispose();
       contributor.lastNameController.dispose();
@@ -100,17 +101,69 @@ class _ContributorsFormState extends State<ContributorsForm> {
   @override
   Widget build(BuildContext context) {
     return Column(
+      spacing: 16,
       children: [
-        // Render a row for each contributor.
-        ...contributors.map((contributor) => AddContributors(
-              firstName: contributor.firstNameController,
-              lastName: contributor.lastNameController,
-            )),
-        // Plus button to add another author.
-        IconButton(
-          icon: Icon(Icons.add),
-          onPressed: addContributor,
-          tooltip: 'Add another author',
+        ...contributors.asMap().entries.map((entry) {
+          int index = entry.key;
+          Contributor contributor = entry.value;
+          String label =
+              index == 0 ? 'Main Author' : '${ordinal(index)} Co Author';
+          return AddContributors(
+            label: label,
+            firstName: contributor.firstNameController,
+            lastName: contributor.lastNameController,
+          );
+        }),
+        Row(
+          spacing: 10,
+          children: [
+            InkWell(
+              customBorder: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10),
+              ),
+              onTap: addContributor,
+              child: Container(
+                height: 48,
+                width: 48,
+                padding: EdgeInsets.all(13),
+                decoration: BoxDecoration(
+                  border: Border.all(
+                    color: Colors.grey,
+                    width: 0.5,
+                  ),
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: Icon(
+                  Icons.add,
+                  size: 20,
+                ),
+              ),
+            ),
+            if (contributors.length == 1) Text('Add Co Author'),
+            if (contributors.length > 1)
+              InkWell(
+                customBorder: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                onTap: reduceContributor,
+                child: Container(
+                  height: 48,
+                  width: 48,
+                  padding: EdgeInsets.all(13),
+                  decoration: BoxDecoration(
+                    border: Border.all(
+                      color: Colors.grey,
+                      width: 0.5,
+                    ),
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: Icon(
+                    Icons.remove,
+                    size: 20,
+                  ),
+                ),
+              ),
+          ],
         ),
       ],
     );

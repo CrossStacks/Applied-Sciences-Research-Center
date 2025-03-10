@@ -1,6 +1,9 @@
 import 'package:asrc_flutter/components/add_contributors.dart';
+import 'package:asrc_flutter/components/custom_button_widget.dart';
 import 'package:asrc_flutter/components/custom_input_widget.dart';
+import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
+import '../components/date_picker.dart';
 import '../utils/constants.dart';
 
 class AddOrModifyEvent extends StatelessWidget {
@@ -16,6 +19,53 @@ class AddOrModifyEvent extends StatelessWidget {
 
     return Scaffold(
       backgroundColor: Colors.white,
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+      floatingActionButton: Container(
+        padding: EdgeInsets.symmetric(horizontal: 16),
+        width: 760,
+        height: 86,
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(
+            50,
+          ),
+          border: Border.all(
+            color: Color.fromARGB(255, 219, 219, 220),
+          ),
+        ),
+        child: Row(
+          children: [
+            CustomButtonWidget(
+              text: 'Back',
+              textStyle: TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.bold,
+              ),
+              initialColor: Colors.white,
+              initialTextColor: Color.fromARGB(255, 13, 15, 17),
+              hoverColor: Colors.white,
+              hoverTextColor: Color.fromARGB(255, 13, 15, 17),
+              onTap: () {},
+              initialBorderColor: Color.fromARGB(255, 219, 219, 220),
+              hoverBorderColor: Color.fromARGB(255, 158, 157, 164),
+            ),
+            Spacer(),
+            CustomButtonWidget(
+              text: 'Submit',
+              textStyle: TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.bold,
+              ),
+              initialColor: Color.fromARGB(255, 13, 15, 17),
+              initialTextColor: Colors.white,
+              hoverColor: Colors.white,
+              hoverTextColor: Colors.black,
+              onTap: () {},
+              hoverBorderColor: Color.fromARGB(255, 13, 15, 17),
+            ),
+          ],
+        ),
+      ),
       body: SingleChildScrollView(
         scrollDirection: Axis.vertical,
         child: Column(
@@ -101,13 +151,92 @@ class AddOrModifyEvent extends StatelessWidget {
               child: SizedBox(
                 width: 728,
                 child: Column(
-                  spacing: 14,
+                  spacing: 16,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
+                    Text(
+                      'Author’s Information',
+                      style: TextStyle(
+                        fontSize: 24,
+                        fontWeight: FontWeight.bold,
+                        color: Color.fromARGB(255, 13, 15, 17),
+                      ),
+                    ),
+                    Text(
+                      'Name of Author’s and Contributors',
+                      style: TextStyle(
+                        fontSize: 16,
+                        color: Color.fromARGB(255, 50, 53, 62),
+                      ),
+                    ),
                     ContributorsForm(),
                     Divider(
                       color: Color.fromARGB(255, 219, 219, 220),
                       thickness: 1,
+                    ),
+                    Text(
+                      'Upload Cover Image',
+                      style: TextStyle(
+                        fontSize: 24,
+                        fontWeight: FontWeight.bold,
+                        color: Color.fromARGB(255, 13, 15, 17),
+                      ),
+                    ),
+                    Text(
+                      'Supported Formats: png, jpg, pdf. Max: 25MB.',
+                      style: TextStyle(
+                        fontSize: 16,
+                        color: Color.fromARGB(255, 50, 53, 62),
+                      ),
+                    ),
+                    InkWell(
+                      borderRadius: BorderRadius.circular(24),
+                      focusColor: Colors.transparent,
+                      hoverColor: Colors.transparent,
+                      splashColor: Colors.transparent,
+                      onTap: () {},
+                      child: DottedBorder(
+                        color: Colors.black,
+                        strokeWidth: 1,
+                        dashPattern: [4, 2],
+                        borderType: BorderType.RRect,
+                        radius: Radius.circular(24),
+                        child: SizedBox(
+                          height: 126,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                'Browse files',
+                                style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 20,
+                                  decoration: TextDecoration.underline,
+                                ),
+                              ),
+                              Text(
+                                ' or drag-and-drop',
+                                style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 20,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                    Divider(
+                      color: Color.fromARGB(255, 219, 219, 220),
+                      thickness: 1,
+                    ),
+                    Text(
+                      'Event Information',
+                      style: TextStyle(
+                        fontSize: 24,
+                        fontWeight: FontWeight.bold,
+                        color: Color.fromARGB(255, 13, 15, 17),
+                      ),
                     ),
                     CustomInputWidget(
                       hintText: 'Enter the title...',
@@ -116,6 +245,7 @@ class AddOrModifyEvent extends StatelessWidget {
                       width: 728,
                       keyboardType: TextInputType.text,
                     ),
+                    DatePicker(),
                     CustomInputWidget(
                       hintText:
                           'Enter the event type...  i.e. Conference / Workshop / Panel Talk e.t.c.',

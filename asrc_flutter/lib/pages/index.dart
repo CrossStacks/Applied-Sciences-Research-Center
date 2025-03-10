@@ -1,16 +1,14 @@
-import 'package:asrc_flutter/components/footer.dart';
 import 'package:asrc_flutter/pages/signin_page.dart';
 import 'package:asrc_flutter/utils/colors.dart';
 import 'package:asrc_flutter/utils/global.dart';
 import 'package:flutter/material.dart';
-import '../utils/constants.dart';
 import 'about_page.dart';
 import 'event_page.dart';
 import 'home_page.dart';
 import 'publication_page.dart';
 
 class Index extends StatelessWidget {
-  Index({super.key});
+  const Index({super.key});
 
   @override
   Widget build(BuildContext context) {
