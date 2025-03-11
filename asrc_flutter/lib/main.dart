@@ -6,6 +6,7 @@ import 'utils/colors.dart';
 import 'utils/constants.dart';
 
 void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
