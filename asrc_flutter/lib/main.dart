@@ -1,10 +1,14 @@
-import 'package:asrc_flutter/pages/add_or_modify_event.dart';
+import 'package:asrc_flutter/firebase_options.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'pages/index.dart';
 import 'utils/colors.dart';
 import 'utils/constants.dart';
 
-void main() {
+void main() async {
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   runApp(const MyApp());
 }
 
@@ -20,7 +24,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: AppColor.primaryColor),
         useMaterial3: true,
       ),
-      home: AddOrModifyEvent(),
+      home: Index(),
     );
   }
 }

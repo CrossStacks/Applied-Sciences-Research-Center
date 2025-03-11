@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1066682413909",
+    "project_id": "applied-sciences-researhcenter",
+    "storage_bucket": "applied-sciences-researhcenter.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1066682413909:android:fbe7d0ee4e44d7110875dc",
+        "android_client_info": {
+          "package_name": "com.example.asrc_flutter"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAtooRZmrvWW-HX69zgzmTPWkFtOChggKQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
