@@ -65,7 +65,7 @@ class CustomInputWidget extends StatelessWidget {
                   ),
                   contentPadding: EdgeInsets.symmetric(
                     horizontal: 20,
-                    vertical: 16,
+                    vertical: 18,
                   ),
                   enabledBorder: OutlineInputBorder(
                     borderSide: BorderSide.none,

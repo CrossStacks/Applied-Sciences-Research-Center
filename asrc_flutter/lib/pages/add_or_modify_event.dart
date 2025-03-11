@@ -44,7 +44,7 @@ class _AddOrModifyEventState extends State<AddOrModifyEvent> {
       floatingActionButton: Container(
         padding: EdgeInsets.symmetric(horizontal: 16),
         width: 760,
-        height: 96,
+        height: 90,
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.circular(
