@@ -1,108 +1,155 @@
 import 'package:asrc_flutter/pages/signin_page.dart';
 import 'package:asrc_flutter/utils/colors.dart';
 import 'package:asrc_flutter/utils/global.dart';
+import 'package:asrc_flutter/utils/routing/routes_name.dart';
 import 'package:flutter/material.dart';
+import '../components/hover_underline_text.dart';
+import '../utils/constants.dart';
+import '../utils/routing/routes.dart';
 import 'about_page.dart';
 import 'event_page.dart';
 import 'home_page.dart';
 import 'publication_page.dart';
 
-class Index extends StatelessWidget {
+class Index extends StatefulWidget {
   const Index({super.key});
 
   @override
+  State<Index> createState() => _IndexState();
+}
+
+class _IndexState extends State<Index> {
+  // void _onPageSelected(int index) {
+  //   setState(() {
+  //     Global.pageIdx = index;
+  //   });
+  // }
+
+  @override
   Widget build(BuildContext context) {
-    final List<Map<String, dynamic>> timelineData = [
-      {
-        "date": "14 Feb, 2025",
-        "title": "Founders Update #30",
-        "tag": "UPDATES",
-        "imageUrl":
-            "https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?auto=format&fit=crop&w=800&q=80",
-        "description":
-            "Michael here! Today we have a very special announcement! You WON'T want to miss this Join us for a live Q&A session with a surprise guest!Join us for a live Q&A session with a surprise guest!Join us for a live Q&A session with a surprise guest! Join us for a live Q&A session with a surprise guest! Join us for a live Q&A session with a surprise guest! Join us for a live Q&A session with a surprise guest! Join us for a live Q&A session with a surprise guest! Join us for a live Q&A session with a surprise guest!Join us for a live Q&A session with a surprise guest! Join us for a live Q&A session with a surprise guest!Join us for a live Q&A session with a surprise guest! Join us for a live Q&A session with a surprise guest!",
-        "fullDate": "February 14, 2025",
-        "readTime": "3 min read",
-      },
-      {
-        "date": "21 Mar, 2025",
-        "title": "Special Guest Event",
-        "tag": "EVENT",
-        "imageUrl":
-            "https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?auto=format&fit=crop&w=800&q=80",
-        "description": "Join us for a live Q&A session with a surprise guest!",
-        "fullDate": "March 21, 2025",
-        "readTime": "5 min read",
-      },
+    const pages = [
+      RouteName.homePage,
+      RouteName.publicationPage,
+      RouteName.eventPage,
+      RouteName.aboutPage,
     ];
-    final List<Widget> tabs = [
-      HomePage(),
-      PublicationPage(),
-      EventPage(timelineData: timelineData),
-      AboutPage(),
-    ];
-    return DefaultTabController(
-      length: tabs.length,
-      child: Scaffold(
-        appBar: AppBar(
-          toolbarHeight: 0,
-          bottom: TabBar(
-            tabs: [
-              Tooltip(
-                message: 'Home',
-                child: Icon(Icons.home),
-              ),
-              Tooltip(
-                message: 'Publications',
-                child: Icon(Icons.newspaper_rounded),
-              ),
-              Tooltip(
-                message: 'Events',
-                child: Icon(Icons.event),
-              ),
-              Tooltip(
-                message: 'About us',
-                child: Icon(Icons.info_outline_rounded),
-              ),
-              Global.isLoggedIn
-                  ? Tooltip(
-                      message: 'Account',
-                      child: IconButton(
-                        onPressed: () => {
-                          //TODO
-                          // Navigator.push(
-                          //     context,
-                          //     MaterialPageRoute(
-                          //         builder: (context) => AboutPage()))
-                        },
-                        icon: Icon(Icons.person),
-                      ),
-                    )
-                  : Tooltip(
-                      message: 'Sign In',
-                      child: IconButton(
-                        onPressed: () => {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => SignInPage()))
-                        },
-                        hoverColor: AppColor.primaryColor,
-                        icon: Icon(Icons.person),
-                      ),
-                    )
-            ],
-          ),
+
+    return Scaffold(
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerTop,
+      floatingActionButton: Container(
+        height: 61,
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(25),
         ),
-        body: TabBarView(
-          children: tabs,
+        margin: EdgeInsets.all(16),
+        padding: EdgeInsets.symmetric(horizontal: 24, vertical: 8),
+        child: Row(
+          children: [
+            Text(
+              Constants.appName,
+              style: TextStyle(fontSize: 16),
+            ),
+            Spacer(),
+            HoverUnderlineText(
+              onTap: () {
+                setState(() {
+                  Global.pageIdx = 0;
+                });
+              },
+              text: 'Home',
+              style: TextStyle(
+                color: Color.fromARGB(255, 29, 31, 37),
+                fontWeight: FontWeight.w500,
+                fontSize: 16,
+              ),
+            ),
+            SizedBox(
+              width: 40,
+            ),
+            HoverUnderlineText(
+              onTap: () {
+                setState(() {
+                  Global.pageIdx = 1;
+                });
+              },
+              text: 'Publications',
+              style: TextStyle(
+                color: Color.fromARGB(255, 29, 31, 37),
+                fontWeight: FontWeight.w500,
+                fontSize: 16,
+              ),
+            ),
+            SizedBox(
+              width: 40,
+            ),
+            HoverUnderlineText(
+              onTap: () {
+                setState(() {
+                  Global.pageIdx = 2;
+                });
+              },
+              text: 'Events',
+              style: TextStyle(
+                color: Color.fromARGB(255, 29, 31, 37),
+                fontWeight: FontWeight.w500,
+                fontSize: 16,
+              ),
+            ),
+            SizedBox(
+              width: 40,
+            ),
+            HoverUnderlineText(
+              onTap: () {
+                setState(() {
+                  Global.pageIdx = 3;
+                });
+              },
+              text: 'About us',
+              style: TextStyle(
+                color: Color.fromARGB(255, 29, 31, 37),
+                fontWeight: FontWeight.w500,
+                fontSize: 16,
+              ),
+            ),
+            Spacer(),
+            Global.isLoggedIn
+                ? InkWell(
+                    onTap: () {},
+                    child: Text('Account'),
+                  )
+                : InkWell(
+                    onTap: () {
+                      Navigator.pushNamed(context, RouteName.signinPage);
+                    },
+                    child: Container(
+                      height: 48,
+                      width: 48,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(50),
+                        border: Border.all(
+                          width: 0.5,
+                          color: Color.fromARGB(255, 219, 219, 220),
+                        ),
+                      ),
+                      child: Tooltip(
+                        message: 'Sign In',
+                        child: Icon(
+                          Icons.person,
+                          color: Color.fromARGB(255, 72, 76, 81),
+                        ),
+                      ),
+                    ),
+                  ),
+          ],
         ),
-        // extendBody: true,
-        // persistentFooterAlignment: ,
-        // persistentFooterButtons: [
-        //   Footer(),
-        // ],
       ),
+      body: Routes.getPage(pages[Global.pageIdx]),
+      // extendBody: true,
+      // persistentFooterAlignment: ,
+      // persistentFooterButtons: [
+      //   Footer(),
+      // ],
     );
   }
 }

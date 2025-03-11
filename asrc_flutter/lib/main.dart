@@ -1,9 +1,10 @@
-import 'package:asrc_flutter/firebase_options.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'pages/index.dart';
+import 'firebase_options.dart';
 import 'utils/colors.dart';
 import 'utils/constants.dart';
+import 'utils/routing/routes.dart';
+import 'utils/routing/routes_name.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -25,7 +26,8 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: AppColor.primaryColor),
         useMaterial3: true,
       ),
-      home: Index(),
+      initialRoute: RouteName.index,
+      onGenerateRoute: Routes.generateRoute,
     );
   }
 }

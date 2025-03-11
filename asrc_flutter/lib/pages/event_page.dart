@@ -1,15 +1,36 @@
-import 'package:asrc_flutter/components/custom_button_widget.dart';
-import 'package:asrc_flutter/components/custom_white_container.dart';
 import 'package:flutter/material.dart';
-
+import '../components/custom_button_widget.dart';
+import '../components/custom_white_container.dart';
 import '../components/timelineItem.dart';
 
 class EventPage extends StatelessWidget {
-  final List<Map<String, dynamic>> timelineData;
-  const EventPage({super.key, required this.timelineData});
+  const EventPage({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final List<Map<String, dynamic>> timelineData = [
+      {
+        "date": "14 Feb, 2025",
+        "title": "Founders Update #30",
+        "tag": "UPDATES",
+        "imageUrl":
+            "https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?auto=format&fit=crop&w=800&q=80",
+        "description":
+            "Michael here! Today we have a very special announcement! You WON'T want to miss this Join us for a live Q&A session with a surprise guest!Join us for a live Q&A session with a surprise guest!Join us for a live Q&A session with a surprise guest! Join us for a live Q&A session with a surprise guest! Join us for a live Q&A session with a surprise guest! Join us for a live Q&A session with a surprise guest! Join us for a live Q&A session with a surprise guest! Join us for a live Q&A session with a surprise guest!Join us for a live Q&A session with a surprise guest! Join us for a live Q&A session with a surprise guest!Join us for a live Q&A session with a surprise guest! Join us for a live Q&A session with a surprise guest!",
+        "fullDate": "February 14, 2025",
+        "readTime": "3 min read",
+      },
+      {
+        "date": "21 Mar, 2025",
+        "title": "Special Guest Event",
+        "tag": "EVENT",
+        "imageUrl":
+            "https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?auto=format&fit=crop&w=800&q=80",
+        "description": "Join us for a live Q&A session with a surprise guest!",
+        "fullDate": "March 21, 2025",
+        "readTime": "5 min read",
+      },
+    ];
     return Scaffold(
       backgroundColor: Color.fromARGB(255, 243, 240, 236),
       body: SingleChildScrollView(
