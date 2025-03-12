@@ -112,6 +112,7 @@ class Application extends PKPApplication
             'IssueGalleyDAO' => 'APP\issue\IssueGalleyDAO',
             'IssueFileDAO' => 'APP\issue\IssueFileDAO',
             'JournalDAO' => 'APP\journal\JournalDAO',
+            'GalleyDAO' => 'APP\galley\DAO',
             'OAIDAO' => 'APP\oai\ojs\OAIDAO',
             'OJSCompletedPaymentDAO' => 'APP\payment\ojs\OJSCompletedPaymentDAO',
             'SubscriptionDAO' => 'APP\subscription\SubscriptionDAO',
@@ -190,6 +191,14 @@ class Application extends PKPApplication
             WORKFLOW_STAGE_ID_EDITING,
             WORKFLOW_STAGE_ID_PRODUCTION
         ];
+    }
+
+    /**
+     * Get the review workflow stages used by this application.
+     */
+    public function getReviewStages(): array
+    {
+        return [WORKFLOW_STAGE_ID_EXTERNAL_REVIEW];
     }
 
     /**

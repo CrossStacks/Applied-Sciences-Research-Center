@@ -1,5 +1,5 @@
 <template>
-	<div class="min-h-screentext-base-normal me-3 ms-5 text-base-normal">
+	<div class="me-3 ms-5 min-h-screen text-base-normal">
 		<div class="">
 			<span>
 				<h1 class="flex-inline items-center gap-4 py-6 text-5xl-bold">
@@ -18,20 +18,20 @@
 			<div class="mt-2">
 				<div class="flex justify-between">
 					<div class="flex flex-row items-center gap-x-3">
-						<PkpButton @click="store.openFiltersModal">
-							{{ t('common.filter') }}
-						</PkpButton>
-						<DashboardBulkActions />
-						<DashboardBulkDeleteButton />
+						<component
+							:is="Components[action.component] || action.component"
+							v-bind="action.props || {}"
+							v-for="(action, i) in store.leftControlItems"
+							:key="i"
+						></component>
 					</div>
-					<div>
-						<Search
-							:search-phrase="store.searchPhrase"
-							:search-label="t('editor.submission.search')"
-							@search-phrase-changed="
-								(...args) => store.setSearchPhrase(...args)
-							"
-						></Search>
+					<div class="flex flex-row items-center gap-x-3">
+						<component
+							:is="Components[action.component] || action.component"
+							v-bind="action.props || {}"
+							v-for="(action, i) in store.rightControlItems"
+							:key="i"
+						></component>
 					</div>
 				</div>
 			</div>
@@ -56,16 +56,22 @@
 	</div>
 </template>
 <script setup>
-import PkpButton from '@/components/Button/Button.vue';
 import DashboardActiveFilters from './components/DashboardActiveFilters.vue';
 import DashboardTable from './components/DashboardTable/DashboardTable.vue';
-import DashboardBulkActions from './components/DashboardBulkActions.vue';
-import DashboardBulkDeleteButton from './components/DashboardBulkDeleteButton.vue';
-
-import Search from '@/components/Search/Search.vue';
+import DashboardControlBulkActions from './components/DashboardControlBulkActions.vue';
+import DashboardControlBulkDeleteButton from './components/DashboardControlBulkDeleteButton.vue';
+import DashboardActionButton from './components/DashboardActionButton.vue';
+import DashboardControlSearch from './components/DashboardControlSearch.vue';
 
 import {useDashboardPageStore} from './dashboardPageStore';
 import Spinner from '@/components/Spinner/Spinner.vue';
+
+const Components = {
+	DashboardControlBulkActions,
+	DashboardControlBulkDeleteButton,
+	DashboardActionButton,
+	DashboardControlSearch,
+};
 
 const props = defineProps({
 	dashboardPage: {
@@ -116,7 +122,7 @@ const store = useDashboardPageStore(props);
 
 <style>
 .pkp_page_dashboard {
-	@apply min-w-max;
+	@apply min-w-fit;
 }
 
 .pkp_page_dashboard .app__main {

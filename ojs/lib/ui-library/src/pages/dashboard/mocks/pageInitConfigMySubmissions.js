@@ -286,38 +286,6 @@ export default {
 			},
 		},
 	],
-	columns: [
-		{
-			id: 'id',
-			header: 'ID',
-			componentName: 'CellSubmissionId',
-			sortable: true,
-		},
-		{
-			id: 'title',
-			header: 'Submissions',
-			componentName: 'CellSubmissionTitle',
-			sortable: false,
-		},
-		{
-			id: 'stage',
-			header: 'Stage',
-			componentName: 'CellSubmissionStage',
-			sortable: false,
-		},
-		{
-			id: 'activity',
-			header: 'Editorial Activity',
-			componentName: 'CellSubmissionActivity',
-			sortable: false,
-		},
-		{
-			id: 'actions',
-			header: 'Actions',
-			componentName: 'CellSubmissionActions',
-			sortable: false,
-		},
-	],
 	publicationSettings: {
 		supportsCitations: true,
 		identifiersEnabled: true,

@@ -1,7 +1,7 @@
 import ReviewActivityIndicatorPopover from './ReviewActivityIndicatorPopover.vue';
 import PkpPopover from '@/components/Popover/Popover.vue';
 import ReviewActivityIndicator from './ReviewActivityIndicator.vue';
-import {useReviewActivityLogic} from '@/pages/dashboard/composables/useReviewActivityLogic';
+import {useDashboardConfigReviewActivity} from '@/pages/dashboard/composables/useDashboardConfigReviewActivity';
 
 export default {
 	title: 'Components/ReviewActivityIndicatorPopup',
@@ -16,7 +16,7 @@ export default {
 			const {
 				getReviewActivityIndicatorProps,
 				getReviewActivityIndicatorPopoverProps,
-			} = useReviewActivityLogic();
+			} = useDashboardConfigReviewActivity();
 
 			return {
 				args,
@@ -28,11 +28,11 @@ export default {
 		<PkpPopover>
 				<template #button>
 					<ReviewActivityIndicator
-						v-bind="getReviewActivityIndicatorProps(args.reviewAssignment)"
+						v-bind="getReviewActivityIndicatorProps({reviewAssignment: args.reviewAssignment})"
 					></ReviewActivityIndicator>
 				</template>
 				<ReviewActivityIndicatorPopover
-					v-bind="getReviewActivityIndicatorPopoverProps(args.reviewAssignment)"
+					v-bind="getReviewActivityIndicatorPopoverProps({reviewAssignment: args.reviewAssignment})"
 				/>
 		</PkpPopover>
 `,

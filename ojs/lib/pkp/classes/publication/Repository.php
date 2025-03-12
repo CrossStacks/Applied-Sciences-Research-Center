@@ -166,6 +166,7 @@ abstract class Repository
             });
         }
 
+
         // A title must be provided if the submission is not still in progress
         if (!$submission->getData('submissionProgress')) {
             $validator->after(function ($validator) use ($props, $publication, $primaryLocale) {
@@ -364,7 +365,7 @@ abstract class Repository
             $citationDao->importCitations($newPublication->getId(), $newPublication->getData('citationsRaw'));
         }
 
-        $genreDao = DAORegistry::getDAO('GenreDAO');
+        $genreDao = DAORegistry::getDAO('GenreDAO'); /** @var \PKP\submission\GenreDAO $genreDao */
         $genres = $genreDao->getEnabledByContextId($context->getId());
 
         $jatsFile = Repo::jats()

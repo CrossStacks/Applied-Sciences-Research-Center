@@ -687,6 +687,9 @@ msgstr "First published"
 msgid "submission.forTheEditors"
 msgstr "For the Editors"
 
+msgid "submission.forReviewerSuggestion"
+msgstr "For Reviewer Suggestion"
+
 msgid "submission.galley"
 msgstr "Galley"
 
@@ -1269,6 +1272,9 @@ msgstr "Upload a File Ready for Publication"
 msgid "submission.upload.noAvailableReviewFiles"
 msgstr "There are no files for you to revise at this time."
 
+msgid "submission.reviewerSuggestions"
+msgstr "Reviewer Suggestions"
+
 msgid "editor.submission.roundStatus.revisionsRequested"
 msgstr "Revisions have been requested."
 
@@ -1328,6 +1334,9 @@ msgstr "A new submission is waiting to be sent for review or declined."
 
 msgid "editor.submission.stageParticipants"
 msgstr "Participants"
+
+msgid "editor.submission.reviewerSuggestions"
+msgstr "Reviewers Suggested by Author"
 
 msgid "editor.submission.noneAssigned"
 msgstr "None Assigned"
@@ -2213,6 +2222,9 @@ msgstr "Make a Submission: {$step}"
 msgid "submission.wizard.noContributors"
 msgstr "No contributors have been added for this submission."
 
+msgid "submission.wizard.noReviewerSuggestions"
+msgstr "No reviewers have been suggested for this submission."
+
 msgid "submission.wizard.missingContributorLanguage"
 msgstr "The given name is missing in {$language} for one or more of the contributors."
 
@@ -2419,6 +2431,9 @@ msgstr "Awaiting reviews"
 msgid "submission.dashboard.view.reviewsSubmitted"
 msgstr "Reviews submitted"
 
+msgid "submission.dashboard.view.reviewsOverdue"
+msgstr "Reviews overdue"
+
 msgid "submission.dashboard.view.copyediting"
 msgstr "All in copyediting"
 
@@ -2455,11 +2470,20 @@ msgstr "Completed / Declined"
 msgid "submission.dashboard.view.reviewAssignments.all"
 msgstr "All assignments"
 
-msgid "submission.dashboard.view.reviewAssignments.pending"
-msgstr "Pending"
+msgid "submission.dashboard.view.reviewAssignments.actionRequired"
+msgstr "Action Required by me"
 
 msgid "submission.dashboard.view.reviewAssignments.archived"
-msgstr "Completed / Declined"
+msgstr "Archived"
+
+msgid "submission.dashboard.view.reviewAssignments.declined"
+msgstr "Declined"
+
+msgid "submission.dashboard.view.reviewAssignments.completed"
+msgstr "Completed"
+
+msgid "submission.dashboard.view.reviewAssignments.published"
+msgstr "Published"
 
 msgid "submission.stage.externalReviewWithRound"
 msgstr "Review (Round {$round})"
@@ -2499,6 +2523,12 @@ msgstr "Competing Interests"
 
 msgid "author.competingInterests.description"
 msgstr "Please disclose any competing interests this author may have with the research subject."
+
+msgid "reviewerSuggestion.suggestionReason"
+msgstr "Reasons for suggesting reviewer"
+
+msgid "reviewerSuggestion.suggestionReason.description"
+msgstr "Please share why you are recommending this reviewer and mention is there are any potential conflict of interest."
 
 msgid "submission.localeNotSupported"
 msgstr "The language of the submission ({$language}) is not one of the supported submission languages. You can still edit the submission details but new submissions are not currently accepted with this language."
@@ -2607,13 +2637,13 @@ msgid "dashboard.reviewAssignment.statusComplete.title"
 msgstr "Review was confirmed by editor"
 
 msgid "dashboard.reviewAssignment.statusComplete.description"
-msgstr "The review was accepted by the editor on {$date}.</b>"
+msgstr "The review was accepted by the editor on <b>{$date}</b>."
 
 msgid "dashboard.reviewAssignment.statusCancelled.title"
 msgstr "Reviewer cancelled review request"
 
 msgid "dashboard.reviewAssignment.statusCancelled.description"
-msgstr "Reviewer has cancelled the review request on <b>{$date}</b>"
+msgstr "Reviewer has cancelled the review request on <b>{$date}</b>."
 
 msgid "dashboard.reviewAssignment.statusRequestResend.title"
 msgstr "Awaiting Response from the reviewer"
@@ -2659,6 +2689,12 @@ msgstr "An editorial recommendation has been received"
 
 msgid "dashboard.recommendOnly.recommendationsCompleted"
 msgstr "All editorial recommendations have been received, and a decision is required."
+
+msgid "dashboard.noAccessBeingAuthor"
+msgstr "You cannot access this submission as a Journal Manager since you are the author. To view it, go to \"My Submissions\""
+
+msgid "dashboard.noAccessBeingReviewer"
+msgstr "You cannot access this submission as a Journal Manager since you are the reviewer. To view it, go to \"Review Assignments\""
 
 msgid "participantManager.onlyAllowedToRecommend"
 msgstr "Only allowed to recommend an editorial decision"

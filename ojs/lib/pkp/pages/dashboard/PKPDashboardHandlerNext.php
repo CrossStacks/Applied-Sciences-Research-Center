@@ -163,10 +163,10 @@ abstract class PKPDashboardHandlerNext extends Handler
                 'countPerPage' => $this->perPage,
                 'filtersForm' => $filtersForm->getConfig(),
                 'views' => $this->getViews(),
-                'columns' => $this->getColumns(),
                 'publicationSettings' => [
                     'supportsCitations' => !!$context->getData('citations'),
                     'identifiersEnabled' => $identifiersEnabled,
+                    'isReviewerSuggestionEnabled' => (bool)$context->getData('reviewerSuggestionEnabled'),
                 ],
                 'componentForms' => [
                     'contributorForm' => $contributorForm->getConfig(),
@@ -253,7 +253,10 @@ abstract class PKPDashboardHandlerNext extends Handler
             'SUBMISSION_FILE_JATS' => SubmissionFile::SUBMISSION_FILE_JATS,
             'FORM_PUBLISH' => PublishForm::FORM_PUBLISH,
 
+            // Reviewer selection types
             'REVIEWER_SELECT_ADVANCED_SEARCH' => PKPReviewerGridHandler::REVIEWER_SELECT_ADVANCED_SEARCH,
+            'REVIEWER_SELECT_CREATE' => PKPReviewerGridHandler::REVIEWER_SELECT_CREATE,
+            'REVIEWER_SELECT_ENROLL_EXISTING' => PKPReviewerGridHandler::REVIEWER_SELECT_ENROLL_EXISTING,
 
             'ROLE_ID_AUTHOR' => Role::ROLE_ID_AUTHOR,
 
@@ -351,49 +354,6 @@ abstract class PKPDashboardHandlerNext extends Handler
         Hook::call('Dashboard::views', [&$viewsData, $userRoles]);
 
         return $viewsData;
-    }
-
-    /**
-     * Define the columns in the submissions table
-     *
-     * @hook Dashboard::columns [[&$columns, $userRoles]]
-     */
-    public function getColumns(): array
-    {
-        $columns = [];
-
-        if ($this->dashboardPage === DashboardPage::MyReviewAssignments) {
-            $columns = [
-                $this->createColumn('id', __('common.id'), 'CellReviewAssignmentId', true),
-                $this->createColumn('title', __('navigation.submissions'), 'CellReviewAssignmentTitle'),
-                $this->createColumn('activity', __('stats.editorialActivity'), 'CellReviewAssignmentActivity'),
-                $this->createColumn('actions', __('admin.jobs.list.actions'), 'CellReviewAssignmentActions')
-            ];
-        } elseif ($this->dashboardPage === DashboardPage::MySubmissions) {
-
-            $columns = [
-                $this->createColumn('id', __('common.id'), 'CellSubmissionId', true),
-                $this->createColumn('title', __('navigation.submissions'), 'CellSubmissionTitle'),
-                $this->createColumn('stage', __('workflow.stage'), 'CellSubmissionStage'),
-                $this->createColumn('activity', __('stats.editorialActivity'), 'CellSubmissionActivity'),
-                $this->createColumn('actions', __('admin.jobs.list.actions'), 'CellSubmissionActions')
-            ];
-        } else {
-            $columns = [
-                $this->createColumn('id', __('common.id'), 'CellSubmissionId', true),
-                $this->createColumn('title', __('navigation.submissions'), 'CellSubmissionTitle'),
-                $this->createColumn('stage', __('workflow.stage'), 'CellSubmissionStage'),
-                $this->createColumn('lastActivity', __('editor.submission.days'), 'CellSubmissionDays', true),
-                $this->createColumn('activity', __('stats.editorialActivity'), 'CellSubmissionActivity'),
-                $this->createColumn('actions', __('admin.jobs.list.actions'), 'CellSubmissionActions')
-            ];
-        }
-
-        $userRoles = $this->getAuthorizedContextObject(Application::ASSOC_TYPE_USER_ROLES);
-
-        Hook::call('Dashboard::columns', [&$columns, $userRoles]);
-
-        return $columns;
     }
 
     /**

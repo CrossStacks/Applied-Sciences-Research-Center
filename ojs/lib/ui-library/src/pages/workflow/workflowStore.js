@@ -1,4 +1,5 @@
-import {computed, inject} from 'vue';
+import {computed} from 'vue';
+import {injectFromCurrentInstance} from '@/utils/defineComponentStore';
 
 import {defineComponentStore} from '@/utils/defineComponentStore';
 import {
@@ -33,7 +34,7 @@ export const useWorkflowStore = defineComponentStore(
 		/**
 		 * Action to close the workflow from inside
 		 * */
-		const closeWorkflowModal = inject('closeModal');
+		const closeWorkflowModal = injectFromCurrentInstance('closeModal');
 
 		/**
 		 * Submission & Publication
@@ -100,6 +101,7 @@ export const useWorkflowStore = defineComponentStore(
 			workflowNavigationConfig.getMenuItems({
 				submission: submission.value,
 				permissions: permissions.value,
+				dashboardPage,
 			}),
 		);
 
@@ -109,7 +111,12 @@ export const useWorkflowStore = defineComponentStore(
 			selectedMenuState,
 			setExpandedKeys,
 			sideMenuProps,
-		} = useWorkflowMenu({menuItems, submission, workflowNavigationConfig});
+		} = useWorkflowMenu({
+			menuItems,
+			submission,
+			workflowNavigationConfig,
+			dashboardPage,
+		});
 
 		/**
 		 * Expose workflow actions
@@ -179,18 +186,16 @@ export const useWorkflowStore = defineComponentStore(
 		 *
 		 * */
 
-		const _workflowConfigFns = extender.addFns(
-			useWorkflowConfig({dashboardPage}),
-		);
+		const workflowConfig = extender.addFns(useWorkflowConfig({dashboardPage}));
 
 		const {
 			headerItems,
 			primaryItems,
 			secondaryItems,
 			actionItems,
-			publicationControlsLeft,
-			publicationControlsRight,
-		} = useWorkflowItems(_workflowConfigFns, () => ({
+			primaryControlsLeft,
+			primaryControlsRight,
+		} = useWorkflowItems(workflowConfig, () => ({
 			selectedMenuState: selectedMenuState.value,
 			submission: submission.value,
 			pageInitConfig: props.pageInitConfig,
@@ -212,6 +217,15 @@ export const useWorkflowStore = defineComponentStore(
 			extendedStage,
 			stageLabel,
 
+			/** Config */
+			menuTitle,
+			headerItems,
+			primaryItems,
+			secondaryItems,
+			actionItems,
+			primaryControlsLeft,
+			primaryControlsRight,
+
 			/**
 			 * Navigation
 			 * */
@@ -230,24 +244,6 @@ export const useWorkflowStore = defineComponentStore(
 			 * File manager actions
 			 */
 			fileUpload,
-
-			/**
-			 * Summary
-			 */
-			menuTitle,
-			headerItems,
-			primaryItems,
-			secondaryItems,
-			actionItems,
-			publicationControlsLeft,
-			publicationControlsRight,
-
-			/**
-			 * Expose for extensions
-			 */
-
-			_workflowActionsFns,
-			_workflowDecisionsFns,
 
 			Components,
 			extender,
