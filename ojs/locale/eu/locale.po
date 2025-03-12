@@ -1,12 +1,12 @@
-# Ricardo Gómez-López <ricardogomezlopez@gmail.com>, 2023.
+# Ricardo Gómez-López <ricardogomezlopez@gmail.com>, 2023, 2025.
 # Informatikaria <informatikaria@ueu.eus>, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-11-19T10:49:21+00:00\n"
-"PO-Revision-Date: 2023-12-12 12:31+0000\n"
-"Last-Translator: Informatikaria <informatikaria@ueu.eus>\n"
+"PO-Revision-Date: 2025-02-25 13:09+0000\n"
+"Last-Translator: Ricardo Gómez-López <ricardogomezlopez@gmail.com>\n"
 "Language-Team: Basque <http://translate.pkp.sfu.ca/projects/ojs/locale/eu/>\n"
 "Language: eu\n"
 "MIME-Version: 1.0\n"
@@ -234,7 +234,7 @@ msgid "article.accessLogoOpen.altText"
 msgstr "Sarbide irekia"
 
 msgid "article.accessLogoRestricted.altText"
-msgstr "Sarrera murriztua"
+msgstr "Sarbide murriztua"
 
 msgid "article.comments.sectionDefault"
 msgstr "Lehenetsia"
@@ -1960,7 +1960,7 @@ msgstr ""
 "\n"
 "<p>Eskerrik asko Public Knowledge Project-en <strong>Open Journal Systems</"
 "strong> jaisteagatik. Aurrera egin aurretik, irakur ezazu mesedez software "
-"honekin batera ematen den <a href=\"{$baseUrl}/docs/README.md\">README</a> "
+"honekin batera ematen den <a href=\"{$baseUrl}/README.md\">README</a> "
 "fitxategia. Public Knowledge Project-i eta dituen software-proiektuei "
 "buruzko informazio gehiago nahi izanez gero, jo <a href=\"http://pkp.sfu.ca/"
 "\" target=\"_blank\">PKP webgunera</a>. Open Journal Systems-en akatsen "
@@ -2029,6 +2029,7 @@ msgstr ""
 "<p>2. Igotako fitxategiak biltegiratzeko direktorio bat sortu behar da eta "
 "idazteko baimena izan behar du (ikusi “Fitxategi-ezarpenak” behean).</p>"
 
+#, fuzzy
 msgid "installer.upgradeInstructions"
 msgstr ""
 "<h4>OJS {$version} bertsioa</h4>\n"

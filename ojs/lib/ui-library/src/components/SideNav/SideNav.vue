@@ -50,8 +50,19 @@ const menuItems = ref(convertLinksToArray(props.links));
 
 const {apiUrl: dashboardCountUrl} = useUrl('_submissions/viewsCount');
 
-const {data: dashboardCount, fetch: fetchDashboardCount} =
-	useFetch(dashboardCountUrl);
+const {data: dashboardCount, fetch: fetchDashboardCount} = useFetch(
+	dashboardCountUrl,
+	{
+		query: {
+			assignedWithRoles: [
+				pkp.const.ROLE_ID_SITE_ADMIN,
+				pkp.const.ROLE_ID_MANAGER,
+				pkp.const.ROLE_ID_SUB_EDITOR,
+				pkp.const.ROLE_ID_ASSISTANT,
+			],
+		},
+	},
+);
 
 const dashboardsMenuItem = menuItems.value.find(
 	(item) => item.key === 'dashboards',
@@ -67,6 +78,7 @@ const {apiUrl: mySubmissionsCountUrl} = useUrl('_submissions/viewsCount');
 
 const {data: mySubmissionsCount, fetch: fetchMySubmissionsCount} = useFetch(
 	mySubmissionsCountUrl,
+	{query: {assignedWithRoles: [pkp.const.ROLE_ID_AUTHOR]}},
 );
 
 const mySubmissionsMenuItem = menuItems.value.find(
@@ -82,7 +94,9 @@ if (mySubmissionsMenuItem) {
 const {apiUrl: reviewAssignmentCountUrl} = useUrl('_submissions/viewsCount');
 
 const {data: reviewAssignmentCount, fetch: fetchReviewAssignmentCount} =
-	useFetch(reviewAssignmentCountUrl);
+	useFetch(reviewAssignmentCountUrl, {
+		query: {assignedWithRoles: [pkp.const.ROLE_ID_REVIEWER]},
+	});
 
 const reviewAssignmentMenuItem = menuItems.value.find(
 	(item) => item.key === 'reviewAssignments',
@@ -92,9 +106,9 @@ if (reviewAssignmentMenuItem) {
 }
 
 // helper to attach count to the menu item
-function enrichMenuItemWithCounts(page, itemsCount) {
+function enrichMenuItemWithCounts(menuItems, page, itemsCount) {
 	if (itemsCount.value) {
-		const menuItem = menuItems.value.find((item) => item.key === page);
+		const menuItem = menuItems.find((item) => item.key === page);
 		if (menuItem) {
 			const menuItemsEnriched = menuItem.items.map((item) => ({
 				...item,
@@ -105,14 +119,21 @@ function enrichMenuItemWithCounts(page, itemsCount) {
 			menuItem.items = menuItemsEnriched;
 		}
 	}
+	return menuItems;
 }
 
 const menuItemsEnriched = computed(() => {
-	enrichMenuItemWithCounts('dashboards', dashboardCount);
-	enrichMenuItemWithCounts('mySubmissions', mySubmissionsCount);
-	enrichMenuItemWithCounts('reviewAssignments', reviewAssignmentCount);
+	const menuItemsCopy = JSON.parse(JSON.stringify(menuItems.value));
 
-	return menuItems.value;
+	enrichMenuItemWithCounts(menuItemsCopy, 'dashboards', dashboardCount);
+	enrichMenuItemWithCounts(menuItemsCopy, 'mySubmissions', mySubmissionsCount);
+	enrichMenuItemWithCounts(
+		menuItemsCopy,
+		'reviewAssignments',
+		reviewAssignmentCount,
+	);
+
+	return menuItemsCopy;
 });
 
 function convertLinksToArray(links, level = 1, parentKey = '') {

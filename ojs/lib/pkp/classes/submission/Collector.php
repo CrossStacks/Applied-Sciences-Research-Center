@@ -74,12 +74,15 @@ abstract class Collector implements CollectorInterface, ViewsCount
     /** @var array Which DOI types should be considered when checking if a submission has DOIs set */
     public array $enabledDoiTypes = [];
 
-    /** @var array|int */
-    public $assignedTo = null;
+    /**  */
+    public ?array $assignedTo = null;
+    public ?array $assignedWithRoles = null;
+
     public array|int|null $isReviewedBy = null;
     public ?array $reviewersNumber = null;
     public ?bool $awaitingReviews = null;
     public ?bool $reviewsSubmitted = null;
+    public ?bool $reviewsOverdue = null;
     public ?bool $revisionsRequested = null;
     public ?bool $revisionsSubmitted = null;
     public ?array $reviewIds = null;
@@ -235,6 +238,15 @@ abstract class Collector implements CollectorInterface, ViewsCount
     }
 
     /**
+     * Limit results by submissions in the review stage with overdue review assignments
+     */
+    public function filterByReviewsOverdue(?bool $reviewsOverdue): AppCollector
+    {
+        $this->reviewsOverdue = $reviewsOverdue;
+        return $this;
+    }
+
+    /**
      * Limit results by submissions in the review stage with review requests which hasn't been yet considered and pending review assignments
      */
     public function filterByAwaitingReviews(?bool $hasAwaitingReviews): AppCollector
@@ -276,11 +288,17 @@ abstract class Collector implements CollectorInterface, ViewsCount
     /**
      * Limit results to submissions assigned to these users
      *
-     * @param int|array $assignedTo An array of user IDs
+     * @param int[] $assignedTo An array of user IDs
+     * @param ?int[] $withRoles An array of user IDs
      */
-    public function assignedTo($assignedTo): AppCollector
+    public function assignedTo(array $assignedTo, ?array $withRoles = null): AppCollector
     {
         $this->assignedTo = $assignedTo;
+
+        if (is_array($withRoles) && !empty($withRoles)) {
+            $this->assignedWithRoles = $withRoles;
+        }
+
         return $this;
     }
 
@@ -537,29 +555,52 @@ abstract class Collector implements CollectorInterface, ViewsCount
                     )
             );
         }
-
         if (is_array($this->assignedTo)) {
             $q->whereIn(
                 's.submission_id',
-                fn (Builder $q) =>
-                $q->select('s.submission_id')
-                    ->from('submissions AS s')
-                    ->leftJoin(
-                        'stage_assignments as sa',
-                        fn (Builder $q) =>
-                        $q->on('s.submission_id', '=', 'sa.submission_id')
-                            ->whereIn('sa.user_id', $this->assignedTo)
-                    )
-                    ->leftJoin(
-                        'review_assignments as ra',
-                        fn (Builder $table) =>
-                        $table->on('s.submission_id', '=', 'ra.submission_id')
-                            ->where('ra.declined', '=', (int) 0)
-                            ->where('ra.cancelled', '=', (int) 0)
-                            ->whereIn('ra.reviewer_id', $this->assignedTo)
-                    )
-                    ->whereNotNull('sa.stage_assignment_id')
-                    ->orWhereNotNull('ra.review_id')
+                function (Builder $q) {
+                    // by default are included for backward compatibility
+                    // its only excluded when explicitly assignedWithRoles defines roles, but exclude ROLE_ID_REVIEWER
+                    $includeReviewerAssignment = (!$this->assignedWithRoles) || ($this->assignedWithRoles && in_array(Role::ROLE_ID_REVIEWER, $this->assignedWithRoles));
+                    $q->select('s.submission_id')
+                        ->from('submissions AS s')
+                        ->leftJoin(
+                            'stage_assignments as sa',
+                            fn (Builder $q) =>
+                            $q->on('s.submission_id', '=', 'sa.submission_id')
+                                ->whereIn('sa.user_id', $this->assignedTo)
+                        );
+
+                    if ($this->assignedWithRoles) {
+                        $q->leftJoin(
+                            'user_groups as ug',
+                            fn (Builder $table) =>
+                            $table->on('sa.user_group_id', '=', 'ug.user_group_id')
+                                ->whereIn('ug.role_id', $this->assignedWithRoles)
+                        );
+                    }
+
+                    // nested where to group these conditions together
+                    $q->where(function (Builder $q) {
+                        $q->whereNotNull('sa.stage_assignment_id');
+                        if ($this->assignedWithRoles) {
+                            $q->whereNotNull('ug.role_id');
+                        }
+                    });
+
+                    if ($includeReviewerAssignment) {
+                        $q->leftJoin(
+                            'review_assignments as ra',
+                            fn (Builder $table) =>
+                            $table->on('s.submission_id', '=', 'ra.submission_id')
+                                ->where('ra.declined', '=', (int) 0)
+                                ->where('ra.cancelled', '=', (int) 0)
+                                ->whereIn('ra.reviewer_id', $this->assignedTo)
+                        )->orWhereNotNull('ra.review_id');
+                    }
+
+                    return $q;
+                }
             );
         } elseif ($this->isUnassigned) {
             $sub = DB::table('stage_assignments')
@@ -723,14 +764,17 @@ abstract class Collector implements CollectorInterface, ViewsCount
             $this->awaitingReviews,
             $this->reviewsSubmitted,
             $this->revisionsRequested,
-            $this->revisionsSubmitted
+            $this->revisionsSubmitted,
+            $this->reviewsOverdue
         ])->filter();
         if ($reviewFilters->isEmpty()) {
             return $q;
         }
 
-        $reviewStageFilters = array_intersect($this->getReviewStages(), $this->stageIds ?? []);
-        $stagesToFilter = array_diff($this->getReviewStages(), $reviewStageFilters);
+        $reviewStages = Application::get()->getReviewStages();
+        $reviewStageFilters = array_intersect($reviewStages, $this->stageIds ?? []);
+        $stagesToFilter = array_diff($reviewStages, $reviewStageFilters);
+
         if (!empty($stagesToFilter)) {
             $q->whereIn('s.stage_id', $stagesToFilter);
         }
@@ -739,7 +783,15 @@ abstract class Collector implements CollectorInterface, ViewsCount
         $currentReviewRound = DB::table('review_rounds', 'rr')
             ->select('rr.submission_id')
             ->selectRaw('MAX(rr.round) as current_round')
-            ->groupBy('rr.submission_id');
+            ->groupBy('rr.submission_id')
+            // narrow results to the active workflow stage, needed for OMP
+            ->whereIn(
+                'rr.stage_id',
+                fn (Builder $q) => $q
+                    ->from('submissions AS s')
+                    ->select('s.stage_id')
+                    ->whereColumn('rr.stage_id', 's.stage_id')
+            );
 
         $q->when(
             $this->isReviewedBy !== null,
@@ -860,6 +912,36 @@ abstract class Collector implements CollectorInterface, ViewsCount
         );
 
         $q->when(
+            $this->reviewsOverdue !== null,
+            fn (Builder $q) =>
+            $q->whereIn(
+                's.submission_id',
+                fn (Builder $q) => $q
+                    ->select('ra.submission_id')
+                    ->from('review_assignments AS ra')
+                    ->joinSub(
+                        $currentReviewRound,
+                        'agrr',
+                        fn (JoinClause $join) =>
+                        $join->on('ra.submission_id', '=', 'agrr.submission_id')
+                    )
+                    ->whereColumn('ra.round', '=', 'agrr.current_round')
+                    ->where('ra.declined', 0)
+                    ->where('ra.cancelled', 0)
+                    ->where(
+                        fn (Builder $q) =>
+                        $q->where('ra.date_due', '<', Core::getCurrentDate(strtotime('tomorrow')))
+                            ->whereNull('ra.date_completed')
+                    )
+                    ->orWhere(
+                        fn (Builder $q) =>
+                        $q->where('ra.date_response_due', '<', Core::getCurrentDate(strtotime('tomorrow')))
+                            ->whereNull('ra.date_confirmed')
+                    )
+            )
+        );
+
+        $q->when(
             $this->revisionsRequested !== null,
             fn (Builder $q) => $q
                 ->whereIn(
@@ -911,10 +993,5 @@ abstract class Collector implements CollectorInterface, ViewsCount
             $q->selectSub($subQuery, $key);
         });
         return $q;
-    }
-
-    protected function getReviewStages(): array
-    {
-        return [WORKFLOW_STAGE_ID_EXTERNAL_REVIEW];
     }
 }

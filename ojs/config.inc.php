@@ -27,7 +27,7 @@
 
 ; An application-specific key that is required for the app to run
 ; Internally this is used for any encryption (specifically cookie encryption if enabled)
-app_key = "base64:ITilbCPRZSaQ1205YkH0Y0OG8DjKpZiLb0NCIt/9rvc="
+app_key = "base64:E6megTbx0vxlTbUnEhTbU71vglIOhnPG7uGTTeORi6Q="
 
 ; Set this to On once the system has been installed
 ; (This is generally done automatically by the installer)
@@ -110,7 +110,7 @@ show_upgrade_warning = On
 
 ; Set the following parameter to off if you want to work with the uncompiled (non-minified) JavaScript
 ; source for debugging or if you are working off a development branch without compiled JavaScript.
-enable_minified = Off
+enable_minified = On
 
 ; Provide a unique site ID and OAI base URL to PKP for statistics and security
 ; alert purposes only.
@@ -141,8 +141,8 @@ sandbox = Off
 
 driver = mysqli
 host = localhost
-username = rootUser
-password = root
+username = root
+password = 
 name = ojs
 
 ; Set the non-standard port and/or socket, if used
@@ -209,7 +209,7 @@ connection_charset = utf8
 ; Complete path to directory to store uploaded files
 ; (This directory should not be directly web-accessible)
 ; Windows users should use forward slashes
-files_dir = "D:/CrossStacks/Applied-Sciences-Research-Center/ojsFiles"
+files_dir = "D:/CrossStacks/Applied-Sciences-Research-Center/ojs_files"
 
 ; Path to the directory to store public uploaded files
 ; (This directory should be web-accessible and the specified path
@@ -402,7 +402,7 @@ oai = On
 
 ; OAI Repository identifier. This setting forms part of OAI-PMH record IDs.
 ; Changing this setting may affect existing clients and is not recommended.
-repository_id = "ojs2.localhost:8000"
+repository_id = "ojs.localhost:8000"
 
 ; Maximum number of records per request to serve via OAI
 oai_max_records = 100
@@ -420,7 +420,6 @@ items_per_page = 25
 ; Number of page links to display; can be overridden on a per-journal basis
 page_links = 10
 
-enabled = On
 
 ;;;;;;;;;;;;;;;;;;;;
 ; Captcha Settings ;

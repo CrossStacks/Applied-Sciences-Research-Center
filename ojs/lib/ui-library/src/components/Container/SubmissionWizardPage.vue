@@ -2,6 +2,7 @@
 import Page from '@/components/Container/Page.vue';
 import ButtonRow from '../ButtonRow/ButtonRow.vue';
 import ContributorsListPanel from '../ListPanel/contributors/ContributorsListPanel.vue';
+import ReviewerSuggestionsListPanel from '../ListPanel/reviewerSuggestions/ReviewerSuggestionsListPanel.vue';
 import File from '../File/File.vue';
 import Modal from '../Modal/Modal.vue';
 import ReconfigureSubmissionModal from '@/pages/submissionWizard/ReconfigureSubmissionModal.vue';
@@ -9,29 +10,22 @@ import SubmissionFilesListPanel from '../ListPanel/submissionFiles/SubmissionFil
 import ajaxError from '@/mixins/ajaxError';
 import autosave from '@/mixins/autosave';
 import dialog from '@/mixins/dialog';
-import localizeMoment from '@/mixins/localizeMoment';
 import localizeSubmission from '@/mixins/localizeSubmission';
 import localStorage from '@/mixins/localStorage';
-import moment from 'moment';
+import {useDate} from '@/composables/useDate';
 import {useModal} from '@/composables/useModal';
 
 export default {
 	components: {
 		ButtonRow,
 		ContributorsListPanel,
+		ReviewerSuggestionsListPanel,
 		File,
 		Modal,
 		SubmissionFilesListPanel,
 	},
 	extends: Page,
-	mixins: [
-		ajaxError,
-		autosave,
-		dialog,
-		localizeMoment,
-		localizeSubmission,
-		localStorage,
-	],
+	mixins: [ajaxError, autosave, dialog, localizeSubmission, localStorage],
 	data() {
 		return {
 			/** A unique string. See autosave mixin below. */
@@ -586,11 +580,11 @@ export default {
 				this.lastAutosavedMessage = '';
 				return;
 			}
+
+			const {relativeStringTimeFromNow} = useDate();
 			this.lastAutosavedMessage = this.i18nLastAutosaved.replace(
 				'{$when}',
-				moment(this.lastSavedTimestamp)
-					.locale(this.getMomentLocale($.pkp.app.currentLocale))
-					.fromNow(),
+				relativeStringTimeFromNow(this.lastSavedTimestamp),
 			);
 		},
 
@@ -599,6 +593,13 @@ export default {
 		 */
 		setContributors(newContributors) {
 			this.publication.authors = newContributors;
+		},
+
+		/**
+		 * Update the reviewer suggestions in the submission
+		 */
+		setReviewerSuggestion(newReviewerSuggestions) {
+			this.submission.reviewerSuggestions = newReviewerSuggestions;
 		},
 
 		/**
@@ -790,7 +791,7 @@ export default {
 		/**
 		 * Cancel a submission.
 		 */
-		cancelSubmission(){
+		cancelSubmission() {
 			this.openDialog({
 				name: 'SubmissionCancel',
 				title: this.t('submission.wizard.submissionCancel'),
@@ -831,7 +832,7 @@ export default {
 				],
 				modalStyle: 'negative',
 			});
-		}
+		},
 	},
 };
 </script>

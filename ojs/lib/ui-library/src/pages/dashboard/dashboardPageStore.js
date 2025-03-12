@@ -9,15 +9,16 @@ import {useAnnouncer} from '@/composables/useAnnouncer';
 import {useUrl} from '@/composables/useUrl';
 import {useQueryParams} from '@/composables/useQueryParams';
 import {defineComponentStore} from '@/utils/defineComponentStore';
+import {useExtender} from '@/composables/useExtender';
 
-import {useWorkflowActions} from '../workflow/composables/useWorkflowActions';
 import {useReviewerManagerActions} from '@/managers/ReviewerManager/useReviewerManagerActions';
 import {useDashboardBulkDelete} from './composables/useDashboardBulkDelete';
 import {useParticipantManagerActions} from '@/managers/ParticipantManager/useParticipantManagerActions';
 import {useFileManagerActions} from '@/managers/FileManager/useFileManagerActions';
 
-import {useEditorialLogic} from './composables/useEditorialLogic';
-import {useReviewActivityLogic} from './composables/useReviewActivityLogic';
+import {useDashboardConfigEditorialActivity} from './composables/useDashboardConfigEditorialActivity';
+import {useDashboardConfig} from './composables/useDashboardConfig';
+import {useDashboardConfigReviewActivity} from './composables/useDashboardConfigReviewActivity';
 import {useSubmission} from '@/composables/useSubmission';
 
 import DashboardModalFilters from '@/pages/dashboard/modals/DashboardModalFilters.vue';
@@ -43,8 +44,11 @@ export const DashboardPageTypes = {
 };
 
 export const useDashboardPageStore = defineComponentStore(
-	'dashboardPage',
+	'dashboard',
 	(pageInitConfig) => {
+		const extender = useExtender();
+
+		const dashboardPage = pageInitConfig.dashboardPage;
 		/**
 		 * ModalStore
 		 */
@@ -57,10 +61,10 @@ export const useDashboardPageStore = defineComponentStore(
 		/** Dashboard Page */
 
 		const dashboardPageTitle = computed(() => {
-			return t(TitleTranslations[pageInitConfig.dashboardPage]);
+			return t(TitleTranslations[dashboardPage]);
 		});
 		const dashboardPageIcon = computed(() => {
-			return TitleIcons[pageInitConfig.dashboardPage];
+			return TitleIcons[dashboardPage];
 		});
 
 		/**
@@ -68,6 +72,17 @@ export const useDashboardPageStore = defineComponentStore(
 		 */
 		// Reactive query params parsed from the url
 		const queryParamsUrl = useQueryParams();
+
+		/**
+		 * Config
+		 */
+		const dashboardConfig = extender.addFns(useDashboardConfig());
+		const leftControlItems = computed(() =>
+			dashboardConfig.getLeftControls({dashboardPage: dashboardPage}),
+		);
+		const rightControlItems = computed(() =>
+			dashboardConfig.getRightControls({dashboardPage: dashboardPage}),
+		);
 
 		/**
 		 * Views
@@ -106,7 +121,11 @@ export const useDashboardPageStore = defineComponentStore(
 		/**
 		 * Columns
 		 */
-		const columns = ref(pageInitConfig.columns);
+		const columns = computed(() =>
+			dashboardConfig.getColumns({
+				dashboardPage: dashboardPage,
+			}),
+		);
 
 		/**
 		 * Search Phrase
@@ -227,11 +246,10 @@ export const useDashboardPageStore = defineComponentStore(
 			{immediate: true},
 		);
 
-		const _workflowActionFns = useWorkflowActions(pageInitConfig);
-		const _reviewerManagerActionFns = useReviewerManagerActions(pageInitConfig);
-		const _participantManagerActionsFns =
+		const reviewerManagerActions = useReviewerManagerActions(pageInitConfig);
+		const participantManagerActions =
 			useParticipantManagerActions(pageInitConfig);
-		const _fileManagerActionFns = useFileManagerActions();
+		const fileManagerActions = useFileManagerActions();
 		const {getCurrentPublication} = useSubmission();
 
 		function refetchCallback() {
@@ -257,7 +275,7 @@ export const useDashboardPageStore = defineComponentStore(
 			bulkDeleteResetSelection,
 		} = useDashboardBulkDelete({
 			submissions,
-			dashboardPage: pageInitConfig.dashboardPage,
+			dashboardPage: dashboardPage,
 			onSubmissionDeleteCallback: () => {
 				fetchSubmissions();
 			},
@@ -296,42 +314,42 @@ export const useDashboardPageStore = defineComponentStore(
 			};
 		}
 		function reviewerAddReviewer({reviewRoundId, submissionId}) {
-			_reviewerManagerActionFns.reviewerAddReviewer(
+			reviewerManagerActions.reviewerAddReviewer(
 				enrichActionArgs({reviewRoundId, submissionId}),
 				refetchCallback,
 			);
 		}
 
 		function reviewerResendRequest({reviewAssignment, submissionId}) {
-			_reviewerManagerActionFns.reviewerResendRequest(
+			reviewerManagerActions.reviewerResendRequest(
 				enrichActionArgs({reviewAssignment, submissionId}),
 				refetchCallback,
 			);
 		}
 
 		function reviewerEditReview({reviewAssignment, submissionId}) {
-			_reviewerManagerActionFns.reviewerEditReview(
+			reviewerManagerActions.reviewerEditReview(
 				enrichActionArgs({reviewAssignment, submissionId}),
 				refetchCallback,
 			);
 		}
 
 		function reviewerReviewDetails({reviewAssignment, submissionId}) {
-			_reviewerManagerActionFns.reviewerReviewDetails(
+			reviewerManagerActions.reviewerReviewDetails(
 				enrichActionArgs({reviewAssignment, submissionId}),
 				refetchCallback,
 			);
 		}
 
 		function reviewerCancelReviewer({reviewAssignment, submissionId}) {
-			_reviewerManagerActionFns.reviewerCancelReviewer(
+			reviewerManagerActions.reviewerCancelReviewer(
 				enrichActionArgs({reviewAssignment, submissionId}),
 				refetchCallback,
 			);
 		}
 
 		function reviewerUnassignReviewer({reviewAssignment, submissionId}) {
-			_reviewerManagerActionFns.reviewerUnassignReviewer(
+			reviewerManagerActions.reviewerUnassignReviewer(
 				enrichActionArgs({reviewAssignment, submissionId}),
 				refetchCallback,
 			);
@@ -341,7 +359,7 @@ export const useDashboardPageStore = defineComponentStore(
 		 * File Manager actions
 		 */
 		function fileUpload(args) {
-			_fileManagerActionFns.fileUpload(enrichActionArgs(args), refetchCallback);
+			fileManagerActions.fileUpload(enrichActionArgs(args), refetchCallback);
 		}
 
 		/**
@@ -349,7 +367,7 @@ export const useDashboardPageStore = defineComponentStore(
 		 *
 		 * */
 		function participantAssign({submissionId}) {
-			_participantManagerActionsFns.participantAssign(
+			participantManagerActions.participantAssign(
 				enrichActionArgs({submissionId}),
 				refetchCallback,
 			);
@@ -396,24 +414,73 @@ export const useDashboardPageStore = defineComponentStore(
 		}
 
 		/**
-		 * Expose editorial logic function via store to make it easier
-		 * to override/extend from plugins them via pinia api
-		 */
-		const {
-			getEditorialActivityForEditorialDashboard,
-			getEditorialActivityForMySubmissions,
-			getEditorialActivityForMyReviewAssignments,
-		} = useEditorialLogic(pageInitConfig.dashboardPage);
-		const {
-			getReviewActivityIndicatorProps,
-			getReviewActivityIndicatorPopoverProps,
-		} = useReviewActivityLogic();
+		 * Config functions for editorial activity
+		 * */
+		const dashboardConfigEditorialActivity = extender.addFns(
+			useDashboardConfigEditorialActivity(),
+		);
+
+		function getEditorialActivityForEditorialDashboard(args) {
+			return dashboardConfigEditorialActivity.getEditorialActivityForEditorialDashboard(
+				{
+					...args,
+					dashboardPage,
+				},
+			);
+		}
+
+		function getEditorialActivityForMySubmissions(args) {
+			return dashboardConfigEditorialActivity.getEditorialActivityForMySubmissions(
+				{
+					...args,
+					dashboardPage,
+				},
+			);
+		}
+
+		function getEditorialActivityForMyReviewAssignments(args) {
+			return dashboardConfigEditorialActivity.getEditorialActivityForMyReviewAssignments(
+				{
+					...args,
+					dashboardPage,
+				},
+			);
+		}
+
+		/**
+		 * Config functions for individual review assignments within editorial activity
+		 * */
+
+		const dashboardConfigReviewActivity = extender.addFns(
+			useDashboardConfigReviewActivity(),
+		);
+
+		function getReviewActivityIndicatorProps(args) {
+			return dashboardConfigReviewActivity.getReviewActivityIndicatorProps({
+				...args,
+				dashboardPage,
+			});
+		}
+
+		function getReviewActivityIndicatorPopoverProps(args) {
+			return dashboardConfigReviewActivity.getReviewActivityIndicatorPopoverProps(
+				{
+					...args,
+					dashboardPage,
+				},
+			);
+		}
 
 		return {
 			// Dashboard
-			dashboardPage: pageInitConfig.dashboardPage,
+			dashboardPage,
 			dashboardPageTitle,
 			dashboardPageIcon,
+
+			// Config
+			leftControlItems,
+			rightControlItems,
+
 			// Views
 			views,
 			currentViewId,
@@ -503,7 +570,9 @@ export const useDashboardPageStore = defineComponentStore(
 
 			// Expose component forms, so managers and other dashboard/workflow component can access them
 			componentForms: pageInitConfig.componentForms,
-			_workflowActionFns,
+
+			// Extender
+			extender,
 		};
 	},
 );
