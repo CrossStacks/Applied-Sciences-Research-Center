@@ -10,6 +10,8 @@ class UserDetail {
   final String userId;
   final String email;
   final String profilePhotoUrl;
+  final bool isVerified;
+  final bool isAdmin;
 
   UserDetail({
     required this.firstName,
@@ -17,5 +19,7 @@ class UserDetail {
     required this.userId,
     required this.email,
     required this.profilePhotoUrl,
+    required this.isVerified,
+    required this.isAdmin,
   });
 }

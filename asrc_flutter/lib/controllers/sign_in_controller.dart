@@ -1,86 +1,112 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import '../services/auth/validators.dart';
+import '../services/firebase/auth_methods.dart';
 import '../services/firebase/database.dart';
 import '../utils/global.dart';
+import '../utils/routing/routes_name.dart';
 
 class SignInController {
+  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
-  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
-  bool isLoading = false;
+  final AuthService _authService = AuthService();
 
-  Future<void> userLogin(BuildContext context, Function setLoading) async {
+  Future<void> userLogin(
+      BuildContext context, Function(bool) setLoading) async {
     if (!formKey.currentState!.validate()) {
       return;
     }
 
     setLoading(true);
-
     try {
       final email = emailController.text.trim();
       final password = passwordController.text.trim();
 
-      await FirebaseAuth.instance.signInWithEmailAndPassword(
-        email: email,
-        password: password,
-      );
+      if (email.isEmpty || password.isEmpty) {
+        _showErrorSnackbar(context, 'Email and Password cannot be empty.');
+        setLoading(false);
+        return;
+      }
+
+      if (!Validators.isValidEmail(email)) {
+        _showErrorSnackbar(context, 'Please enter a valid email address.');
+        setLoading(false);
+        return;
+      }
+
+      if (!Validators.isValidPassword(password)) {
+        _showErrorSnackbar(context,
+            'Password must be at least 6 characters long, include at least one uppercase letter, one lowercase letter, and one digit.');
+        setLoading(false);
+        return;
+      }
+
+      await _authService.signIn(email: email, password: password);
 
       final querySnapshot = await DatabaseMethods().getUserByEmail(email);
       if (querySnapshot.docs.isEmpty) {
-        _showErrorSnackbar(context, 'User record not found in Firestore.');
+        _showErrorSnackbar(context, 'User not found. Please register first.');
+        setLoading(false);
         return;
       }
 
       final userData = querySnapshot.docs[0].data() as Map<String, dynamic>;
+      if (!userData.containsKey('Email')) {
+        _showErrorSnackbar(context, 'Invalid user data.');
+        setLoading(false);
+        return;
+      }
+
       final userDetails = await DatabaseMethods()
-          .getUserByEmail(userData['Email'] as String)
+          .getUserByEmail(userData['Email'])
           .then((value) => value.docs[0].data() as Map<String, dynamic>);
 
       Global.userDetails = UserDetail(
         firstName: userDetails['FirstName'],
         lastName: userDetails['LastName'],
-        userId: userDetails['Id'],
         email: userDetails['Email'],
+        userId: userDetails['UserId'],
         profilePhotoUrl: userDetails['ProfilePhotoUrl'],
+        isVerified: userDetails['IsVerified'],
+        isAdmin: userDetails['IsAdmin'],
       );
+
+      Navigator.pushReplacementNamed(context, RouteName.index);
     } on FirebaseAuthException catch (e) {
-      _handleFirebaseAuthException(context, e);
-    } catch (e, stackTrace) {
-      debugPrint("Unexpected error: $e");
-      debugPrintStack(stackTrace: stackTrace);
-      _showErrorSnackbar(
-          context, 'An unexpected error occurred. Please try again.');
+      _handleFirebaseAuthException(e, context);
+    } catch (e) {
+      _showErrorSnackbar(context, 'Login failed: ${e.toString()}');
     } finally {
       setLoading(false);
     }
   }
 
   void _handleFirebaseAuthException(
-      BuildContext context, FirebaseAuthException e) {
+      FirebaseAuthException e, BuildContext context) {
+    String message;
     switch (e.code) {
       case 'user-not-found':
-        _showErrorSnackbar(context, 'No user found for this email.');
+        message = 'No user found for that email.';
         break;
       case 'wrong-password':
-        _showErrorSnackbar(context, 'Incorrect password. Please try again.');
+        message = 'Incorrect password. Please try again.';
         break;
-      case 'network-request-failed':
-        _showErrorSnackbar(
-            context, 'Network error. Check your internet connection.');
+      case 'invalid-email':
+        message = 'Invalid email format.';
+        break;
+      case 'user-disabled':
+        message = 'This user account has been disabled.';
         break;
       default:
-        _showErrorSnackbar(context, 'Authentication error: ${e.message}');
-        break;
+        message = 'An error occurred. Please try again later.';
     }
+    _showErrorSnackbar(context, message);
   }
 
-  void _showErrorSnackbar(BuildContext context, String message,
-      {Color color = Colors.orangeAccent}) {
+  void _showErrorSnackbar(BuildContext context, String message) {
     ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text(message),
-        backgroundColor: color,
-      ),
+      SnackBar(content: Text(message)),
     );
   }
 }
