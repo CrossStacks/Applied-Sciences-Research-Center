@@ -1,15 +1,11 @@
 import 'package:flutter/material.dart';
 
 class GradientBorderContainer extends StatelessWidget {
-  final double width;
-  final double height;
   final double borderWidth;
   final Widget child;
 
   const GradientBorderContainer({
     super.key,
-    required this.width,
-    required this.height,
     required this.borderWidth,
     required this.child,
   });
@@ -17,8 +13,6 @@ class GradientBorderContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: width + borderWidth,
-      height: height + borderWidth,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(25),
         gradient: const LinearGradient(
@@ -36,8 +30,6 @@ class GradientBorderContainer extends StatelessWidget {
         padding: EdgeInsets.all(borderWidth),
         child: Container(
           padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-          width: width,
-          height: height,
           decoration: BoxDecoration(
             color: Colors.white,
             borderRadius: BorderRadius.circular(25),

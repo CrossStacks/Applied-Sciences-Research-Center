@@ -27,6 +27,10 @@ class _SignInPageState extends State<SignInPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color.fromARGB(255, 252, 246, 243),
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+      ),
       body: isLoading
           ? const Center(
               child: CircularProgressIndicator(
@@ -46,9 +50,7 @@ class _SignInPageState extends State<SignInPage> {
                     borderRadius: BorderRadius.circular(20),
                   ),
                   child: GradientBorderContainer(
-                    borderWidth: 2,
-                    width: 350,
-                    height: 260,
+                    borderWidth: 1.5,
                     child: Column(
                       children: [
                         ShaderMask(

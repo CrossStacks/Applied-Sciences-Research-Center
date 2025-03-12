@@ -120,7 +120,10 @@ class _IndexState extends State<Index> {
                   )
                 : InkWell(
                     onTap: () {
-                      Navigator.pushNamed(context, RouteName.signinPage);
+                      Navigator.pushNamed(
+                        context,
+                        RouteName.signinPage,
+                      );
                     },
                     child: Container(
                       height: 48,

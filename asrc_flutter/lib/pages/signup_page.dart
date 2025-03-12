@@ -200,10 +200,7 @@ class _SignUpPageState extends State<SignUpPage> {
                 children: [
                   TextButton(
                     onPressed: () => {
-                      Navigator.pushReplacementNamed(
-                        context,
-                        RouteName.signinPage,
-                      ),
+                      Navigator.pop(context),
                     },
                     child: Text("Already have an account"),
                   ),
