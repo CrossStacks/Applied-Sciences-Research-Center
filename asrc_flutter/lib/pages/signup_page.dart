@@ -4,6 +4,8 @@ import 'package:asrc_flutter/utils/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
+import '../utils/routing/routes_name.dart';
+
 class SignUpPage extends StatefulWidget {
   const SignUpPage({super.key});
 
@@ -197,7 +199,12 @@ class _SignUpPageState extends State<SignUpPage> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   TextButton(
-                    onPressed: () => {Navigator.pop(context)},
+                    onPressed: () => {
+                      Navigator.pushReplacementNamed(
+                        context,
+                        RouteName.signinPage,
+                      ),
+                    },
                     child: Text("Already have an account"),
                   ),
                 ],

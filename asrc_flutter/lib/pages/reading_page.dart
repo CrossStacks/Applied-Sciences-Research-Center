@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import '../components/icon_button.dart';
 import '../models/reading_page_model.dart';
+import '../utils/global.dart';
+import '../utils/routing/routes_name.dart';
 import '../utils/url_launcher.dart';
 
 class ReadingPage extends StatefulWidget {
@@ -82,9 +84,10 @@ class _ReadingPageState extends State<ReadingPage> {
                   _buildBreadcrumbItem(
                       'Home',
                       (() => {
-                            Navigator.pushAndRemoveUntil(
+                            Global.pageIdx = 0,
+                            Navigator.pushNamedAndRemoveUntil(
                               context,
-                              MaterialPageRoute(builder: (context) => Index()),
+                              RouteName.index,
                               (Route<dynamic> route) => false,
                             ),
                           })),
