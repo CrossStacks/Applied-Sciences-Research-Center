@@ -3,12 +3,14 @@ import 'package:flutter/material.dart';
 class CustomButtonWidget extends StatefulWidget {
   final String text;
   final TextStyle textStyle;
-  final Color initialColor;
+  final Color? initialColor;
   final Color initialTextColor;
-  final Color hoverColor;
+  final Color? hoverColor;
+  final Color hoverTextColor;
+  final Gradient? initialGradient;
+  final Gradient? hoverGradient;
   final Color? initialBorderColor;
   final Color? hoverBorderColor;
-  final Color hoverTextColor;
   final double? width;
   final VoidCallback onTap;
 
@@ -16,15 +18,18 @@ class CustomButtonWidget extends StatefulWidget {
     super.key,
     required this.text,
     required this.textStyle,
-    required this.initialColor,
+    this.initialColor,
     required this.initialTextColor,
-    required this.hoverColor,
+    this.hoverColor,
     required this.hoverTextColor,
+    this.initialGradient,
+    this.hoverGradient,
     this.width,
     required this.onTap,
     this.initialBorderColor,
     this.hoverBorderColor,
-  });
+  }) : assert(initialColor != null || initialGradient != null,
+            'Either initialColor or initialGradient must be provided');
 
   @override
   State<CustomButtonWidget> createState() => _CustomButtonWidgetState();
@@ -48,7 +53,11 @@ class _CustomButtonWidgetState extends State<CustomButtonWidget> {
     final containerColor = _isHovered ? widget.hoverColor : widget.initialColor;
     final textColor =
         _isHovered ? widget.hoverTextColor : widget.initialTextColor;
-    final style = widget.textStyle.copyWith(color: textColor);
+    final textStyle = widget.textStyle.copyWith(color: textColor);
+    final gradient = _isHovered
+        ? widget.hoverGradient ?? widget.initialGradient
+        : widget.initialGradient;
+
     return Container(
       width: widget.width,
       padding: const EdgeInsets.symmetric(vertical: 16),
@@ -62,7 +71,8 @@ class _CustomButtonWidgetState extends State<CustomButtonWidget> {
             padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 32),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(50),
-              color: containerColor,
+              color: gradient == null ? containerColor : null,
+              gradient: gradient,
               border: Border.all(
                 color: _isHovered
                     ? widget.hoverBorderColor ?? Colors.transparent
@@ -72,7 +82,7 @@ class _CustomButtonWidgetState extends State<CustomButtonWidget> {
             child: Text(
               widget.text,
               textAlign: TextAlign.center,
-              style: style,
+              style: textStyle,
             ),
           ),
         ),

@@ -26,7 +26,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: AppColor.primaryColor),
         useMaterial3: true,
       ),
-      initialRoute: RouteName.signinPage,
+      initialRoute: RouteName.index,
       onGenerateRoute: Routes.generateRoute,
     );
   }
