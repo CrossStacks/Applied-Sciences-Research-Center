@@ -10,4 +10,10 @@ class Validators {
         RegExp(r'^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{6,}$');
     return passwordRegex.hasMatch(password);
   }
+
+  static bool isValidLinkedIn(String url) {
+    final RegExp linkedInRegex =
+        RegExp(r'^(https?:\/\/)?(www\.)?linkedin\.com\/in\/[a-zA-Z0-9_-]+\/?$');
+    return linkedInRegex.hasMatch(url);
+  }
 }

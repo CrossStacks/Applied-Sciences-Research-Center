@@ -104,6 +104,10 @@ class SignUpController {
       _showErrorSnackbar(context, 'Passwords do not match.');
       return;
     }
+    if (!Validators.isValidLinkedIn(linkedInController.text.trim())) {
+      _showErrorSnackbar(context, 'Please enter a valid LinkedIn profile URL.');
+      return;
+    }
 
     if (qualificationLevel == null ||
         designation == null ||
