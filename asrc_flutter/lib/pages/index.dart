@@ -24,6 +24,8 @@ class _IndexState extends State<Index> {
   //     Global.pageIdx = index;
   //   });
   // }
+  String? selectedItem;
+  final List<String> items = ['Admin Panel', 'OJS'];
 
   @override
   Widget build(BuildContext context) {
@@ -118,29 +120,51 @@ class _IndexState extends State<Index> {
                     onTap: () {},
                     child: Text('Account'),
                   )
-                : InkWell(
-                    onTap: () {
-                      Navigator.pushNamed(
-                        context,
-                        RouteName.signinPage,
-                      );
-                    },
-                    child: Container(
-                      height: 48,
-                      width: 48,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(50),
-                        border: Border.all(
-                          width: 0.5,
-                          color: Color.fromARGB(255, 219, 219, 220),
-                        ),
+                : Container(
+                    height: 48,
+                    width: 48,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(50),
+                      border: Border.all(
+                        width: 0.5,
+                        color: Color.fromARGB(255, 219, 219, 220),
                       ),
-                      child: Tooltip(
-                        message: 'Sign In',
-                        child: Icon(
+                    ),
+                    child: Tooltip(
+                      message: 'Sign In',
+                      child: PopupMenuButton<String>(
+                        icon: Icon(
                           Icons.person,
                           color: Color.fromARGB(255, 72, 76, 81),
                         ),
+                        color: Color.fromARGB(255, 246, 246, 246),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(25),
+                        ),
+                        onSelected: (value) {
+                          setState(() {
+                            selectedItem = value;
+                          });
+                          if (value == 'Admin Panel') {
+                            Navigator.pushNamed(context, RouteName.signinPage);
+                          } else if (value == 'OJS') {
+                            // Navigator.pushNamed(context, RouteName.ojsPage);
+                          }
+                        },
+                        itemBuilder: (context) => items.map(
+                          (item) {
+                            return PopupMenuItem<String>(
+                              value: item,
+                              child: Text(
+                                item,
+                                style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 14,
+                                ),
+                              ),
+                            );
+                          },
+                        ).toList(),
                       ),
                     ),
                   ),
