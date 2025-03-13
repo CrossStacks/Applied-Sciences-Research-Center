@@ -70,6 +70,12 @@ class SignInController {
         profilePhotoUrl: userDetails['ProfilePhotoUrl'],
         isVerified: userDetails['IsVerified'],
         isAdmin: userDetails['IsAdmin'],
+        designation: userDetails['Designation'],
+        editorialRole: userDetails['EditorialRole'],
+        linkedIn: userDetails['LinkedIn'],
+        profession: userDetails['Profession'],
+        about: userDetails['About'],
+        qualificationLevel: userDetails['QualificationLevel'],
       );
 
       Navigator.pushReplacementNamed(context, RouteName.index);

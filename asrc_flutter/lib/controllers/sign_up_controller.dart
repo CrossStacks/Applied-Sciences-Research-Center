@@ -139,6 +139,7 @@ class SignUpController {
         "ProfilePhotoUrl": '',
         "IsVerified": false,
         "IsAdmin": false,
+        "UserId": uid,
       };
 
       await DatabaseMethods().addUserDetails(userInfoMap, uid);
@@ -151,6 +152,12 @@ class SignUpController {
         profilePhotoUrl: '',
         isVerified: false,
         isAdmin: false,
+        designation: designation!,
+        editorialRole: editorialRole!,
+        linkedIn: linkedInController.text.trim(),
+        profession: professionController.text.trim(),
+        about: aboutController.text.trim(),
+        qualificationLevel: qualificationLevel!,
       );
 
       ScaffoldMessenger.of(context).showSnackBar(
