@@ -1,58 +1,19 @@
-import 'package:asrc_flutter/components/custom_button_widget.dart';
 import 'package:flutter/material.dart';
-import '../components/gradient_border_container.dart';
+import '../controllers/sign_up_controller.dart';
 import '../utils/colors.dart';
+import '../components/custom_button_widget.dart';
+import '../components/gradient_border_container.dart';
 
 class SignUpPage extends StatefulWidget {
   const SignUpPage({super.key});
-
   @override
   State<SignUpPage> createState() => _SignUpPageState();
 }
 
 class _SignUpPageState extends State<SignUpPage> {
-  final _formKey = GlobalKey<FormState>();
-  final TextEditingController firstNameController = TextEditingController();
-  final TextEditingController lastNameController = TextEditingController();
-  final TextEditingController linkedInController = TextEditingController();
-  final TextEditingController professionController = TextEditingController();
-  String? qualificationLevel;
-  String? designation;
-  String? editorialRole;
-  final List<String> qualificationLevels = ['PhD', 'Masters', 'Bachelors'];
-  final List<String> designations = [
-    'Lecturer',
-    'Assistant Lecturer',
-    'Assistant Professor',
-    'Associate Professor',
-    'Professor',
-    'Senior Professor',
-    'Emeritus Professor',
-    'Visiting Professor',
-    'Research Professor',
-    'Adjunct Professor',
-    'Instructor',
-  ];
-
-  final List<String> editorialRoles = [
-    'Chief Editor',
-    'Senior Editor',
-    'Managing Editor',
-    'Associate Editor',
-    'Assistant Editor',
-    'Editorial Assistant',
-    'Copy Editor',
-    'Technical Editor',
-    'Contributing Editor',
-    'Review Editor',
-    'Consulting Editor',
-    'Editorial Board Member',
-    'Section Editor',
-    'Proofreader',
-    'Editorial Intern',
-  ];
-  ImageProvider? profileImage;
+  final SignUpController _controller = SignUpController();
   bool isLoading = false;
+  bool _isPasswordObscured = true;
 
   void setLoading(bool value) {
     setState(() {
@@ -60,8 +21,33 @@ class _SignUpPageState extends State<SignUpPage> {
     });
   }
 
-  void pickProfileImage() {
-    // TODO: Implement image picker functionality.
+  InputDecoration buildInputDecoration({
+    required String labelText,
+    required String hintText,
+    Widget? suffixIcon,
+  }) {
+    return InputDecoration(
+      filled: true,
+      fillColor: const Color.fromARGB(255, 245, 245, 245),
+      labelStyle: const TextStyle(color: Colors.grey),
+      hintStyle: const TextStyle(color: Colors.grey),
+      labelText: labelText,
+      hintText: hintText,
+      border: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(20.0),
+        borderSide: BorderSide.none,
+      ),
+      enabledBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(20.0),
+        borderSide: const BorderSide(color: Colors.transparent),
+      ),
+      focusedBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(20.0),
+        borderSide: const BorderSide(color: Colors.transparent),
+      ),
+      hoverColor: Colors.transparent,
+      suffixIcon: suffixIcon,
+    );
   }
 
   @override
@@ -77,7 +63,7 @@ class _SignUpPageState extends State<SignUpPage> {
           elevation: 10,
           borderRadius: BorderRadius.circular(25),
           child: Container(
-            width: 400,
+            width: 450,
             padding: const EdgeInsets.all(25),
             decoration: BoxDecoration(
               color: AppColor.whiteColor,
@@ -92,10 +78,9 @@ class _SignUpPageState extends State<SignUpPage> {
                       ),
                     )
                   : Form(
-                      key: _formKey,
+                      key: _controller.formKey,
                       child: SingleChildScrollView(
                         child: Column(
-                          spacing: 20,
                           children: [
                             ShaderMask(
                               blendMode: BlendMode.srcIn,
@@ -116,199 +101,230 @@ class _SignUpPageState extends State<SignUpPage> {
                                 ),
                               ),
                             ),
+                            const SizedBox(height: 20),
                             GestureDetector(
-                              onTap: () => pickProfileImage(),
+                              onTap: () async {
+                                await _controller.pickProfileImage();
+                                setState(() {});
+                              },
                               child: CircleAvatar(
-                                radius: 40,
-                                backgroundImage: profileImage,
+                                radius: 60,
+                                backgroundImage:
+                                    _controller.profileImage != null
+                                        ? MemoryImage(_controller.profileImage!)
+                                        : null,
                                 backgroundColor: Colors.grey,
-                                child: profileImage == null
+                                child: _controller.profileImage == null
                                     ? const Icon(Icons.camera_alt,
-                                        size: 40, color: Colors.white)
+                                        size: 60, color: Colors.white)
                                     : null,
                               ),
                             ),
-                            TextFormField(
-                              controller: firstNameController,
-                              keyboardType: TextInputType.name,
-                              decoration: InputDecoration(
-                                filled: true,
-                                fillColor: Color.fromARGB(255, 245, 245, 245),
-                                labelStyle: TextStyle(color: Colors.grey),
-                                hintStyle: TextStyle(color: Colors.grey),
-                                labelText: 'First name...',
-                                hintText: 'Your given name...',
-                                border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(20.0),
-                                ),
-                                focusedBorder: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(20.0),
-                                  borderSide: const BorderSide(
-                                    color: Colors.transparent,
-                                    // color: Color.fromARGB(255, 236, 196, 164),
-                                    // width: 2,
+                            const SizedBox(height: 20),
+                            Row(
+                              children: [
+                                Expanded(
+                                  child: TextFormField(
+                                    controller: _controller.firstNameController,
+                                    keyboardType: TextInputType.name,
+                                    decoration: buildInputDecoration(
+                                      labelText: 'First name...',
+                                      hintText: 'Your given name...',
+                                    ),
                                   ),
                                 ),
-                                enabledBorder: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(20.0),
-                                  borderSide: const BorderSide(
-                                    color: Colors.transparent,
-                                    // color: Colors.grey,
-                                    // width: 2,
+                                const SizedBox(width: 10),
+                                Expanded(
+                                  child: TextFormField(
+                                    controller: _controller.lastNameController,
+                                    keyboardType: TextInputType.name,
+                                    decoration: buildInputDecoration(
+                                      labelText: 'Last name...',
+                                      hintText: 'Your family name...',
+                                    ),
                                   ),
                                 ),
-                                hoverColor: Colors.transparent,
-                              ),
-                              validator: (value) {
-                                if (value == null || value.isEmpty) {
-                                  return 'Please enter your first name';
-                                }
-                                return null;
-                              },
+                              ],
                             ),
+                            const SizedBox(height: 20),
                             TextFormField(
-                              controller: lastNameController,
-                              keyboardType: TextInputType.name,
-                              decoration: InputDecoration(
-                                filled: true,
-                                fillColor: Color.fromARGB(255, 245, 245, 245),
-                                labelStyle: TextStyle(color: Colors.grey),
-                                hintStyle: TextStyle(color: Colors.grey),
-                                labelText: 'Last name...',
-                                hintText: 'Your family name...',
-                                border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(20.0),
-                                ),
-                                focusedBorder: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(20.0),
-                                  borderSide: const BorderSide(
-                                    color: Colors.transparent,
-                                    // color: Color.fromARGB(255, 236, 196, 164),
-                                    // width: 2,
-                                  ),
-                                ),
-                                enabledBorder: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(20.0),
-                                  borderSide: const BorderSide(
-                                    color: Colors.transparent,
-                                    // color: Colors.grey,
-                                    // width: 2,
-                                  ),
-                                ),
-                                hoverColor: Colors.transparent,
+                              controller: _controller.emailController,
+                              keyboardType: TextInputType.emailAddress,
+                              decoration: buildInputDecoration(
+                                labelText: 'Your email...',
+                                hintText: 'username...@example.com',
                               ),
-                              validator: (value) {
-                                if (value == null || value.isEmpty) {
-                                  return 'Please enter your last name';
-                                }
-                                return null;
-                              },
                             ),
+                            const SizedBox(height: 20),
+                            TextFormField(
+                              controller: _controller.passwordController,
+                              obscureText: _isPasswordObscured,
+                              keyboardType: TextInputType.visiblePassword,
+                              decoration: buildInputDecoration(
+                                labelText: 'Password...',
+                                hintText: _isPasswordObscured
+                                    ? '********'
+                                    : 'S3cur3P4ssw0rd...',
+                                suffixIcon: IconButton(
+                                  icon: Icon(
+                                    _isPasswordObscured
+                                        ? Icons.visibility_off
+                                        : Icons.visibility,
+                                    color: Colors.grey,
+                                  ),
+                                  onPressed: () {
+                                    setState(() {
+                                      _isPasswordObscured =
+                                          !_isPasswordObscured;
+                                    });
+                                  },
+                                ),
+                              ),
+                              // validator: (value) {
+                              //   if (value == null || value.isEmpty) {
+                              //     return 'Please enter a password';
+                              //   }
+                              //   if (value.length < 6) {
+                              //     return 'Password must be at least 6 characters';
+                              //   }
+                              //   return null;
+                              // },
+                            ),
+                            const SizedBox(height: 20),
+                            TextFormField(
+                              controller: _controller.confirmPasswordController,
+                              obscureText: _isPasswordObscured,
+                              keyboardType: TextInputType.visiblePassword,
+                              decoration: buildInputDecoration(
+                                labelText: 'Confirm Password...',
+                                hintText: _isPasswordObscured
+                                    ? '********'
+                                    : 'S3cur3P4ssw0rd...',
+                                suffixIcon: IconButton(
+                                  icon: Icon(
+                                    _isPasswordObscured
+                                        ? Icons.visibility_off
+                                        : Icons.visibility,
+                                    color: Colors.grey,
+                                  ),
+                                  onPressed: () {
+                                    setState(() {
+                                      _isPasswordObscured =
+                                          !_isPasswordObscured;
+                                    });
+                                  },
+                                ),
+                              ),
+                              // validator: (value) {
+                              //   if (value == null || value.isEmpty) {
+                              //     return 'Please confirm your password';
+                              //   }
+                              //   if (value !=
+                              //       _controller.passwordController.text) {
+                              //     return 'Passwords do not match';
+                              //   }
+                              //   return null;
+                              // },
+                            ),
+                            const SizedBox(height: 20),
+                            TextFormField(
+                              controller: _controller.professionController,
+                              keyboardType: TextInputType.text,
+                              decoration: buildInputDecoration(
+                                labelText: 'Profession...',
+                                hintText: 'e.g. Zoologist...',
+                              ),
+                            ),
+                            const SizedBox(height: 20),
+                            TextFormField(
+                              controller: _controller.linkedInController,
+                              keyboardType: TextInputType.url,
+                              decoration: buildInputDecoration(
+                                labelText: 'LinkedIn profile URL...',
+                                hintText: 'https://linkedin.com/in/username...',
+                              ),
+                            ),
+                            const SizedBox(height: 20),
                             DropdownButtonFormField<String>(
                               decoration: InputDecoration(
                                 filled: true,
-                                labelStyle: TextStyle(color: Colors.grey),
-                                fillColor: Color.fromARGB(255, 245, 245, 245),
-                                labelText: 'Qualification Level...',
+                                fillColor:
+                                    const Color.fromARGB(255, 245, 245, 245),
+                                labelStyle: const TextStyle(color: Colors.grey),
+                                hintStyle: const TextStyle(color: Colors.grey),
+                                labelText: 'Qualification level...',
                                 border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(20.0),
-                                  borderSide: const BorderSide(
-                                    color: Colors.transparent,
-                                    // color: Color.fromARGB(255, 236, 196, 164),
-                                    // width: 2,
-                                  ),
-                                ),
-                                focusedBorder: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(20.0),
-                                  borderSide: const BorderSide(
-                                    color: Colors.transparent,
-                                    // color: Color.fromARGB(255, 236, 196, 164),
-                                    // width: 2,
-                                  ),
+                                  borderSide: BorderSide.none,
                                 ),
                                 enabledBorder: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(20.0),
                                   borderSide: const BorderSide(
-                                    color: Colors.transparent,
-                                    // color: Colors.grey,
-                                    // width: 2,
-                                  ),
+                                      color: Colors.transparent),
+                                ),
+                                focusedBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(20.0),
+                                  borderSide: const BorderSide(
+                                      color: Colors.transparent),
                                 ),
                                 hoverColor: Colors.transparent,
                               ),
-                              dropdownColor: Color.fromARGB(255, 246, 246, 246),
+                              dropdownColor:
+                                  const Color.fromARGB(255, 246, 246, 246),
                               borderRadius: BorderRadius.circular(25.0),
-                              style:
-                                  TextStyle(fontSize: 14, color: Colors.black),
-                              value: qualificationLevel,
-                              items: qualificationLevels.map((level) {
+                              style: const TextStyle(
+                                  fontSize: 14, color: Colors.black),
+                              value: _controller.qualificationLevel,
+                              items:
+                                  _controller.qualificationLevels.map((level) {
                                 return DropdownMenuItem<String>(
                                   value: level,
                                   child: Text(
                                     level,
-                                    style: TextStyle(
+                                    style: const TextStyle(
                                         fontSize: 14, color: Colors.black),
                                   ),
                                 );
                               }).toList(),
-                              selectedItemBuilder: (BuildContext context) {
-                                return editorialRoles.map((String value) {
-                                  return Text(
-                                    value,
-                                    style: TextStyle(color: Colors.black),
-                                  );
-                                }).toList();
-                              },
                               onChanged: (value) {
                                 setState(() {
-                                  qualificationLevel = value;
+                                  _controller.qualificationLevel = value;
                                 });
                               },
-                              validator: (value) {
-                                if (value == null || value.isEmpty) {
-                                  return 'Please select a qualification level';
-                                }
-                                return null;
-                              },
                             ),
+                            const SizedBox(height: 20),
                             DropdownButtonFormField<String>(
                               decoration: InputDecoration(
                                 filled: true,
-                                labelStyle: TextStyle(color: Colors.grey),
-                                fillColor: Color.fromARGB(255, 245, 245, 245),
+                                fillColor:
+                                    const Color.fromARGB(255, 245, 245, 245),
+                                labelStyle: const TextStyle(color: Colors.grey),
+                                hintStyle: const TextStyle(color: Colors.grey),
                                 labelText: 'Designation...',
                                 border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(20.0),
-                                  borderSide: const BorderSide(
-                                    color: Colors.transparent,
-                                    // color: Color.fromARGB(255, 236, 196, 164),
-                                    // width: 2,
-                                  ),
-                                ),
-                                focusedBorder: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(20.0),
-                                  borderSide: const BorderSide(
-                                    color: Colors.transparent,
-                                    // color: Color.fromARGB(255, 236, 196, 164),
-                                    // width: 2,
-                                  ),
+                                  borderSide: BorderSide.none,
                                 ),
                                 enabledBorder: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(20.0),
                                   borderSide: const BorderSide(
-                                    color: Colors.transparent,
-                                    // color: Colors.grey,
-                                    // width: 2,
-                                  ),
+                                      color: Colors.transparent),
+                                ),
+                                focusedBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(20.0),
+                                  borderSide: const BorderSide(
+                                      color: Colors.transparent),
                                 ),
                                 hoverColor: Colors.transparent,
                               ),
-                              dropdownColor: Color.fromARGB(255, 246, 246, 246),
+                              dropdownColor:
+                                  const Color.fromARGB(255, 246, 246, 246),
                               borderRadius: BorderRadius.circular(25.0),
-                              style:
-                                  TextStyle(fontSize: 14, color: Colors.black),
-                              value: designation,
-                              items: designations.map((designation) {
+                              style: const TextStyle(
+                                  fontSize: 14, color: Colors.black),
+                              value: _controller.designation,
+                              items:
+                                  _controller.designations.map((designation) {
                                 return DropdownMenuItem(
                                   value: designation,
                                   child: Text(designation),
@@ -316,54 +332,42 @@ class _SignUpPageState extends State<SignUpPage> {
                               }).toList(),
                               onChanged: (value) {
                                 setState(() {
-                                  designation = value;
+                                  _controller.designation = value;
                                 });
                               },
-                              validator: (value) {
-                                if (value == null || value.isEmpty) {
-                                  return 'Please select a designation';
-                                }
-                                return null;
-                              },
                             ),
+                            const SizedBox(height: 20),
                             DropdownButtonFormField<String>(
                               decoration: InputDecoration(
                                 filled: true,
-                                labelStyle: TextStyle(color: Colors.grey),
-                                fillColor: Color.fromARGB(255, 245, 245, 245),
-                                labelText: 'Editorial Role...',
+                                fillColor:
+                                    const Color.fromARGB(255, 245, 245, 245),
+                                labelStyle: const TextStyle(color: Colors.grey),
+                                hintStyle: const TextStyle(color: Colors.grey),
+                                labelText: 'Editorial role...',
                                 border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(20.0),
-                                  borderSide: const BorderSide(
-                                    color: Colors.transparent,
-                                    // color: Color.fromARGB(255, 236, 196, 164),
-                                    // width: 2,
-                                  ),
-                                ),
-                                focusedBorder: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(20.0),
-                                  borderSide: const BorderSide(
-                                    color: Colors.transparent,
-                                    // color: Color.fromARGB(255, 236, 196, 164),
-                                    // width: 2,
-                                  ),
+                                  borderSide: BorderSide.none,
                                 ),
                                 enabledBorder: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(20.0),
                                   borderSide: const BorderSide(
-                                    color: Colors.transparent,
-                                    // color: Colors.grey,
-                                    // width: 2,
-                                  ),
+                                      color: Colors.transparent),
+                                ),
+                                focusedBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(20.0),
+                                  borderSide: const BorderSide(
+                                      color: Colors.transparent),
                                 ),
                                 hoverColor: Colors.transparent,
                               ),
-                              dropdownColor: Color.fromARGB(255, 246, 246, 246),
+                              dropdownColor:
+                                  const Color.fromARGB(255, 246, 246, 246),
                               borderRadius: BorderRadius.circular(25.0),
-                              style:
-                                  TextStyle(fontSize: 14, color: Colors.black),
-                              value: editorialRole,
-                              items: editorialRoles.map((role) {
+                              style: const TextStyle(
+                                  fontSize: 14, color: Colors.black),
+                              value: _controller.editorialRole,
+                              items: _controller.editorialRoles.map((role) {
                                 return DropdownMenuItem(
                                   value: role,
                                   child: Text(role),
@@ -371,92 +375,31 @@ class _SignUpPageState extends State<SignUpPage> {
                               }).toList(),
                               onChanged: (value) {
                                 setState(() {
-                                  editorialRole = value;
+                                  _controller.editorialRole = value;
                                 });
                               },
-                              validator: (value) {
-                                if (value == null || value.isEmpty) {
-                                  return 'Please select a editorial role';
-                                }
-                                return null;
-                              },
                             ),
+                            const SizedBox(height: 20),
                             TextFormField(
-                              controller: professionController,
-                              keyboardType: TextInputType.text,
-                              decoration: InputDecoration(
-                                filled: true,
-                                fillColor: Color.fromARGB(255, 245, 245, 245),
-                                labelStyle: TextStyle(color: Colors.grey),
-                                hintStyle: TextStyle(color: Colors.grey),
-                                labelText: 'Profession...',
-                                hintText: 'i,e. Zoologist',
-                                border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(20.0),
-                                ),
-                                focusedBorder: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(20.0),
-                                  borderSide: const BorderSide(
-                                    color: Colors.transparent,
-                                    // color: Color.fromARGB(255, 236, 196, 164),
-                                    // width: 2,
-                                  ),
-                                ),
-                                enabledBorder: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(20.0),
-                                  borderSide: const BorderSide(
-                                    color: Colors.transparent,
-                                    // color: Colors.grey,
-                                    // width: 2,
-                                  ),
-                                ),
-                                hoverColor: Colors.transparent,
+                              controller: _controller.aboutController,
+                              keyboardType: TextInputType.multiline,
+                              maxLines: 5,
+                              maxLength: 1000,
+                              decoration: buildInputDecoration(
+                                labelText: 'About you...',
+                                hintText: 'Tell about yourself...',
                               ),
-                              validator: (value) {
-                                if (value == null || value.isEmpty) {
-                                  return 'Please enter your profession';
-                                }
-                                return null;
-                              },
+                              // validator: (value) {
+                              //   if (value == null || value.isEmpty) {
+                              //     return 'Please tell us about yourself';
+                              //   }
+                              //   if (value.length > 1000) {
+                              //     return 'About you must be less than 1000 characters';
+                              //   }
+                              //   return null;
+                              // },
                             ),
-                            TextFormField(
-                              controller: linkedInController,
-                              keyboardType: TextInputType.url,
-                              decoration: InputDecoration(
-                                filled: true,
-                                fillColor: Color.fromARGB(255, 245, 245, 245),
-                                labelStyle: TextStyle(color: Colors.grey),
-                                hintStyle: TextStyle(color: Colors.grey),
-                                labelText: 'LinkedIn Profile URL...',
-                                hintText: 'https://linkedin.com/in/username',
-                                border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(20.0),
-                                ),
-                                focusedBorder: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(20.0),
-                                  borderSide: const BorderSide(
-                                    color: Colors.transparent,
-                                    // color: Color.fromARGB(255, 236, 196, 164),
-                                    // width: 2,
-                                  ),
-                                ),
-                                enabledBorder: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(20.0),
-                                  borderSide: const BorderSide(
-                                    color: Colors.transparent,
-                                    // color: Colors.grey,
-                                    // width: 2,
-                                  ),
-                                ),
-                                hoverColor: Colors.transparent,
-                              ),
-                              validator: (value) {
-                                if (value == null || value.isEmpty) {
-                                  return 'Please enter your LinkedIn profile URL';
-                                }
-                                return null;
-                              },
-                            ),
+                            const SizedBox(height: 20),
                             CustomButtonWidget(
                               text: 'Sign Up',
                               textStyle: const TextStyle(fontSize: 18),
@@ -477,12 +420,13 @@ class _SignUpPageState extends State<SignUpPage> {
                               initialTextColor: Colors.white,
                               hoverTextColor: Colors.white,
                               onTap: () {
-                                if (_formKey.currentState!.validate()) {
-                                  // TODO: Implement Sign Up logic.
-                                  setLoading(true);
+                                if (_controller.formKey.currentState!
+                                    .validate()) {
+                                  _controller.userSignUp(context, setLoading);
                                 }
                               },
                             ),
+                            const SizedBox(height: 20),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [

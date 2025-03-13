@@ -7,7 +7,7 @@ class Validators {
 
   static bool isValidPassword(String password) {
     final RegExp passwordRegex =
-        RegExp(r'^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{6,}$');
+        RegExp(r'^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{6,}$');
     return passwordRegex.hasMatch(password);
   }
 }

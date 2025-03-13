@@ -1,7 +1,6 @@
 import 'package:asrc_flutter/components/custom_button_widget.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import '../components/custom_input_widget.dart';
 import '../components/gradient_border_container.dart';
 import '../controllers/sign_in_controller.dart';
 import '../utils/colors.dart';
@@ -97,7 +96,7 @@ class _SignInPageState extends State<SignInPage> {
                                 labelStyle: TextStyle(color: Colors.grey),
                                 hintStyle: TextStyle(color: Colors.grey),
                                 labelText: 'Your email...',
-                                hintText: 'example@gmail.com',
+                                hintText: 'username...@example.com',
                                 border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(20.0),
                                 ),
@@ -130,8 +129,9 @@ class _SignInPageState extends State<SignInPage> {
                                 labelStyle: TextStyle(color: Colors.grey),
                                 hintStyle: TextStyle(color: Colors.grey),
                                 labelText: 'Your password...',
-                                hintText:
-                                    _isObscured ? '********' : 'S3cur3P4ssw0rd',
+                                hintText: _isObscured
+                                    ? '********'
+                                    : 'S3cur3P4ssw0rd...',
                                 border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(20.0),
                                 ),
