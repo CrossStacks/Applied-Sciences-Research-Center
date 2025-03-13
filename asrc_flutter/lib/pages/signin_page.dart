@@ -1,4 +1,5 @@
 import 'package:asrc_flutter/components/custom_button_widget.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import '../components/custom_input_widget.dart';
 import '../components/gradient_border_container.dart';
@@ -38,7 +39,7 @@ class _SignInPageState extends State<SignInPage> {
           borderRadius: BorderRadius.circular(25),
           child: Container(
             width: 400,
-            height: 490,
+            height: 550,
             padding: const EdgeInsets.all(25),
             decoration: BoxDecoration(
               color: AppColor.whiteColor,
@@ -54,184 +55,177 @@ class _SignInPageState extends State<SignInPage> {
                     )
                   : Form(
                       key: _controller.formKey,
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: [
-                          ShaderMask(
-                            blendMode: BlendMode.srcIn,
-                            shaderCallback: (bounds) => LinearGradient(
-                              colors: [
-                                Color.fromARGB(255, 241, 106, 106),
-                                Color.fromARGB(255, 255, 171, 93),
-                              ],
-                              begin: Alignment.centerLeft,
-                              end: Alignment.centerRight,
-                            ).createShader(bounds),
-                            child: const Text(
-                              "Sign In",
+                      child: SingleChildScrollView(
+                        scrollDirection: Axis.vertical,
+                        child: Column(
+                          spacing: 20,
+                          children: [
+                            ShaderMask(
+                              blendMode: BlendMode.srcIn,
+                              shaderCallback: (bounds) => LinearGradient(
+                                colors: [
+                                  Color.fromARGB(255, 241, 106, 106),
+                                  Color.fromARGB(255, 255, 171, 93),
+                                ],
+                                begin: Alignment.centerLeft,
+                                end: Alignment.centerRight,
+                              ).createShader(bounds),
+                              child: const Text(
+                                "Sign In",
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 40,
+                                ),
+                              ),
+                            ),
+                            const Text(
+                              "Welcome back! Please sign in to continue",
+                              textAlign: TextAlign.center,
                               style: TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 40,
+                                fontSize: 18,
+                                color: Color.fromARGB(135, 0, 0, 0),
                               ),
                             ),
-                          ),
-                          const Text(
-                            "Welcome back! Please sign in to continue",
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                              fontSize: 18,
-                              color: Color.fromARGB(135, 0, 0, 0),
-                            ),
-                          ),
-                          const SizedBox(height: 50),
-                          TextFormField(
-                            controller: _controller.emailController,
-                            keyboardType: TextInputType.emailAddress,
-                            decoration: InputDecoration(
-                              filled: true,
-                              fillColor: Color.fromARGB(255, 245, 245, 245),
-                              labelStyle: TextStyle(color: Colors.grey),
-                              hintStyle: TextStyle(color: Colors.grey),
-                              labelText: 'Your email...',
-                              hintText: 'example@gmail.com',
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(20.0),
-                              ),
-                              focusedBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(20.0),
-                                borderSide: const BorderSide(
-                                  color: Colors.transparent,
-                                  // color: Color.fromARGB(255, 236, 196, 164),
-                                  // width: 2,
+                            const SizedBox(height: 50),
+                            TextFormField(
+                              controller: _controller.emailController,
+                              keyboardType: TextInputType.emailAddress,
+                              decoration: InputDecoration(
+                                filled: true,
+                                fillColor: Color.fromARGB(255, 245, 245, 245),
+                                labelStyle: TextStyle(color: Colors.grey),
+                                hintStyle: TextStyle(color: Colors.grey),
+                                labelText: 'Your email...',
+                                hintText: 'example@gmail.com',
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(20.0),
                                 ),
-                              ),
-                              enabledBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(20.0),
-                                borderSide: const BorderSide(
-                                  color: Colors.transparent,
-                                  // color: Colors.grey,
-                                  // width: 2,
+                                focusedBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(20.0),
+                                  borderSide: const BorderSide(
+                                    color: Colors.transparent,
+                                    // color: Color.fromARGB(255, 236, 196, 164),
+                                    // width: 2,
+                                  ),
                                 ),
-                              ),
-                              hoverColor: Colors.transparent,
-                            ),
-                            validator: (value) {
-                              if (value == null || value.isEmpty) {
-                                return 'Please enter your email';
-                              }
-                              return null;
-                            },
-                          ),
-                          TextFormField(
-                            controller: _controller.passwordController,
-                            obscureText: _isObscured,
-                            keyboardType: TextInputType.visiblePassword,
-                            decoration: InputDecoration(
-                              filled: true,
-                              fillColor: Color.fromARGB(255, 245, 245, 245),
-                              labelStyle: TextStyle(color: Colors.grey),
-                              hintStyle: TextStyle(color: Colors.grey),
-                              labelText: 'Your password...',
-                              hintText: '********',
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(20.0),
-                              ),
-                              focusedBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(20.0),
-                                borderSide: const BorderSide(
-                                  color: Colors.transparent,
-                                  // color: Color.fromARGB(255, 236, 196, 164),
-                                  // width: 2,
+                                enabledBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(20.0),
+                                  borderSide: const BorderSide(
+                                    color: Colors.transparent,
+                                    // color: Colors.grey,
+                                    // width: 2,
+                                  ),
                                 ),
-                              ),
-                              enabledBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(20.0),
-                                borderSide: const BorderSide(
-                                  color: Colors.transparent,
-                                  // color: Colors.grey,
-                                  // width: 2,
-                                ),
-                              ),
-                              hoverColor: Colors.transparent,
-                              suffixIcon: IconButton(
-                                icon: Icon(
-                                  _isObscured
-                                      ? Icons.visibility_off
-                                      : Icons.visibility,
-                                  color: Colors.grey,
-                                ),
-                                onPressed: () {
-                                  setState(() {
-                                    _isObscured = !_isObscured;
-                                  });
-                                },
+                                hoverColor: Colors.transparent,
                               ),
                             ),
-                            validator: (value) {
-                              if (value == null || value.isEmpty) {
-                                return 'Please enter your email';
-                              }
-                              return null;
-                            },
-                          ),
-                          CustomButtonWidget(
-                            text: 'Sign In',
-                            textStyle: TextStyle(
-                              fontSize: 18,
-                            ),
-                            width: 182.92,
-                            initialGradient: LinearGradient(
-                              begin: Alignment.topCenter,
-                              end: Alignment.bottomCenter,
-                              colors: [
-                                Color.fromARGB(255, 133, 81, 246),
-                                Color.fromARGB(255, 80, 29, 190),
-                              ],
-                            ),
-                            hoverGradient: LinearGradient(
-                              begin: Alignment.centerLeft,
-                              end: Alignment.centerRight,
-                              colors: [
-                                Colors.black,
-                                Colors.black,
-                              ],
-                            ),
-                            initialTextColor: Colors.white,
-                            hoverTextColor: Colors.white,
-                            onTap: () => {
-                              _controller.userLogin(context, setLoading),
-                            },
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            spacing: 10,
-                            children: [
-                              InkWell(
-                                onTap: () {
-                                  // TODO: Implement Forgot Password
-                                },
-                                child: const Text(
-                                  "Forgot Password",
-                                  style: TextStyle(color: Colors.blue),
+                            TextFormField(
+                              controller: _controller.passwordController,
+                              obscureText: _isObscured,
+                              keyboardType: TextInputType.visiblePassword,
+                              decoration: InputDecoration(
+                                filled: true,
+                                fillColor: Color.fromARGB(255, 245, 245, 245),
+                                labelStyle: TextStyle(color: Colors.grey),
+                                hintStyle: TextStyle(color: Colors.grey),
+                                labelText: 'Your password...',
+                                hintText:
+                                    _isObscured ? '********' : 'S3cur3P4ssw0rd',
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(20.0),
+                                ),
+                                focusedBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(20.0),
+                                  borderSide: const BorderSide(
+                                    color: Colors.transparent,
+                                    // color: Color.fromARGB(255, 236, 196, 164),
+                                    // width: 2,
+                                  ),
+                                ),
+                                enabledBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(20.0),
+                                  borderSide: const BorderSide(
+                                    color: Colors.transparent,
+                                    // color: Colors.grey,
+                                    // width: 2,
+                                  ),
+                                ),
+                                hoverColor: Colors.transparent,
+                                suffixIcon: IconButton(
+                                  icon: Icon(
+                                    _isObscured
+                                        ? Icons.visibility_off
+                                        : Icons.visibility,
+                                    color: Colors.grey,
+                                  ),
+                                  onPressed: () {
+                                    setState(() {
+                                      _isObscured = !_isObscured;
+                                    });
+                                  },
                                 ),
                               ),
-                              const Text("|"),
-                              InkWell(
-                                onTap: () {
-                                  Navigator.pushNamed(
-                                    context,
-                                    RouteName.signupPage,
-                                  );
-                                },
-                                child: const Text(
-                                  "Create Account",
-                                  style: TextStyle(color: Colors.blue),
-                                ),
+                            ),
+                            CustomButtonWidget(
+                              text: 'Sign In',
+                              textStyle: TextStyle(
+                                fontSize: 18,
                               ),
-                            ],
-                          ),
-                        ],
+                              width: 182.92,
+                              initialGradient: LinearGradient(
+                                begin: Alignment.topCenter,
+                                end: Alignment.bottomCenter,
+                                colors: [
+                                  Color.fromARGB(255, 133, 81, 246),
+                                  Color.fromARGB(255, 80, 29, 190),
+                                ],
+                              ),
+                              hoverGradient: LinearGradient(
+                                begin: Alignment.centerLeft,
+                                end: Alignment.centerRight,
+                                colors: [
+                                  Colors.black,
+                                  Colors.black,
+                                ],
+                              ),
+                              initialTextColor: Colors.white,
+                              hoverTextColor: Colors.white,
+                              onTap: () => {
+                                _controller.userLogin(context, setLoading),
+                              },
+                            ),
+                            RichText(
+                              text: TextSpan(
+                                children: [
+                                  TextSpan(
+                                    text: "Forgot Password",
+                                    style: const TextStyle(color: Colors.blue),
+                                    recognizer: TapGestureRecognizer()
+                                      ..onTap = () {
+                                        // TODO: Implement Forgot Password
+                                      },
+                                  ),
+                                  const TextSpan(
+                                    text: "\t\t|\t\t",
+                                    style: TextStyle(color: Colors.black),
+                                  ),
+                                  TextSpan(
+                                    text: "Create Account",
+                                    style: const TextStyle(color: Colors.blue),
+                                    recognizer: TapGestureRecognizer()
+                                      ..onTap = () {
+                                        Navigator.pushNamed(
+                                          context,
+                                          RouteName.signupPage,
+                                        );
+                                      },
+                                  ),
+                                ],
+                              ),
+                            )
+                          ],
+                        ),
                       ),
                     ),
             ),

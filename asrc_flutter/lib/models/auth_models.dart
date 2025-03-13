@@ -1,3 +1,4 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 class LoginRequestModel {
   String email;
   String password;
@@ -22,8 +23,21 @@ class AuthResponseModel {
 class SignupRequestModel {
   String email;
   String password;
-  String name;
+  String firstName;
+  String lastName;
+  String qualification;
+  String designation;
+  String linkedinProfile;
+  String profilePic;
 
-  SignupRequestModel(
-      {required this.email, required this.password, required this.name});
+  SignupRequestModel({
+    required this.email,
+    required this.password,
+    required this.firstName,
+    required this.lastName,
+    required this.qualification,
+    required this.designation,
+    required this.linkedinProfile,
+    required this.profilePic,
+  });
 }
