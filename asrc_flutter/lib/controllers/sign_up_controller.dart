@@ -1,13 +1,12 @@
 import 'dart:typed_data';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import '../services/app/image_picker.dart';
 import '../services/auth/validators.dart';
 import '../services/firebase/auth_methods.dart';
 import '../services/firebase/database.dart';
 import '../utils/global.dart';
 import '../utils/routing/routes_name.dart';
-import 'package:asrc_flutter/models/auth_models.dart';
-import 'package:asrc_flutter/services/app/image_picker.dart';
 import 'package:image_picker/image_picker.dart';
 
 class SignUpController {
@@ -159,6 +158,7 @@ class SignUpController {
         about: aboutController.text.trim(),
         qualificationLevel: qualificationLevel!,
       );
+      Global.isLoggedIn = true;
 
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text('Sign up successful!')),

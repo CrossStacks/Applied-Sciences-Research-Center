@@ -1,6 +1,6 @@
-import 'package:asrc_flutter/components/custom_button_widget.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import '../components/custom_button_widget.dart';
 import '../components/gradient_border_container.dart';
 import '../controllers/sign_in_controller.dart';
 import '../utils/colors.dart';

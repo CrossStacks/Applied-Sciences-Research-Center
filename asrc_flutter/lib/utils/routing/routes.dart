@@ -1,16 +1,16 @@
-import 'package:asrc_flutter/pages/about_page.dart';
-import 'package:asrc_flutter/pages/add_or_modify_event.dart';
-import 'package:asrc_flutter/pages/event_page.dart';
-import 'package:asrc_flutter/pages/home_page.dart';
-import 'package:asrc_flutter/pages/index.dart';
-import 'package:asrc_flutter/pages/publication_page.dart';
-import 'package:asrc_flutter/pages/reading_page.dart';
-import 'package:asrc_flutter/pages/signin_page.dart';
-import 'package:asrc_flutter/pages/signup_page.dart';
-import 'package:asrc_flutter/utils/routing/routes_name.dart';
 import 'package:flutter/material.dart';
-
 import '../../models/reading_page_model.dart';
+import '../../pages/about_page.dart';
+import '../../pages/add_or_modify_event.dart';
+import '../../pages/admin_page.dart';
+import '../../pages/event_page.dart';
+import '../../pages/home_page.dart';
+import '../../pages/index.dart';
+import '../../pages/publication_page.dart';
+import '../../pages/reading_page.dart';
+import '../../pages/signin_page.dart';
+import '../../pages/signup_page.dart';
+import 'routes_name.dart';
 
 class Routes {
   static Widget getPage(String routeName, {Object? arguments}) {
@@ -31,6 +31,8 @@ class Routes {
         return SignInPage();
       case RouteName.signupPage:
         return const SignUpPage();
+      case RouteName.adminPage:
+        return const AdminPage();
       case RouteName.readingPage:
         return ReadingPage(
           url: Uri.parse('https://flutter.dev'),

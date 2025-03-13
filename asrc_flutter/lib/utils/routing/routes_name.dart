@@ -8,4 +8,5 @@ class RouteName {
   static const String signinPage = 'signin_page';
   static const String signupPage = 'signup_page';
   static const String readingPage = 'reading_page';
+  static const String adminPage = 'admin_page';
 }

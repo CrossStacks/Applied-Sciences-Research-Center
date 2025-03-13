@@ -77,6 +77,7 @@ class SignInController {
         about: userDetails['About'],
         qualificationLevel: userDetails['QualificationLevel'],
       );
+      Global.isLoggedIn = true;
 
       Navigator.pushReplacementNamed(context, RouteName.index);
     } on FirebaseAuthException catch (e) {

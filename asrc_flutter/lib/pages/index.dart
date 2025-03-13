@@ -1,15 +1,9 @@
-import 'package:asrc_flutter/pages/signin_page.dart';
-import 'package:asrc_flutter/utils/colors.dart';
-import 'package:asrc_flutter/utils/global.dart';
-import 'package:asrc_flutter/utils/routing/routes_name.dart';
 import 'package:flutter/material.dart';
 import '../components/hover_underline_text.dart';
 import '../utils/constants.dart';
+import '../utils/global.dart';
 import '../utils/routing/routes.dart';
-import 'about_page.dart';
-import 'event_page.dart';
-import 'home_page.dart';
-import 'publication_page.dart';
+import '../utils/routing/routes_name.dart';
 
 class Index extends StatefulWidget {
   const Index({super.key});
@@ -115,59 +109,61 @@ class _IndexState extends State<Index> {
               ),
             ),
             Spacer(),
-            Global.isLoggedIn
-                ? InkWell(
-                    onTap: () {},
-                    child: Text('Account'),
-                  )
-                : Container(
-                    height: 48,
-                    width: 48,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(50),
-                      border: Border.all(
-                        width: 0.5,
-                        color: Color.fromARGB(255, 219, 219, 220),
-                      ),
-                    ),
-                    child: Tooltip(
-                      message: 'Sign In',
-                      child: PopupMenuButton<String>(
-                        icon: Icon(
+            Container(
+              height: 48,
+              width: 48,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(50),
+                border: Border.all(
+                  width: 0.5,
+                  color: Color.fromARGB(255, 219, 219, 220),
+                ),
+              ),
+              child: Tooltip(
+                message: 'Sign In',
+                child: PopupMenuButton<String>(
+                  color: Color.fromARGB(255, 246, 246, 246),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(25),
+                  ),
+                  onSelected: (value) {
+                    setState(() {
+                      selectedItem = value;
+                    });
+                    if (value == 'Admin Panel') {
+                      Global.isLoggedIn
+                          ? Navigator.pushNamed(context, RouteName.adminPage)
+                          : Navigator.pushNamed(context, RouteName.signinPage);
+                    } else if (value == 'OJS') {
+                      // Navigator.pushNamed(context, RouteName.ojsPage);
+                    }
+                  },
+                  itemBuilder: (context) => items.map(
+                    (item) {
+                      return PopupMenuItem<String>(
+                        value: item,
+                        child: Text(
+                          item,
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 14,
+                          ),
+                        ),
+                      );
+                    },
+                  ).toList(),
+                  child: Global.isLoggedIn
+                      ? CircleAvatar(
+                          backgroundImage:
+                              NetworkImage(Global.userDetails.profilePhotoUrl),
+                        )
+                      : Icon(
                           Icons.person,
                           color: Color.fromARGB(255, 72, 76, 81),
                         ),
-                        color: Color.fromARGB(255, 246, 246, 246),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(25),
-                        ),
-                        onSelected: (value) {
-                          setState(() {
-                            selectedItem = value;
-                          });
-                          if (value == 'Admin Panel') {
-                            Navigator.pushNamed(context, RouteName.signinPage);
-                          } else if (value == 'OJS') {
-                            // Navigator.pushNamed(context, RouteName.ojsPage);
-                          }
-                        },
-                        itemBuilder: (context) => items.map(
-                          (item) {
-                            return PopupMenuItem<String>(
-                              value: item,
-                              child: Text(
-                                item,
-                                style: TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 14,
-                                ),
-                              ),
-                            );
-                          },
-                        ).toList(),
-                      ),
-                    ),
-                  ),
+                ),
+              ),
+            ),
           ],
         ),
       ),
