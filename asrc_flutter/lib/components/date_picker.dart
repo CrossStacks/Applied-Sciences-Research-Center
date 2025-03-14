@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-
 import 'custom_button_widget.dart';
 
 class DatePicker extends StatefulWidget {
-  const DatePicker({super.key});
+  final Function(DateTime)? onDateSelected;
+
+  const DatePicker({super.key, this.onDateSelected});
 
   @override
   State<DatePicker> createState() => _DatePickerState();
@@ -23,6 +24,9 @@ class _DatePickerState extends State<DatePicker> {
       setState(() {
         selectedDate = picked;
       });
+      if (widget.onDateSelected != null) {
+        widget.onDateSelected!(picked);
+      }
     }
   }
 
@@ -40,13 +44,13 @@ class _DatePickerState extends State<DatePicker> {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: <Widget>[
         CustomButtonWidget(
-          initialColor: Color.fromARGB(255, 245, 245, 245),
+          initialColor: const Color.fromARGB(255, 245, 245, 245),
           initialTextColor: Colors.black,
-          hoverColor: Color.fromARGB(255, 244, 241, 237),
+          hoverColor: const Color.fromARGB(255, 244, 241, 237),
           hoverTextColor: Colors.black,
           onTap: _pickDate,
           text: 'Select Date',
-          textStyle: TextStyle(
+          textStyle: const TextStyle(
             fontSize: 18,
             fontWeight: FontWeight.bold,
           ),
