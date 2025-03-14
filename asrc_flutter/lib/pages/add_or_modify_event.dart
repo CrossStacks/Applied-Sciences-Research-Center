@@ -2,11 +2,13 @@ import 'dart:typed_data';
 import 'package:asrc_flutter/components/add_contributors.dart';
 import 'package:asrc_flutter/components/custom_button_widget.dart';
 import 'package:asrc_flutter/components/custom_input_widget.dart';
+import 'package:asrc_flutter/services/firebase_storage/database.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import '../components/date_picker.dart';
 import '../services/app/image_picker.dart';
+import '../services/firebase_firestore/database.dart';
 import '../utils/constants.dart';
 
 class AddOrModifyEvent extends StatefulWidget {
@@ -17,23 +19,61 @@ class AddOrModifyEvent extends StatefulWidget {
 }
 
 class _AddOrModifyEventState extends State<AddOrModifyEvent> {
+  bool isLoading = false;
   final TextEditingController title = TextEditingController();
-
   final TextEditingController eventType = TextEditingController();
-
   final TextEditingController metaDescription = TextEditingController();
-
   final TextEditingController readingTime = TextEditingController();
-
   final TextEditingController body = TextEditingController();
-
   Uint8List? coverImage;
+  final GlobalKey<ContributorsFormState> _contributorsFormKey =
+      GlobalKey<ContributorsFormState>();
 
   void onSelectImage() async {
     Uint8List? img = await PickImage().pickImage(ImageSource.gallery);
     setState(() {
       coverImage = img;
     });
+  }
+
+  onLoad() {
+    setState(() {
+      isLoading = !isLoading;
+    });
+  }
+
+  Future<void> submitEvent() async {
+    onLoad();
+    // String? coverImageUrl = await FirebaseStorageDatabase.uploadImage(
+    //     coverImage, 'events/cover_images/${title.text.trim()}');
+
+    List<Map<String, dynamic>> contributorsData = [];
+    for (var contributor
+        in _contributorsFormKey.currentState?.contributors ?? []) {
+      String? imageUrl;
+      if (contributor.image != null) {
+        // imageUrl = await FirebaseStorageDatabase.uploadImage(contributor.image,
+        //     'events/contributors/${contributor.firstNameController.text.trim() + contributor.lastNameController.text.trim()}');
+      }
+      contributorsData.add({
+        'FirstName': contributor.firstNameController.text.trim(),
+        'LastName': contributor.lastNameController.text.trim(),
+        'ImageUrl': imageUrl ?? '',
+      });
+    }
+
+    Map<String, dynamic> eventData = {
+      'Title': title.text.trim(),
+      'EventType': eventType.text.trim(),
+      // ... other event fields,
+      'CoverImageUrl': 'coverImageUrl',
+      'Contributors': contributorsData,
+    };
+
+    await FirestoreDatabaseMethods().addEvent(eventData, title.text.trim());
+    onLoad();
+
+    // Navigator.pop(context);
   }
 
   @override
@@ -54,38 +94,42 @@ class _AddOrModifyEventState extends State<AddOrModifyEvent> {
             color: Color.fromARGB(255, 219, 219, 220),
           ),
         ),
-        child: Row(
-          children: [
-            CustomButtonWidget(
-              text: 'Back',
-              textStyle: TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.bold,
+        child: isLoading
+            ? Center(
+                child: CircularProgressIndicator(),
+              )
+            : Row(
+                children: [
+                  CustomButtonWidget(
+                    text: 'Back',
+                    textStyle: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                    ),
+                    initialColor: Colors.white,
+                    initialTextColor: Color.fromARGB(255, 13, 15, 17),
+                    hoverColor: Colors.white,
+                    hoverTextColor: Color.fromARGB(255, 13, 15, 17),
+                    onTap: () => Navigator.pop(context),
+                    initialBorderColor: Color.fromARGB(255, 219, 219, 220),
+                    hoverBorderColor: Color.fromARGB(255, 158, 157, 164),
+                  ),
+                  Spacer(),
+                  CustomButtonWidget(
+                    text: 'Submit',
+                    textStyle: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                    ),
+                    initialColor: Color.fromARGB(255, 13, 15, 17),
+                    initialTextColor: Colors.white,
+                    hoverColor: Colors.white,
+                    hoverTextColor: Colors.black,
+                    onTap: submitEvent,
+                    hoverBorderColor: Color.fromARGB(255, 13, 15, 17),
+                  ),
+                ],
               ),
-              initialColor: Colors.white,
-              initialTextColor: Color.fromARGB(255, 13, 15, 17),
-              hoverColor: Colors.white,
-              hoverTextColor: Color.fromARGB(255, 13, 15, 17),
-              onTap: () {},
-              initialBorderColor: Color.fromARGB(255, 219, 219, 220),
-              hoverBorderColor: Color.fromARGB(255, 158, 157, 164),
-            ),
-            Spacer(),
-            CustomButtonWidget(
-              text: 'Submit',
-              textStyle: TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.bold,
-              ),
-              initialColor: Color.fromARGB(255, 13, 15, 17),
-              initialTextColor: Colors.white,
-              hoverColor: Colors.white,
-              hoverTextColor: Colors.black,
-              onTap: () {},
-              hoverBorderColor: Color.fromARGB(255, 13, 15, 17),
-            ),
-          ],
-        ),
       ),
       body: SingleChildScrollView(
         scrollDirection: Axis.vertical,
@@ -110,7 +154,7 @@ class _AddOrModifyEventState extends State<AddOrModifyEvent> {
                         ),
                         Spacer(),
                         InkWell(
-                          onTap: () {},
+                          onTap: () => Navigator.pop(context),
                           borderRadius: BorderRadius.circular(50),
                           customBorder: Border.all(
                             width: 5,
@@ -348,10 +392,11 @@ class _AddOrModifyEventState extends State<AddOrModifyEvent> {
                           keyboardType: TextInputType.text,
                         ),
                         CustomInputWidget(
+                          minLines: 10,
+                          expandable: true,
                           hintText: 'Content of the event...',
                           controller: body,
                           label: 'Body',
-                          maxLines: 10,
                           width: 728,
                           keyboardType: TextInputType.text,
                         ),

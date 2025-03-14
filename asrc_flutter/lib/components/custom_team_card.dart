@@ -45,8 +45,8 @@ class CustomTeamCard extends StatelessWidget {
               ),
             ),
           )
-        : Image.asset(
-            'assets/person_icon.png',
+        : SvgPicture.asset(
+            'assets/person_icon.svg',
             fit: BoxFit.cover,
             width: Dimensions.isDesktop(context) ? 328 : 240,
           );

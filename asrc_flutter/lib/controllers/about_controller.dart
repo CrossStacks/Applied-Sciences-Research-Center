@@ -1,9 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import '../services/firebase/database.dart';
+import '../services/firebase_firestore/database.dart';
 
 class AboutController {
   Future<List<Map<String, dynamic>>> fetchTeamMembers() async {
-    QuerySnapshot snapshot = await DatabaseMethods().getAllUsers();
+    QuerySnapshot snapshot = await FirestoreDatabaseMethods().getAllUsers();
     List<Map<String, dynamic>> members =
         snapshot.docs.map((doc) => doc.data() as Map<String, dynamic>).toList();
     return members;

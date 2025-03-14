@@ -1,3 +1,4 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 
 class CustomInputWidget extends StatelessWidget {
@@ -5,9 +6,10 @@ class CustomInputWidget extends StatelessWidget {
   final TextInputType keyboardType;
   final TextEditingController controller;
   final bool? obscureText;
-  final int? maxLines;
+  final int? minLines;
   final String label;
   final double width;
+  final bool expandable;
 
   const CustomInputWidget({
     super.key,
@@ -15,9 +17,10 @@ class CustomInputWidget extends StatelessWidget {
     required this.keyboardType,
     required this.controller,
     this.obscureText,
-    this.maxLines,
+    this.minLines,
     required this.label,
     required this.width,
+    this.expandable = false,
   });
 
   @override
@@ -52,7 +55,9 @@ class CustomInputWidget extends StatelessWidget {
                 controller: controller,
                 keyboardType: keyboardType,
                 obscureText: obscureText ?? false,
-                maxLines: maxLines ?? 1,
+                minLines: minLines,
+                maxLines: null,
+                // expands: expandable,
                 style: TextStyle(
                   color: Colors.black,
                   fontSize: 18,

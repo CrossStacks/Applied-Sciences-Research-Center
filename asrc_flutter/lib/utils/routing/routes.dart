@@ -6,6 +6,8 @@ import '../../pages/admin_page.dart';
 import '../../pages/event_page.dart';
 import '../../pages/home_page.dart';
 import '../../pages/index.dart';
+import '../../pages/manage_events_page.dart';
+import '../../pages/manage_users_page.dart';
 import '../../pages/publication_page.dart';
 import '../../pages/reading_page.dart';
 import '../../pages/signin_page.dart';
@@ -33,6 +35,10 @@ class Routes {
         return const SignUpPage();
       case RouteName.adminPage:
         return const AdminPage();
+      case RouteName.manageUsersPage:
+        return const ManageUsersPage();
+      case RouteName.manageEventsPage:
+        return const ManageEventsPage();
       case RouteName.readingPage:
         return ReadingPage(
           url: Uri.parse('https://flutter.dev'),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import '../components/hover_underline_text.dart';
 import '../utils/constants.dart';
 import '../utils/global.dart';
@@ -19,7 +20,10 @@ class _IndexState extends State<Index> {
   //   });
   // }
   String? selectedItem;
-  final List<String> items = ['Admin Panel', 'OJS'];
+  final List<String> items = [
+    'Admin Panel',
+    'OJS',
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -122,6 +126,7 @@ class _IndexState extends State<Index> {
               child: Tooltip(
                 message: 'Sign In',
                 child: PopupMenuButton<String>(
+                  menuPadding: EdgeInsets.all(0),
                   color: Color.fromARGB(255, 246, 246, 246),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(25),
@@ -155,11 +160,13 @@ class _IndexState extends State<Index> {
                   child: Global.isLoggedIn
                       ? CircleAvatar(
                           backgroundImage:
-                              NetworkImage(Global.userDetails.profilePhotoUrl),
+                              NetworkImage(Global.userDetails!.profilePhotoUrl),
                         )
-                      : Icon(
-                          Icons.person,
-                          color: Color.fromARGB(255, 72, 76, 81),
+                      : Padding(
+                          padding: const EdgeInsets.all(5.0),
+                          child: SvgPicture.asset(
+                            'assets/person_icon.svg',
+                          ),
                         ),
                 ),
               ),

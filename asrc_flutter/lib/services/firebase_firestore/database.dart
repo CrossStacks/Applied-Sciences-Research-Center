@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
 
-class DatabaseMethods {
+class FirestoreDatabaseMethods {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
   Future<void> addUserDetails(
@@ -97,6 +97,65 @@ class DatabaseMethods {
       return allUsersSnapshot;
     } catch (e) {
       debugPrint("Error fetching all users: $e");
+      rethrow;
+    }
+  }
+
+  Future<void> addEvent(
+      Map<String, dynamic> eventInfoMap, String eventTitle) async {
+    try {
+      await _firestore.collection("events").doc(eventTitle).set(eventInfoMap);
+      debugPrint("Event added successfully!");
+    } catch (e) {
+      debugPrint("Error adding event: $e");
+      rethrow;
+    }
+  }
+
+  Future<DocumentSnapshot> getEvent(String eventTitle) async {
+    try {
+      final eventSnapshot =
+          await _firestore.collection("events").doc(eventTitle).get();
+      if (eventSnapshot.exists) {
+        return eventSnapshot;
+      } else {
+        debugPrint("Event not found with title: $eventTitle");
+        throw Exception("Event not found with title: $eventTitle");
+      }
+    } catch (e) {
+      debugPrint("Error fetching event: $e");
+      rethrow;
+    }
+  }
+
+  Future<void> updateEvent(
+      String eventTitle, Map<String, dynamic> updatedData) async {
+    try {
+      final eventRef = _firestore.collection("events").doc(eventTitle);
+      await eventRef.update(updatedData);
+      debugPrint("Event updated successfully!");
+    } catch (e) {
+      debugPrint("Error updating event: $e");
+      rethrow;
+    }
+  }
+
+  Future<void> deleteEvent(String eventTitle) async {
+    try {
+      await _firestore.collection("events").doc(eventTitle).delete();
+      debugPrint("Event deleted successfully!");
+    } catch (e) {
+      debugPrint("Error deleting event: $e");
+      rethrow;
+    }
+  }
+
+  Future<QuerySnapshot> getAllEvents() async {
+    try {
+      final allEventsSnapshot = await _firestore.collection("events").get();
+      return allEventsSnapshot;
+    } catch (e) {
+      debugPrint("Error fetching all events: $e");
       rethrow;
     }
   }

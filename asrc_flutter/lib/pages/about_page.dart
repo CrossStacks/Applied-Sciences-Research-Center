@@ -1,9 +1,9 @@
-import 'package:asrc_flutter/components/custom_white_container.dart';
-import 'package:asrc_flutter/utils/dimensions.dart';
 import 'package:flutter/material.dart';
 import '../components/contact_us_widget.dart';
 import '../components/custom_team_card.dart';
+import '../components/custom_white_container.dart';
 import '../controllers/about_controller.dart';
+import '../utils/dimensions.dart';
 
 class AboutPage extends StatelessWidget {
   const AboutPage({super.key});
@@ -83,7 +83,6 @@ class AboutPage extends StatelessWidget {
                             itemCount: members.length,
                             itemBuilder: (context, index) {
                               return CustomTeamCard(memberData: members[index]);
-                              // return CustomTeamCard();
                             },
                           );
                         },

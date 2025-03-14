@@ -3,8 +3,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import '../services/app/image_picker.dart';
 import '../services/auth/validators.dart';
-import '../services/firebase/auth_methods.dart';
-import '../services/firebase/database.dart';
+import '../services/firebase_firestore/auth_methods.dart';
+import '../services/firebase_firestore/database.dart';
 import '../utils/global.dart';
 import '../utils/routing/routes_name.dart';
 import 'package:image_picker/image_picker.dart';
@@ -141,7 +141,7 @@ class SignUpController {
         "UserId": uid,
       };
 
-      await DatabaseMethods().addUserDetails(userInfoMap, uid);
+      await FirestoreDatabaseMethods().addUserDetails(userInfoMap, uid);
 
       Global.userDetails = UserDetail(
         firstName: firstName,
@@ -164,7 +164,7 @@ class SignUpController {
         const SnackBar(content: Text('Sign up successful!')),
       );
 
-      Navigator.pushReplacementNamed(context, RouteName.index);
+      Navigator.pushReplacementNamed(context, RouteName.adminPage);
     } on FirebaseAuthException catch (e) {
       _handleFirebaseAuthException(e, context);
     } catch (e) {

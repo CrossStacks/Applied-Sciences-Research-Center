@@ -1,8 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import '../services/auth/validators.dart';
-import '../services/firebase/auth_methods.dart';
-import '../services/firebase/database.dart';
+import '../services/firebase_firestore/auth_methods.dart';
+import '../services/firebase_firestore/database.dart';
 import '../utils/global.dart';
 import '../utils/routing/routes_name.dart';
 
@@ -35,16 +35,17 @@ class SignInController {
         return;
       }
 
-      if (!Validators.isValidPassword(password)) {
-        _showErrorSnackbar(context,
-            'Password must be at least 6 characters long, include at least one uppercase letter, one lowercase letter, and one digit.');
-        setLoading(false);
-        return;
-      }
+      // if (!Validators.isValidPassword(password)) {
+      //   _showErrorSnackbar(context,
+      //       'Password must be at least 6 characters long, include at least one uppercase letter, one lowercase letter, and one digit.');
+      //   setLoading(false);
+      //   return;
+      // }
 
       await _authService.signIn(email: email, password: password);
 
-      final querySnapshot = await DatabaseMethods().getUserByEmail(email);
+      final querySnapshot =
+          await FirestoreDatabaseMethods().getUserByEmail(email);
       if (querySnapshot.docs.isEmpty) {
         _showErrorSnackbar(context, 'User not found. Please register first.');
         setLoading(false);
@@ -58,7 +59,7 @@ class SignInController {
         return;
       }
 
-      final userDetails = await DatabaseMethods()
+      final userDetails = await FirestoreDatabaseMethods()
           .getUserByEmail(userData['Email'])
           .then((value) => value.docs[0].data() as Map<String, dynamic>);
 
@@ -79,7 +80,7 @@ class SignInController {
       );
       Global.isLoggedIn = true;
 
-      Navigator.pushReplacementNamed(context, RouteName.index);
+      Navigator.pushReplacementNamed(context, RouteName.adminPage);
     } on FirebaseAuthException catch (e) {
       _handleFirebaseAuthException(e, context);
     } catch (e) {

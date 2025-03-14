@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'custom_input_widget.dart';
 import '../models/contributors.dart';
+import 'dart:typed_data';
+import 'package:image_picker/image_picker.dart';
+import '../services/app/image_picker.dart';
 
-class AddContributors extends StatelessWidget {
+class AddContributors extends StatefulWidget {
   final TextEditingController firstName;
   final TextEditingController lastName;
   final String label;
@@ -14,6 +17,20 @@ class AddContributors extends StatelessWidget {
   });
 
   @override
+  State<AddContributors> createState() => _AddContributorsState();
+}
+
+class _AddContributorsState extends State<AddContributors> {
+  Uint8List? contributorImage;
+
+  Future<void> pickContributorImage() async {
+    Uint8List? img = await PickImage().pickImage(ImageSource.gallery);
+    setState(() {
+      contributorImage = img;
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(top: 24.0),
@@ -21,28 +38,47 @@ class AddContributors extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            label,
-            style: TextStyle(
+            widget.label,
+            style: const TextStyle(
               fontSize: 20,
               fontWeight: FontWeight.bold,
             ),
           ),
           Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              CustomInputWidget(
-                hintText: 'Your first name...',
-                keyboardType: TextInputType.name,
-                controller: firstName,
-                label: 'First Name',
-                width: 344,
+              GestureDetector(
+                onTap: pickContributorImage,
+                child: CircleAvatar(
+                  radius: 30,
+                  backgroundImage: contributorImage != null
+                      ? MemoryImage(contributorImage!)
+                      : null,
+                  child: contributorImage == null
+                      ? const Icon(Icons.camera_alt, size: 30)
+                      : null,
+                ),
               ),
-              CustomInputWidget(
-                hintText: 'Your last name...',
-                keyboardType: TextInputType.name,
-                controller: lastName,
-                label: 'Last Name',
-                width: 344,
+              const SizedBox(width: 16),
+              Expanded(
+                child: Row(
+                  children: [
+                    CustomInputWidget(
+                      hintText: 'Your first name...',
+                      keyboardType: TextInputType.name,
+                      controller: widget.firstName,
+                      label: 'First Name',
+                      width: 344,
+                    ),
+                    const SizedBox(width: 16),
+                    CustomInputWidget(
+                      hintText: 'Your last name...',
+                      keyboardType: TextInputType.name,
+                      controller: widget.lastName,
+                      label: 'Last Name',
+                      width: 344,
+                    ),
+                  ],
+                ),
               ),
             ],
           ),
@@ -56,10 +92,10 @@ class ContributorsForm extends StatefulWidget {
   const ContributorsForm({super.key});
 
   @override
-  State<ContributorsForm> createState() => _ContributorsFormState();
+  State<ContributorsForm> createState() => ContributorsFormState();
 }
 
-class _ContributorsFormState extends State<ContributorsForm> {
+class ContributorsFormState extends State<ContributorsForm> {
   final List<Contributor> contributors = [];
 
   @override
@@ -88,7 +124,9 @@ class _ContributorsFormState extends State<ContributorsForm> {
 
   void reduceContributor() {
     setState(() {
-      contributors.removeLast();
+      if (contributors.isNotEmpty) {
+        contributors.removeLast();
+      }
     });
   }
 
@@ -104,7 +142,6 @@ class _ContributorsFormState extends State<ContributorsForm> {
   @override
   Widget build(BuildContext context) {
     return Column(
-      spacing: 16,
       children: [
         ...contributors.asMap().entries.map((entry) {
           int index = entry.key;
@@ -117,23 +154,15 @@ class _ContributorsFormState extends State<ContributorsForm> {
             firstName: contributor.firstNameController,
             lastName: contributor.lastNameController,
           );
-        }),
+        }).toList(),
         Row(
-          spacing: 10,
           children: [
             InkWell(
-              focusColor: Colors.transparent,
-              hoverColor: Colors.transparent,
-              highlightColor: Colors.transparent,
-              splashColor: Colors.transparent,
-              customBorder: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(10),
-              ),
               onTap: addContributor,
               child: Container(
                 height: 48,
                 width: 48,
-                padding: EdgeInsets.all(13),
+                padding: const EdgeInsets.all(13),
                 decoration: BoxDecoration(
                   border: Border.all(
                     color: Colors.grey,
@@ -141,27 +170,21 @@ class _ContributorsFormState extends State<ContributorsForm> {
                   ),
                   borderRadius: BorderRadius.circular(10),
                 ),
-                child: Icon(
+                child: const Icon(
                   Icons.add,
                   size: 20,
                 ),
               ),
             ),
-            if (contributors.length == 1) Text('Add Co Author'),
+            const SizedBox(width: 10),
+            if (contributors.length == 1) const Text('Add Co Author'),
             if (contributors.length > 1)
               InkWell(
-                focusColor: Colors.transparent,
-                hoverColor: Colors.transparent,
-                highlightColor: Colors.transparent,
-                splashColor: Colors.transparent,
-                customBorder: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10),
-                ),
                 onTap: reduceContributor,
                 child: Container(
                   height: 48,
                   width: 48,
-                  padding: EdgeInsets.all(13),
+                  padding: const EdgeInsets.all(13),
                   decoration: BoxDecoration(
                     border: Border.all(
                       color: Colors.grey,
@@ -169,7 +192,7 @@ class _ContributorsFormState extends State<ContributorsForm> {
                     ),
                     borderRadius: BorderRadius.circular(10),
                   ),
-                  child: Icon(
+                  child: const Icon(
                     Icons.remove,
                     size: 20,
                   ),

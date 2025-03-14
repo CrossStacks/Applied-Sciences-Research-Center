@@ -2,7 +2,7 @@
 class Global {
   static int pageIdx = 0;
   static bool isLoggedIn = false;
-  static late UserDetail userDetails;
+  static UserDetail? userDetails;
 }
 
 class UserDetail {
