@@ -78,7 +78,7 @@ flutter:
     - assets/najiyaalarifazoo.jpg
     - assets/linkedin.svg
     - assets/twitter-x.svg
-  #   - images/a_dot_ham.jpeg
+    - assets/person_icon.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images

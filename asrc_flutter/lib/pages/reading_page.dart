@@ -1,8 +1,7 @@
-import 'package:asrc_flutter/components/newsletter_widget.dart';
-import 'package:asrc_flutter/pages/index.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import '../components/icon_button.dart';
+import '../components/newsletter_widget.dart';
 import '../models/reading_page_model.dart';
 import '../utils/global.dart';
 import '../utils/routing/routes_name.dart';

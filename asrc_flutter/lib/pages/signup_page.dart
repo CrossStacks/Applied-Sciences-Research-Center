@@ -15,6 +15,12 @@ class _SignUpPageState extends State<SignUpPage> {
   bool isLoading = false;
   bool _isPasswordObscured = true;
 
+  @override
+  void initState() {
+    super.initState();
+    _controller.linkedInController.text = 'https://www.linkedin.com/in/';
+  }
+
   void setLoading(bool value) {
     setState(() {
       isLoading = value;
@@ -450,5 +456,11 @@ class _SignUpPageState extends State<SignUpPage> {
         ),
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    _controller.linkedInController.dispose();
+    super.dispose();
   }
 }

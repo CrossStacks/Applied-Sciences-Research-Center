@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../utils/global.dart';
-
 class HoverUnderlineText extends StatefulWidget {
   final TextStyle style;
   final VoidCallback? onTap;
