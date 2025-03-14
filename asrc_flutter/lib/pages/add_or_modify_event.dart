@@ -1,14 +1,11 @@
 import 'dart:typed_data';
-import 'package:asrc_flutter/components/custom_button_widget.dart';
-import 'package:asrc_flutter/components/custom_input_widget.dart';
-import 'package:asrc_flutter/services/firebase_storage/database.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
 import '../components/add_contributors.dart';
+import '../components/custom_button_widget.dart';
+import '../components/custom_input_widget.dart';
 import '../components/date_picker.dart';
-import '../services/app/image_picker.dart';
-import '../services/firebase_firestore/database.dart';
+import '../controllers/add_or_modify_event_controller.dart';
 import '../utils/constants.dart';
 
 class AddOrModifyEvent extends StatefulWidget {
@@ -19,67 +16,7 @@ class AddOrModifyEvent extends StatefulWidget {
 }
 
 class _AddOrModifyEventState extends State<AddOrModifyEvent> {
-  bool isLoading = false;
-  final TextEditingController title = TextEditingController();
-  final TextEditingController eventType = TextEditingController();
-  final TextEditingController metaDescription = TextEditingController();
-  final TextEditingController readingTime = TextEditingController();
-  final TextEditingController body = TextEditingController();
-  Uint8List? coverImage;
-  DateTime? selectedEventDate;
-  final GlobalKey<ContributorsFormState> _contributorsFormKey =
-      GlobalKey<ContributorsFormState>();
-
-  void onSelectImage() async {
-    Uint8List? img = await PickImage().pickImage(ImageSource.gallery);
-    setState(() {
-      coverImage = img;
-    });
-  }
-
-  void toggleLoading() {
-    setState(() {
-      isLoading = !isLoading;
-    });
-  }
-
-  Future<void> submitEvent() async {
-    toggleLoading();
-    // String? coverImageUrl = await FirebaseStorageDatabase.uploadImage(
-    //     coverImage, 'events/cover_images/${title.text.trim()}');
-    String coverImageUrl = 'coverImageUrl_placeholder';
-
-    List<Map<String, dynamic>> contributorsData = [];
-    var contributorsList =
-        _contributorsFormKey.currentState?.contributors ?? [];
-    for (var contributor in contributorsList) {
-      String? imageUrl;
-      if (contributor.image != null) {
-        // imageUrl = await FirebaseStorageDatabase.uploadImage(contributor.image, 'events/contributors/${contributor.firstNameController.text.trim()}${contributor.lastNameController.text.trim()}');
-        imageUrl = 'contributorImageUrl_placeholder';
-      }
-      contributorsData.add({
-        'FirstName': contributor.firstNameController.text.trim(),
-        'LastName': contributor.lastNameController.text.trim(),
-        'ImageUrl': imageUrl ?? '',
-      });
-    }
-
-    Map<String, dynamic> eventData = {
-      'Title': title.text.trim(),
-      'EventType': eventType.text.trim(),
-      'MetaDescription': metaDescription.text.trim(),
-      'ReadingTime': readingTime.text.trim(),
-      'Body': body.text.trim(),
-      'CoverImageUrl': coverImageUrl,
-      'Contributors': contributorsData,
-      'EventDate': selectedEventDate,
-    };
-
-    await FirestoreDatabaseMethods().addEvent(eventData, title.text.trim());
-    toggleLoading();
-    // Navigator.pop(context);
-  }
+  final AddOrModifyEventController controller = AddOrModifyEventController();
 
   Widget _buildInfoRow(String text) {
     return Row(
@@ -120,9 +57,9 @@ class _AddOrModifyEventState extends State<AddOrModifyEvent> {
                     color: Colors.black,
                   ),
               children: [
-                TextSpan(
+                const TextSpan(
                   text: 'Browse files',
-                  style: const TextStyle(
+                  style: TextStyle(
                     decoration: TextDecoration.underline,
                     fontWeight: FontWeight.bold,
                   ),
@@ -136,16 +73,22 @@ class _AddOrModifyEventState extends State<AddOrModifyEvent> {
     );
   }
 
-  Widget _buildImagePreview() {
+  Widget _buildImagePreview(Uint8List coverImage) {
     return ClipRRect(
       borderRadius: BorderRadius.circular(24),
       child: Image.memory(
-        coverImage!,
+        coverImage,
         fit: BoxFit.cover,
         width: double.infinity,
         height: 126,
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    controller.dispose();
+    super.dispose();
   }
 
   @override
@@ -164,7 +107,7 @@ class _AddOrModifyEventState extends State<AddOrModifyEvent> {
             color: const Color.fromARGB(255, 219, 219, 220),
           ),
         ),
-        child: isLoading
+        child: controller.isLoading
             ? const Center(child: CircularProgressIndicator())
             : Row(
                 children: [
@@ -194,7 +137,16 @@ class _AddOrModifyEventState extends State<AddOrModifyEvent> {
                     initialTextColor: Colors.white,
                     hoverColor: Colors.white,
                     hoverTextColor: Colors.black,
-                    onTap: submitEvent,
+                    onTap: () async {
+                      await controller.submitEvent(() {
+                        setState(() {});
+                      });
+
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(content: Text("Submission done")),
+                      );
+                      Navigator.pop(context);
+                    },
                     hoverBorderColor: const Color.fromARGB(255, 13, 15, 17),
                   ),
                 ],
@@ -307,7 +259,7 @@ class _AddOrModifyEventState extends State<AddOrModifyEvent> {
                             color: Color.fromARGB(255, 50, 53, 62),
                           ),
                         ),
-                        ContributorsForm(key: _contributorsFormKey),
+                        ContributorsForm(key: controller.contributorsFormKey),
                       ],
                     ),
                     const Divider(
@@ -335,11 +287,15 @@ class _AddOrModifyEventState extends State<AddOrModifyEvent> {
                         ),
                         InkWell(
                           borderRadius: BorderRadius.circular(24),
-                          focusColor: Colors.transparent,
                           hoverColor: Colors.transparent,
-                          highlightColor: Colors.transparent,
                           splashColor: Colors.transparent,
-                          onTap: onSelectImage,
+                          focusColor: Colors.transparent,
+                          highlightColor: Colors.transparent,
+                          onTap: () {
+                            controller.onSelectImage(() {
+                              setState(() {});
+                            });
+                          },
                           child: DottedBorder(
                             color: Colors.black,
                             strokeWidth: 1,
@@ -349,9 +305,9 @@ class _AddOrModifyEventState extends State<AddOrModifyEvent> {
                             child: SizedBox(
                               height: 126,
                               width: double.infinity,
-                              child: coverImage == null
+                              child: controller.coverImage == null
                                   ? _buildEmptyState(context)
-                                  : _buildImagePreview(),
+                                  : _buildImagePreview(controller.coverImage!),
                             ),
                           ),
                         ),
@@ -391,35 +347,35 @@ class _AddOrModifyEventState extends State<AddOrModifyEvent> {
                         ),
                         CustomInputWidget(
                           hintText: 'Enter the title...',
-                          controller: title,
+                          controller: controller.title,
                           label: 'Title',
                           width: 728,
                           keyboardType: TextInputType.text,
                         ),
                         DatePicker(
                           onDateSelected: (date) {
-                            setState(() {
-                              selectedEventDate = date;
+                            controller.setEventDate(date, () {
+                              setState(() {});
                             });
                           },
                         ),
                         CustomInputWidget(
                           hintText: 'Enter the event type...',
-                          controller: eventType,
+                          controller: controller.eventType,
                           label: 'Event Type',
                           width: 728,
                           keyboardType: TextInputType.text,
                         ),
                         CustomInputWidget(
                           hintText: 'Enter the meta description...',
-                          controller: metaDescription,
+                          controller: controller.metaDescription,
                           label: 'Meta Description',
                           width: 728,
                           keyboardType: TextInputType.text,
                         ),
                         CustomInputWidget(
                           hintText: 'Enter the reading time...',
-                          controller: readingTime,
+                          controller: controller.readingTime,
                           label: 'Reading Time',
                           width: 728,
                           keyboardType: TextInputType.text,
@@ -428,7 +384,7 @@ class _AddOrModifyEventState extends State<AddOrModifyEvent> {
                           minLines: 10,
                           expandable: true,
                           hintText: 'Content of the event...',
-                          controller: body,
+                          controller: controller.body,
                           label: 'Body',
                           width: 728,
                           keyboardType: TextInputType.text,

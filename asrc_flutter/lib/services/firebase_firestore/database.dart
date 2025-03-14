@@ -101,11 +101,12 @@ class FirestoreDatabaseMethods {
     }
   }
 
-  Future<void> addEvent(
-      Map<String, dynamic> eventInfoMap, String eventTitle) async {
+  Future<void> addEvent(Map<String, dynamic> eventInfoMap) async {
     try {
-      await _firestore.collection("events").doc(eventTitle).set(eventInfoMap);
-      debugPrint("Event added successfully!");
+      DocumentReference docRef = _firestore.collection("events").doc();
+      eventInfoMap['id'] = docRef.id;
+      await docRef.set(eventInfoMap);
+      debugPrint("Event added successfully with ID: ${docRef.id}");
     } catch (e) {
       debugPrint("Error adding event: $e");
       rethrow;
