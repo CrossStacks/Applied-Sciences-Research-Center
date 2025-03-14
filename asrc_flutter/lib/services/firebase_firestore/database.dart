@@ -104,7 +104,7 @@ class FirestoreDatabaseMethods {
   Future<void> addEvent(Map<String, dynamic> eventInfoMap) async {
     try {
       DocumentReference docRef = _firestore.collection("events").doc();
-      eventInfoMap['id'] = docRef.id;
+      eventInfoMap['EventId'] = docRef.id;
       await docRef.set(eventInfoMap);
       debugPrint("Event added successfully with ID: ${docRef.id}");
     } catch (e) {
@@ -113,38 +113,53 @@ class FirestoreDatabaseMethods {
     }
   }
 
-  Future<DocumentSnapshot> getEvent(String eventTitle) async {
+  Future<DocumentSnapshot> getEventById(String id) async {
     try {
-      final eventSnapshot =
-          await _firestore.collection("events").doc(eventTitle).get();
-      if (eventSnapshot.exists) {
-        return eventSnapshot;
+      DocumentSnapshot docSnapshot =
+          await _firestore.collection("events").doc(id).get();
+      if (docSnapshot.exists) {
+        return docSnapshot;
       } else {
-        debugPrint("Event not found with title: $eventTitle");
-        throw Exception("Event not found with title: $eventTitle");
+        throw Exception("Event with ID $id does not exist.");
       }
     } catch (e) {
-      debugPrint("Error fetching event: $e");
+      debugPrint("Error getting event by ID: $e");
       rethrow;
     }
   }
 
-  Future<void> updateEvent(
-      String eventTitle, Map<String, dynamic> updatedData) async {
+  Future<QuerySnapshot> getEventByName(String name) async {
     try {
-      final eventRef = _firestore.collection("events").doc(eventTitle);
-      await eventRef.update(updatedData);
-      debugPrint("Event updated successfully!");
+      QuerySnapshot querySnapshot = await _firestore
+          .collection("events")
+          .where("Title", isEqualTo: name)
+          .get();
+      if (querySnapshot.docs.isNotEmpty) {
+        return querySnapshot;
+      } else {
+        throw Exception("No event found with name: $name");
+      }
+    } catch (e) {
+      debugPrint("Error getting event by name: $e");
+      rethrow;
+    }
+  }
+
+  Future<void> updateEvent(String id, Map<String, dynamic> updatedData) async {
+    try {
+      DocumentReference docRef = _firestore.collection("events").doc(id);
+      await docRef.update(updatedData);
+      debugPrint("Event with ID $id updated successfully.");
     } catch (e) {
       debugPrint("Error updating event: $e");
       rethrow;
     }
   }
 
-  Future<void> deleteEvent(String eventTitle) async {
+  Future<void> deleteEvent(String id) async {
     try {
-      await _firestore.collection("events").doc(eventTitle).delete();
-      debugPrint("Event deleted successfully!");
+      await _firestore.collection("events").doc(id).delete();
+      debugPrint("Event with ID $id deleted successfully.");
     } catch (e) {
       debugPrint("Error deleting event: $e");
       rethrow;
@@ -153,10 +168,10 @@ class FirestoreDatabaseMethods {
 
   Future<QuerySnapshot> getAllEvents() async {
     try {
-      final allEventsSnapshot = await _firestore.collection("events").get();
-      return allEventsSnapshot;
+      QuerySnapshot querySnapshot = await _firestore.collection("events").get();
+      return querySnapshot;
     } catch (e) {
-      debugPrint("Error fetching all events: $e");
+      debugPrint("Error getting all events: $e");
       rethrow;
     }
   }
