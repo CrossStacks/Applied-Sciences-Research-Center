@@ -9,4 +9,3 @@ tests/.phpunit.result.cache
 styles/tinymce
 tests/.phpunit.cache
 lib/weblateLanguages/languages.json
-.log
