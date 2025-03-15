@@ -90,7 +90,7 @@ allow_url_fopen = Off
 ; Generate RESTful URLs using mod_rewrite. This requires the
 ; rewrite directive to be enabled in your .htaccess or httpd.conf.
 ; See FAQ for more details.
-restful_urls = Off
+restful_urls = On
 
 ; Restrict the list of allowed hosts to prevent HOST header injection.
 ; See docs/README.md for more details. The list should be JSON-formatted.
@@ -142,7 +142,7 @@ sandbox = Off
 driver = mysqli
 host = localhost
 username = root
-password = 
+password =
 name = ojs
 
 ; Set the non-standard port and/or socket, if used
@@ -625,3 +625,7 @@ delete_failed_jobs_after = 180
   [features]
 
   enable_new_submission_listing = On
+
+  [api]
+
+  enabled = On
