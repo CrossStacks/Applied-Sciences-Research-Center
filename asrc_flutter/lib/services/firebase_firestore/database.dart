@@ -175,4 +175,21 @@ class FirestoreDatabaseMethods {
       rethrow;
     }
   }
+
+  Future<QuerySnapshot> fetchEventsPaginated(
+      {DocumentSnapshot? lastDocument, required int limit}) async {
+    try {
+      Query query = _firestore
+          .collection("events")
+          .orderBy("EventDate", descending: true)
+          .limit(limit);
+      if (lastDocument != null) {
+        query = query.startAfterDocument(lastDocument);
+      }
+      return await query.get();
+    } catch (e) {
+      debugPrint("Error fetching paginated events: $e");
+      rethrow;
+    }
+  }
 }

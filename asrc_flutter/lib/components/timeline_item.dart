@@ -22,7 +22,7 @@ class TimelineItem extends StatelessWidget {
                 const Icon(Icons.play_arrow, size: 14),
                 const SizedBox(width: 4),
                 Text(
-                  event['date'] ?? '',
+                  event['Date'] ?? '',
                   style: const TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.w500,
@@ -55,7 +55,7 @@ class TimelineItem extends StatelessWidget {
                     child: AspectRatio(
                       aspectRatio: 1.8181818181818181,
                       child: Image.network(
-                        event['imageUrl'] ?? '',
+                        event['CoverImageUrl'] ?? '',
                         width: 680,
                         height: 453.89,
                         fit: BoxFit.cover,
@@ -72,7 +72,7 @@ class TimelineItem extends StatelessWidget {
                       ),
                       const SizedBox(width: 4),
                       Text(
-                        event['tag']?.toUpperCase() ?? '',
+                        event['EventType']?.toUpperCase() ?? '',
                         style: const TextStyle(
                           fontSize: 12,
                           fontWeight: FontWeight.bold,
@@ -83,7 +83,7 @@ class TimelineItem extends StatelessWidget {
                   ),
                   const SizedBox(height: 8),
                   Text(
-                    event['title'] ?? '',
+                    event['Title'] ?? '',
                     style: const TextStyle(
                       color: Color.fromARGB(255, 13, 15, 17),
                       fontSize: 32,
@@ -92,7 +92,7 @@ class TimelineItem extends StatelessWidget {
                   ),
                   const SizedBox(height: 4),
                   Text(
-                    event['description'] ?? '',
+                    event['MetaDescription'] ?? '',
                     style: const TextStyle(
                       fontSize: 20,
                       color: Color.fromARGB(255, 50, 53, 62),
@@ -104,7 +104,7 @@ class TimelineItem extends StatelessWidget {
                   Row(
                     children: [
                       Text(
-                        event['fullDate'] ?? '',
+                        event['FullDate'] ?? '',
                         style: const TextStyle(
                           fontSize: 14,
                           color: Color.fromARGB(255, 50, 53, 62),
@@ -119,7 +119,7 @@ class TimelineItem extends StatelessWidget {
                         ),
                       ),
                       Text(
-                        event['readTime'] ?? '',
+                        event['ReadingTime'] ?? '',
                         style: const TextStyle(
                           fontSize: 14,
                           color: Color.fromARGB(255, 50, 53, 62),

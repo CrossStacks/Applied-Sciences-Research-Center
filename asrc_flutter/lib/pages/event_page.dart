@@ -1,38 +1,35 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import '../components/custom_button_widget.dart';
 import '../components/custom_white_container.dart';
-import '../components/timelineItem.dart';
+import '../components/timeline_item.dart';
+import '../controllers/event_page_controller.dart';
 
-class EventPage extends StatelessWidget {
+class EventPage extends StatefulWidget {
   const EventPage({super.key});
 
   @override
+  State<EventPage> createState() => _EventPageState();
+}
+
+class _EventPageState extends State<EventPage> {
+  final EventPageController controller = EventPageController();
+
+  @override
+  void initState() {
+    super.initState();
+    _loadEvents();
+  }
+
+  Future<void> _loadEvents() async {
+    await controller.fetchEvents();
+    setState(() {});
+  }
+
+  @override
   Widget build(BuildContext context) {
-    final List<Map<String, dynamic>> timelineData = [
-      {
-        "date": "14 Feb, 2025",
-        "title": "Founders Update #30",
-        "tag": "UPDATES",
-        "imageUrl":
-            "https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?auto=format&fit=crop&w=800&q=80",
-        "description":
-            "Michael here! Today we have a very special announcement! You WON'T want to miss this Join us for a live Q&A session with a surprise guest!Join us for a live Q&A session with a surprise guest!Join us for a live Q&A session with a surprise guest! Join us for a live Q&A session with a surprise guest! Join us for a live Q&A session with a surprise guest! Join us for a live Q&A session with a surprise guest! Join us for a live Q&A session with a surprise guest! Join us for a live Q&A session with a surprise guest!Join us for a live Q&A session with a surprise guest! Join us for a live Q&A session with a surprise guest!Join us for a live Q&A session with a surprise guest! Join us for a live Q&A session with a surprise guest!",
-        "fullDate": "February 14, 2025",
-        "readTime": "3 min read",
-      },
-      {
-        "date": "21 Mar, 2025",
-        "title": "Special Guest Event",
-        "tag": "EVENT",
-        "imageUrl":
-            "https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?auto=format&fit=crop&w=800&q=80",
-        "description": "Join us for a live Q&A session with a surprise guest!",
-        "fullDate": "March 21, 2025",
-        "readTime": "5 min read",
-      },
-    ];
     return Scaffold(
-      backgroundColor: Color.fromARGB(255, 243, 240, 236),
+      backgroundColor: const Color.fromARGB(255, 243, 240, 236),
       body: SingleChildScrollView(
         scrollDirection: Axis.vertical,
         child: CustomWhiteContainer(
@@ -121,24 +118,41 @@ class EventPage extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Column(
-                  children: timelineData.map((event) {
-                    return TimelineItem(event: event);
-                  }).toList(),
+                  children: controller.events.isEmpty
+                      ? [
+                          if (controller.isLoading)
+                            const CircularProgressIndicator()
+                          else
+                            const Text("No events found."),
+                        ]
+                      : controller.events.map((doc) {
+                          final eventData = doc.data() as Map<String, dynamic>;
+
+                          eventData['date'] = controller.formatTimestamp1(
+                              eventData['EventDate'] as Timestamp);
+                          eventData['FullDate'] = controller.formatTimestamp2(
+                              eventData['EventDate'] as Timestamp);
+
+                          return TimelineItem(event: eventData);
+                        }).toList(),
                 ),
               ),
-              CustomButtonWidget(
-                width: 680,
-                initialColor: Color.fromARGB(255, 245, 245, 245),
-                initialTextColor: Colors.black,
-                hoverColor: Colors.black,
-                hoverTextColor: Colors.white,
-                onTap: () {},
-                text: 'Load More',
-                textStyle: TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
+              if (controller.hasMore)
+                CustomButtonWidget(
+                  width: 680,
+                  initialColor: const Color.fromARGB(255, 245, 245, 245),
+                  initialTextColor: Colors.black,
+                  hoverColor: Colors.black,
+                  hoverTextColor: Colors.white,
+                  onTap: () async {
+                    await _loadEvents();
+                  },
+                  text: 'Load More',
+                  textStyle: const TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
-              ),
             ],
           ),
         ),
